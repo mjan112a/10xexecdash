@@ -1,12 +1,11 @@
 import { Suspense } from 'react'
 import { createClient } from '../../utils/supabase/server'
-import SalesDataTable from './SalesDataTable'
+import RawDataTable from './RawDataTable'
 import Loading from './loading'
-import Link from 'next/link'
 
 const PAGE_SIZE = 10
 
-async function SalesDataContent({
+async function RawDataContent({
   currentPage,
 }: {
   currentPage: number
@@ -38,7 +37,7 @@ async function SalesDataContent({
   if (!salesdata || salesdata.length === 0) {
     return (
       <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Sales Data</h1>
+        <h1 className="text-2xl font-bold mb-4">Raw Data: Sales</h1>
         <p>No data found in the salesdata table.</p>
       </div>
     )
@@ -53,26 +52,10 @@ async function SalesDataContent({
   const totalPages = Math.ceil((totalCount || 0) / PAGE_SIZE)
 
   return (
-    <div className="p-8">
+    <div className="p-6">
       {/* Table Overview */}
       <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Sales Data Overview</h1>
-          <div className="flex gap-4">
-            <Link 
-              href="/metricsofinterest" 
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              View Metrics of Interest
-            </Link>
-            <Link 
-              href="/metricsgraph" 
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-            >
-              View Metrics Graph
-            </Link>
-          </div>
-        </div>
+        <h1 className="text-2xl font-bold mb-4">Raw Data Overview: Sales</h1>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white p-4 rounded-lg shadow">
             <div className="text-sm text-gray-500">Total Records</div>
@@ -126,7 +109,7 @@ async function SalesDataContent({
 
       {/* Data Table */}
       <div className="bg-white rounded-lg shadow">
-        <SalesDataTable 
+        <RawDataTable 
           data={salesdata} 
           columns={columns}
           currentPage={currentPage}
@@ -137,7 +120,7 @@ async function SalesDataContent({
   )
 }
 
-export default function SalesData({
+export default function RawDataSales({
   searchParams,
 }: {
   searchParams: { page?: string }
@@ -146,7 +129,7 @@ export default function SalesData({
 
   return (
     <Suspense fallback={<Loading />}>
-      <SalesDataContent currentPage={currentPage} />
+      <RawDataContent currentPage={currentPage} />
     </Suspense>
   )
 }

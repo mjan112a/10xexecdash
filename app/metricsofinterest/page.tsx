@@ -45,7 +45,7 @@ export default function MetricsOfInterest() {
   });
 
   return (
-    <div className="p-8">
+    <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Metrics of Interest</h1>
       <div className="relative">
         {/* Scroll indicators */}
@@ -104,14 +104,6 @@ export default function MetricsOfInterest() {
             </tbody>
           </table>
         </div>
-      </div>
-      <div className="mt-6">
-        <a 
-          href="/salesdata"
-          className="inline-flex items-center justify-center bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-        >
-          Back to Sales Data
-        </a>
       </div>
     </div>
   );

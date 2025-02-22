@@ -44,7 +44,7 @@ type SalesDataTableProps = {
   totalPages: number;
 }
 
-export default function SalesDataTable({ 
+export default function RawDataTable({ 
   data, 
   columns, 
   currentPage, 
@@ -91,7 +91,7 @@ export default function SalesDataTable({
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Sales Records</h2>
+      <h2 className="text-xl font-bold mb-4">Raw Data Records</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full">
           <thead>
@@ -152,7 +152,7 @@ export default function SalesDataTable({
     links.push(
       <a
         key="prev"
-        href={`/salesdata?page=${currentPage - 1}`}
+        href={`/raw-data?page=${currentPage - 1}`}
         className={`px-3 py-2 rounded-md ${
           currentPage === 1
             ? 'text-gray-300 cursor-not-allowed'
@@ -176,7 +176,7 @@ export default function SalesDataTable({
         links.push(
           <a
             key={i}
-            href={`/salesdata?page=${i}`}
+            href={`/raw-data?page=${i}`}
             className={`px-3 py-2 rounded-md ${
               currentPage === i
                 ? 'bg-blue-600 text-white'
@@ -202,7 +202,7 @@ export default function SalesDataTable({
     links.push(
       <a
         key="next"
-        href={`/salesdata?page=${currentPage + 1}`}
+        href={`/raw-data?page=${currentPage + 1}`}
         className={`px-3 py-2 rounded-md ${
           currentPage === totalPages
             ? 'text-gray-300 cursor-not-allowed'

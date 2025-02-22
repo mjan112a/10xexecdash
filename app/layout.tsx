@@ -1,4 +1,6 @@
 import './globals.css'
+import { SidebarNav } from '@/components/sidebar-nav'
+import { SidebarProvider } from '@/components/sidebar-context'
 
 export default function RootLayout({
   children,
@@ -8,9 +10,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="min-h-screen bg-gray-50">
-          {children}
-        </main>
+        <div className="relative min-h-screen bg-gray-50">
+          <SidebarProvider>
+            <SidebarNav />
+            <main className="transition-all duration-300 min-h-screen" style={{ marginLeft: 'var(--sidebar-width, 256px)' }}>
+            {children}
+            </main>
+          </SidebarProvider>
+        </div>
       </body>
     </html>
   )
