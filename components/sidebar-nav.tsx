@@ -99,15 +99,22 @@ export function SidebarNav() {
   return (
     <div
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen bg-white border-r border-gray-200 transition-all duration-300',
-        isCollapsed ? 'w-16' : 'w-64'
+        'fixed left-0 top-0 h-screen bg-white border-r border-gray-200 transition-transform duration-300',
+        isCollapsed ? 'w-16' : 'w-64',
+        // Mobile: highest z-index to be above backdrop
+        'z-50',
+        // Desktop: always show, Mobile: translate based on state
+        isCollapsed ? '-translate-x-full lg:translate-x-0' : 'translate-x-0',
+        // Shadow only on mobile when open
+        !isCollapsed && 'shadow-xl lg:shadow-none',
+        'pt-14 lg:pt-0' // Add padding for mobile header
       )}
     >
       <div className="flex h-full flex-col">
         <div className="flex h-14 items-center border-b px-3 py-4">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium hover:bg-gray-100 hover:text-gray-900"
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium hover:bg-gray-100 hover:text-gray-900 p-2 touch-manipulation"
           >
             <Menu className="h-6 w-6" />
             {!isCollapsed && <span className="ml-2">Navigation</span>}
