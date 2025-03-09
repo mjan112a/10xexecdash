@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   BarChart3,
@@ -20,6 +21,7 @@ type NavItem = {
   title: string;
   href: string;
   icon: React.ComponentType<{ className?: string }>;
+  hidden?: boolean; // Added to support temporarily hiding items
 };
 
 const navItems: { category: string; items: NavItem[] }[] = [
@@ -60,6 +62,13 @@ const navItems: { category: string; items: NavItem[] }[] = [
         title: 'Dynamic Charts',
         href: '/dynamic-metrics',
         icon: ChartPieIcon,
+        hidden: true, // Temporarily hidden
+      },
+      {
+        title: 'Hypothetical Scenarios',
+        href: '/hypothetical-metrics',
+        icon: LineChart,
+        hidden: true, // Temporarily hidden
       },
     ],
   },
@@ -80,6 +89,7 @@ const navItems: { category: string; items: NavItem[] }[] = [
         title: 'AI Assistant',
         href: '/ai-assistant',
         icon: MessageSquare,
+        hidden: true, // Temporarily hidden
       },
     ],
   },
@@ -111,33 +121,53 @@ export function SidebarNav() {
       )}
     >
       <div className="flex h-full flex-col">
-        <div className="flex h-14 items-center border-b px-3 py-4">
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium hover:bg-gray-100 hover:text-gray-900 p-2 touch-manipulation"
-          >
-            <Menu className="h-6 w-6" />
-            {!isCollapsed && <span className="ml-2">Navigation</span>}
-          </button>
+        <div className="flex h-14 items-center border-b px-3 py-4 bg-black">
+          {isCollapsed ? (
+            <div className="flex justify-center w-full">
+              <Image 
+                src="/10X-Logo-Blue_White.png" 
+                alt="10X Logo" 
+                width={40} 
+                height={40} 
+                className="object-contain"
+              />
+            </div>
+          ) : (
+            <div className="flex items-center justify-between w-full">
+              <Image 
+                src="/10X-Logo-Blue_White.png" 
+                alt="10X Logo" 
+                width={100} 
+                height={40} 
+                className="object-contain"
+              />
+              <button
+                onClick={() => setIsCollapsed(!isCollapsed)}
+                className="inline-flex items-center justify-center rounded-md text-sm font-medium text-white hover:bg-primary-foreground/10 p-2 touch-manipulation"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+            </div>
+          )}
         </div>
         <div className="flex-1 overflow-auto py-2">
           {navItems.map((section, i) => (
             <div key={i} className="px-3 py-2">
               {!isCollapsed && (
-                <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+                <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight text-primary">
                   {section.category}
                 </h2>
               )}
               <div className="space-y-1">
-                {section.items.map((item, j) => (
+                {section.items.filter(item => !item.hidden).map((item, j) => (
                   <Link
                     key={j}
                     href={item.href}
                     className={cn(
-                      'flex items-center rounded-lg px-3 py-2 text-sm transition-all hover:bg-gray-100',
+                      'flex items-center rounded-lg px-3 py-2 text-sm transition-all',
                       pathname === item.href
-                        ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-500 hover:text-gray-900',
+                        ? 'bg-primary/10 text-primary font-medium'
+                        : 'text-gray-500 hover:bg-primary/5 hover:text-primary',
                       isCollapsed ? 'justify-center' : 'justify-start'
                     )}
                   >

@@ -8,6 +8,8 @@ A Next.js application that displays sales metrics and data analytics using Supab
 - Metrics of interest display
 - Responsive table layouts
 - Real-time data updates
+- Hypothetical scenario analysis
+- AI-powered monthly report generation
 
 ## Tech Stack
 
@@ -23,7 +25,10 @@ Required environment variables:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+PERPLEXITY_API_KEY=your-perplexity-api-key
 ```
+
+The Perplexity API key is required for the AI-powered monthly report generation feature.
 
 ## Development
 

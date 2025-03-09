@@ -3,6 +3,12 @@ import { SidebarNav } from '@/components/sidebar-nav'
 import { SidebarProvider } from '@/components/sidebar-context'
 import { MobileBackdrop } from '@/components/mobile-backdrop'
 import { MobileHeader } from '@/components/mobile-header'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '10X Engineered Materials - Executive Dashboard',
+  description: 'Executive dashboard for 10X Engineered Materials providing metrics, analytics, and reporting tools.',
+}
 
 export default function RootLayout({
   children,
@@ -11,6 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/10X-Logo-Blue_White.png" />
+      </head>
       <body>
         <div className="relative min-h-screen bg-gray-50">
           <SidebarProvider>

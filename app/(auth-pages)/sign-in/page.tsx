@@ -25,7 +25,7 @@ export default function SignIn() {
       })
 
       if (response.ok) {
-        router.push('/salesdata')
+        router.push('/raw-data')
         router.refresh() // Force a refresh to update the navigation state
       } else {
         const data = await response.json()

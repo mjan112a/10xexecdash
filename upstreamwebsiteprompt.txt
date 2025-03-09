@@ -1,0 +1,361 @@
+# UpstreamLLM Website Development Prompt
+
+## Technical Foundation
+
+Create a Next.js website with TypeScript and Tailwind CSS that showcases UpstreamLLM's consulting services. The website should follow these technical specifications:
+
+1. Framework: Next.js with App Router
+2. Language: TypeScript
+3. Styling: Tailwind CSS with the following brand colors:
+   - Primary Blue: #2EA0FD (HSL: 207 97% 59%)
+   - Light Blue: #69CCE0 (HSL: 190 67% 65%)
+   - Complementary Orange: #FD8B2E (HSL: 30 97% 59%)
+   - (Consider adapting these colors to match UpstreamLLM's brand if different)
+4. Components: Use Radix UI primitives with custom styling
+5. Responsive Design: Mobile-first approach with desktop optimization
+6. Authentication: Include Supabase authentication for client portal (optional implementation)
+
+## Site Structure & Layout
+
+1. **Core Layout Components**:
+   - Responsive layout with sidebar navigation (collapsible on mobile)
+   - Mobile header with hamburger menu
+   - Maintain the same technical implementation as the reference dashboard
+
+2. **Homepage**:
+   - Hero Section with headline "Move Upstream in Your AI Strategy" and subheadline about progressively transforming business processes
+   - Animated flow diagram showing multiple LLMs working in cascade
+   - "The UpstreamLLM Advantage" section highlighting the company's unique approach
+   - "The Upstream Cascade™" methodology explanation
+   - "Real Results, Not AI Hype" section with metrics cards
+   - Core Services overview with links to service pages
+   - "Start Your Upstream Journey" process section
+   - Client testimonials section
+   - Latest Insights section with blog previews
+   - Strong CTA in footer
+
+3. **The UpstreamLLM Approach Page**:
+   - The Upstream Philosophy explanation
+   - Three-Phase Process breakdown:
+     1. Educate & Map
+     2. Quick Win Implementation
+     3. Strategic Orchestration
+   - Visualization of cascading LLM systems with three layers:
+     - Base Layer: Task Automation
+     - Middle Layer: Process Enhancement
+     - Strategic Layer: Decision Support & Optimization
+
+4. **Services Pages**:
+   - Patent Intelligence & Automation
+   - Expert Content Generation
+   - Project Documentation Acceleration
+   - Custom LLM Orchestration
+   - Each page should follow a consistent structure with:
+     - Compelling headline
+     - Service description focusing on the "upstream" approach
+     - Benefits and use cases
+     - Relevant case studies or results
+     - Service-specific CTA
+
+5. **About Page**:
+   - The UpstreamLLM Story
+   - Approach to AI implementation
+   - Founder profile highlighting AI journey from ANNs to LLMs
+
+6. **Pricing Page**:
+   - Phase-Based Pricing Model:
+     1. Phase 1: Educate & Map ($500-1,500)
+     2. Phase 2: Quick Win Implementation ($2,500-7,000)
+     3. Phase 3: Strategic Orchestration ($7,000-20,000+)
+   - Interactive pricing calculator
+   - Note about ongoing support options
+
+7. **Resources Section**:
+   - Blog with categories:
+     - UpstreamLLM Case Studies
+     - AI Implementation Best Practices
+     - LLM Technology Explanations
+   - Downloads section with lead magnets:
+     - UpstreamLLM Readiness Assessment
+     - AI Implementation Checklist
+     - ROI Calculator Spreadsheet
+
+8. **Contact Page**:
+   - Consultation request form
+   - Quick assessment option
+   - Direct contact information
+
+## Design & UI Requirements
+
+1. **Visual Style**:
+   - Clean, professional aesthetic similar to the dashboard
+   - Use the established color scheme (adapt if needed for UpstreamLLM branding)
+   - Incorporate subtle gradients and card-based layouts
+   - Use Lucide React icons for consistent iconography
+
+2. **UI Components**:
+   - Create service cards similar to the dashboard feature cards
+   - Design metrics cards for the "Real Results" section
+   - Implement a consultation booking form with Radix UI components
+   - Design testimonial components
+   - Include subtle animations for the cascade visualization
+
+3. **Navigation**:
+   - Implement the same sidebar navigation pattern as the reference dashboard
+   - Organize services and resources logically in the navigation menu
+   - Include prominent CTAs throughout the site
+
+## Key Content Sections
+
+### Homepage Hero
+
+```jsx
+<div className="hero-section bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-8 shadow-md">
+  <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-primary">
+    Move Upstream in Your AI Strategy
+  </h1>
+  <p className="text-lg mb-6">
+    Transform how you approach business challenges by progressively applying AI at increasingly strategic levels of your organization.
+  </p>
+  <Button variant="default" size="lg" asChild>
+    <Link href="/contact">
+      Discover Your Upstream Potential
+    </Link>
+  </Button>
+  <p className="mt-4 text-sm text-muted-foreground">
+    While others implement isolated AI tools, we orchestrate cascading LLM systems that transform entire business processes.
+  </p>
+  
+  {/* Animated cascade visualization */}
+</div>
+```
+
+### The UpstreamLLM Approach
+
+```jsx
+<div className="bg-white rounded-lg shadow-md p-6 my-8">
+  <h2 className="text-2xl font-bold mb-4 text-primary">Why UpstreamLLM Is Different</h2>
+  <p className="mb-6">
+    Unlike traditional AI consulting that focuses on single point solutions, UpstreamLLM creates a cascade of interconnected AI systems that progressively address more strategic aspects of your business challenges.
+  </p>
+  
+  <h3 className="text-xl font-semibold mb-3 text-secondary">The Upstream Cascade™</h3>
+  <p className="italic mb-4">Our proprietary methodology builds LLM systems that work in sequence:</p>
+  
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div className="bg-primary/10 p-4 rounded-lg">
+      <h4 className="font-bold mb-2">Level 1: Task Automation</h4>
+      <p>Streamline specific workflows like document drafting, content creation, and data analysis.</p>
+    </div>
+    
+    <div className="bg-secondary/10 p-4 rounded-lg">
+      <h4 className="font-bold mb-2">Level 2: Process Enhancement</h4>
+      <p>Improve quality and compliance with AI systems that review, refine, and optimize work products.</p>
+    </div>
+    
+    <div className="bg-accent/10 p-4 rounded-lg">
+      <h4 className="font-bold mb-2">Level 3: Strategic Insights</h4>
+      <p>Uncover patterns, predict outcomes, and generate strategic recommendations that drive business growth.</p>
+    </div>
+  </div>
+  
+  <p className="italic">Each level feeds into the next, creating a powerful cascade of AI-enhanced capabilities.</p>
+</div>
+```
+
+### Results Section
+
+```jsx
+<div className="bg-white rounded-lg shadow-md p-6 my-8">
+  <h2 className="text-2xl font-bold mb-6 text-primary">Measurable Business Impact</h2>
+  
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="border rounded-lg p-4">
+      <h3 className="font-bold mb-3">Patent Development</h3>
+      <ul className="space-y-2">
+        <li>73% reduction in drafting time</li>
+        <li>89% of AI-generated drafts need only minor edits</li>
+        <li>41% increase in patent filings</li>
+      </ul>
+    </div>
+    
+    <div className="border rounded-lg p-4">
+      <h3 className="font-bold mb-3">Expert Content Creation</h3>
+      <ul className="space-y-2">
+        <li>300% increase in content production</li>
+        <li>98% accuracy in technical specifications</li>
+        <li>27% increase in organic search traffic</li>
+      </ul>
+    </div>
+    
+    <div className="border rounded-lg p-4">
+      <h3 className="font-bold mb-3">Project Documentation</h3>
+      <ul className="space-y-2">
+        <li>85% faster production of critical documentation</li>
+        <li>68% improvement in cross-team alignment</li>
+        <li>42% reduction in scope creep issues</li>
+      </ul>
+    </div>
+  </div>
+</div>
+```
+
+### Services Section
+
+```jsx
+<div className="my-8">
+  <h2 className="text-2xl font-bold mb-6 text-primary">Our Core Services</h2>
+  
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <Link href="/services/patent-intelligence" className="group">
+      <div className="bg-white rounded-lg shadow-md p-6 h-full border-2 border-transparent hover:border-primary transition-all">
+        <h3 className="text-lg font-semibold mb-2 text-primary group-hover:text-primary">Patent Intelligence & Automation</h3>
+        <p className="text-gray-600 mb-4">From initial claims drafting to comprehensive patent strategy, our systems help you protect intellectual property more efficiently and effectively.</p>
+        <span className="text-primary font-medium group-hover:underline">Learn More →</span>
+      </div>
+    </Link>
+    
+    {/* Repeat for other services */}
+  </div>
+</div>
+```
+
+## Interactive Elements
+
+1. **Upstream Assessment Tool**:
+   - Create a multi-step form for prospects to assess their AI readiness
+   - Include questions about current processes, challenges, and goals
+   - Provide a basic score and recommendations
+
+2. **Pricing Calculator**:
+   - Interactive tool to estimate costs based on selected services and scope
+   - Include sliders or selectors for different options
+   - Display estimated ROI based on industry benchmarks
+
+3. **Case Study Showcases**:
+   - Interactive cards or tabs to explore different case studies
+   - Include before/after metrics and visualizations
+   - Highlight the cascade approach in action
+
+4. **Consultation Booking**:
+   - Multi-step form for scheduling consultations
+   - Include qualification questions and business challenge description
+   - Calendar integration for scheduling
+
+## Additional Requirements
+
+1. **SEO Optimization**:
+   - Implement proper meta tags and descriptions focused on LLM consulting keywords
+   - Create a sitemap
+   - Ensure semantic HTML structure
+
+2. **Performance**:
+   - Optimize images and animations
+   - Implement proper code splitting
+   - Ensure responsive performance across devices
+
+3. **Accessibility**:
+   - Maintain WCAG compliance
+   - Ensure proper contrast ratios with the color scheme
+   - Implement keyboard navigation
+
+4. **Analytics Integration**:
+   - Set up basic event tracking for key user interactions
+   - Track conversion points (consultation requests, downloads)
+   - Implement goal tracking for the assessment tool
+
+## Homepage Copy
+
+### Hero Section
+
+**Headline:** Move Upstream in Your AI Strategy
+
+**Subheadline:** Transform how you approach business challenges by progressively applying AI at increasingly strategic levels of your organization.
+
+**Main CTA:** [Discover Your Upstream Potential]
+
+**Secondary Message:** While others implement isolated AI tools, we orchestrate cascading LLM systems that transform entire business processes.
+
+### The UpstreamLLM Approach
+
+**Main Headline:** Why UpstreamLLM Is Different
+
+Unlike traditional AI consulting that focuses on single point solutions, UpstreamLLM creates a cascade of interconnected AI systems that progressively address more strategic aspects of your business challenges.
+
+**The Upstream Cascade™**
+*Our proprietary methodology builds LLM systems that work in sequence:*
+
+**Level 1: Task Automation**  
+Streamline specific workflows like document drafting, content creation, and data analysis.
+
+**Level 2: Process Enhancement**  
+Improve quality and compliance with AI systems that review, refine, and optimize work products.
+
+**Level 3: Strategic Insights**  
+Uncover patterns, predict outcomes, and generate strategic recommendations that drive business growth.
+
+*Each level feeds into the next, creating a powerful cascade of AI-enhanced capabilities.*
+
+### Real Results, Not AI Hype
+
+**Headline:** Measurable Business Impact
+
+**Results Cards:**
+
+**Patent Development**  
+73% reduction in drafting time  
+89% of AI-generated drafts need only minor edits  
+41% increase in patent filings
+
+**Expert Content Creation**  
+300% increase in content production  
+98% accuracy in technical specifications  
+27% increase in organic search traffic
+
+**Project Documentation**  
+85% faster production of critical documentation  
+68% improvement in cross-team alignment  
+42% reduction in scope creep issues
+
+### Our Core Services
+
+**Patent Intelligence & Automation**
+From initial claims drafting to comprehensive patent strategy, our systems help you protect intellectual property more efficiently and effectively.
+
+**Expert Content Generation**
+Create technically precise, engaging content that establishes true expertise in your industry and drives measurable business results.
+
+**Project Documentation Acceleration**
+Transform project documentation from a burden into a strategic advantage with AI systems that capture, organize, and distribute critical information.
+
+**Custom LLM Orchestration**
+Build tailored AI systems that address your unique business challenges, integrating seamlessly with your existing tools and workflows.
+
+### Start Your Upstream Journey
+
+**Headline:** Transform Your Approach to AI
+
+**Three-Step Process:**
+
+**1. Educate & Map**  
+We analyze your current workflows and identify upstream opportunities where AI can create cascading value.
+
+**2. Quick Win Implementation**  
+Deliver immediate ROI with targeted LLM tools focused on your most pressing challenges.
+
+**3. Strategic Orchestration**  
+Build integrated AI systems that progressively enhance business processes at every level.
+
+**CTA:** [Schedule Your Upstream Strategy Session]
+
+### Trusted By Innovative Companies
+
+*[Client logos or industry types if clients cannot be named]*
+
+"The UpstreamLLM approach transformed how we think about AI implementation. Instead of just automating basic tasks, we now have a cascade of AI systems that progressively enhance our entire patent development process."
+— VP of Innovation, Electronics Manufacturer
+
+### Footer CTA
+Ready to move upstream in your AI strategy?
+
+[Get Started] [Contact Us]

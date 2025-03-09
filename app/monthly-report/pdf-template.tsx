@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   page: {
@@ -31,6 +31,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 1.5,
   },
+  paragraph: {
+    fontSize: 12,
+    lineHeight: 1.5,
+    marginBottom: 8,
+  },
   grid: {
     flexDirection: 'row',
     marginBottom: 10,
@@ -52,14 +57,59 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 4,
   },
-})
+  subheading: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginBottom: 6,
+  },
+});
 
 interface MonthlyReportPDFProps {
-  month: string
-  year: number
+  month: string;
+  year: number;
+  sections?: Record<string, string>;
 }
 
-export function MonthlyReportPDF({ month, year }: MonthlyReportPDFProps) {
+// Helper function to render markdown-like content
+const renderContent = (content: string) => {
+  if (!content) return null;
+  
+  const lines = content.split('\n');
+  return lines.map((line, index) => {
+    // Handle bullet points
+    if (line.trim().startsWith('- ')) {
+      return (
+        <Text key={index} style={styles.listItem}>
+          • {line.trim().substring(2)}
+        </Text>
+      );
+    }
+    // Handle subheadings (###)
+    else if (line.trim().startsWith('### ')) {
+      return (
+        <Text key={index} style={styles.subheading}>
+          {line.trim().substring(4)}
+        </Text>
+      );
+    }
+    // Handle regular paragraphs
+    else if (line.trim() !== '') {
+      return (
+        <Text key={index} style={styles.paragraph}>
+          {line}
+        </Text>
+      );
+    }
+    return null;
+  });
+};
+
+export function MonthlyReportPDF({ month, year, sections = {} }: MonthlyReportPDFProps) {
+  // Default content if no sections are provided
+  const defaultExecutiveSummary = `This report provides a comprehensive overview of 10X Engineered Materials' 
+performance metrics, financial indicators, and operational highlights for ${month} ${year}.`;
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -72,73 +122,96 @@ export function MonthlyReportPDF({ month, year }: MonthlyReportPDFProps) {
         {/* Executive Summary */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Executive Summary</Text>
-          <Text style={styles.content}>
-            This report provides a comprehensive overview of 10X Engineered Materials&apos; 
-            performance metrics, financial indicators, and operational highlights for {month} {year}.
-          </Text>
+          <View style={styles.content}>
+            {sections.executiveSummary ? (
+              renderContent(sections.executiveSummary)
+            ) : (
+              <Text style={styles.paragraph}>{defaultExecutiveSummary}</Text>
+            )}
+          </View>
         </View>
 
-        {/* KPIs */}
+        {/* Key Performance Indicators */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Key Performance Indicators</Text>
-          <View style={styles.grid}>
-            <View style={styles.gridItem}>
-              <Text style={styles.gridTitle}>Production Metrics</Text>
-              <View style={styles.list}>
-                <Text style={styles.listItem}>• Total Production Volume</Text>
-                <Text style={styles.listItem}>• Production Efficiency Rate</Text>
-                <Text style={styles.listItem}>• Quality Control Metrics</Text>
-                <Text style={styles.listItem}>• Waste Reduction Progress</Text>
+          {sections.keyPerformance ? (
+            <View style={styles.content}>
+              {renderContent(sections.keyPerformance)}
+            </View>
+          ) : (
+            <View style={styles.grid}>
+              <View style={styles.gridItem}>
+                <Text style={styles.gridTitle}>Production Metrics</Text>
+                <View style={styles.list}>
+                  <Text style={styles.listItem}>• Total Production Volume</Text>
+                  <Text style={styles.listItem}>• Production Efficiency Rate</Text>
+                  <Text style={styles.listItem}>• Quality Control Metrics</Text>
+                  <Text style={styles.listItem}>• Waste Reduction Progress</Text>
+                </View>
+              </View>
+              <View style={styles.gridItem}>
+                <Text style={styles.gridTitle}>Financial Metrics</Text>
+                <View style={styles.list}>
+                  <Text style={styles.listItem}>• Revenue Growth</Text>
+                  <Text style={styles.listItem}>• Cost of Goods Sold</Text>
+                  <Text style={styles.listItem}>• Operating Margins</Text>
+                  <Text style={styles.listItem}>• Cash Flow Status</Text>
+                </View>
               </View>
             </View>
-            <View style={styles.gridItem}>
-              <Text style={styles.gridTitle}>Financial Metrics</Text>
-              <View style={styles.list}>
-                <Text style={styles.listItem}>• Revenue Growth</Text>
-                <Text style={styles.listItem}>• Cost of Goods Sold</Text>
-                <Text style={styles.listItem}>• Operating Margins</Text>
-                <Text style={styles.listItem}>• Cash Flow Status</Text>
-              </View>
-            </View>
-          </View>
+          )}
         </View>
 
         {/* Operational Highlights */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Operational Highlights</Text>
-          <View style={styles.content}>
-            <Text style={styles.gridTitle}>Production & Manufacturing</Text>
-            <Text style={styles.content}>
-              Overview of manufacturing efficiency, equipment utilization, and production milestones.
-            </Text>
+          {sections.operationalHighlights ? (
+            <View style={styles.content}>
+              {renderContent(sections.operationalHighlights)}
+            </View>
+          ) : (
+            <View style={styles.content}>
+              <Text style={styles.gridTitle}>Production & Manufacturing</Text>
+              <Text style={styles.paragraph}>
+                Overview of manufacturing efficiency, equipment utilization, and production milestones.
+              </Text>
 
-            <Text style={[styles.gridTitle, { marginTop: 10 }]}>Quality Control</Text>
-            <Text style={styles.content}>
-              Summary of quality metrics, compliance status, and improvement initiatives.
-            </Text>
+              <Text style={[styles.gridTitle, { marginTop: 10 }]}>Quality Control</Text>
+              <Text style={styles.paragraph}>
+                Summary of quality metrics, compliance status, and improvement initiatives.
+              </Text>
 
-            <Text style={[styles.gridTitle, { marginTop: 10 }]}>Supply Chain</Text>
-            <Text style={styles.content}>
-              Analysis of supplier performance, inventory management, and logistics efficiency.
-            </Text>
-          </View>
+              <Text style={[styles.gridTitle, { marginTop: 10 }]}>Supply Chain</Text>
+              <Text style={styles.paragraph}>
+                Analysis of supplier performance, inventory management, and logistics efficiency.
+              </Text>
+            </View>
+          )}
         </View>
 
         {/* Recommendations */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Strategic Recommendations</Text>
-          <Text style={styles.content}>
-            Based on this month&apos;s performance metrics, the following strategic initiatives 
-            are recommended:
-          </Text>
-          <View style={styles.list}>
-            <Text style={styles.listItem}>• Optimize production scheduling to improve equipment utilization</Text>
-            <Text style={styles.listItem}>• Implement cost reduction measures in identified high-expense areas</Text>
-            <Text style={styles.listItem}>• Enhance quality control processes to maintain product excellence</Text>
-            <Text style={styles.listItem}>• Strengthen supplier relationships for better supply chain efficiency</Text>
-          </View>
+          {sections.recommendations ? (
+            <View style={styles.content}>
+              {renderContent(sections.recommendations)}
+            </View>
+          ) : (
+            <>
+              <Text style={styles.paragraph}>
+                Based on this month's performance metrics, the following strategic initiatives 
+                are recommended:
+              </Text>
+              <View style={styles.list}>
+                <Text style={styles.listItem}>• Optimize production scheduling to improve equipment utilization</Text>
+                <Text style={styles.listItem}>• Implement cost reduction measures in identified high-expense areas</Text>
+                <Text style={styles.listItem}>• Enhance quality control processes to maintain product excellence</Text>
+                <Text style={styles.listItem}>• Strengthen supplier relationships for better supply chain efficiency</Text>
+              </View>
+            </>
+          )}
         </View>
       </Page>
     </Document>
-  )
+  );
 }
