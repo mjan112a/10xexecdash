@@ -52,6 +52,7 @@ export default function Dashboard() {
               </div>
             </Link>
             
+            {/* Dynamic Charts card temporarily hidden
             <Link href="/dynamic-metrics" className="group">
               <div className="bg-white rounded-lg shadow-md p-6 h-full border-2 border-transparent hover:border-accent transition-all">
                 <div className="flex items-center justify-center w-12 h-12 bg-accent/10 rounded-full mb-4 text-accent">
@@ -61,6 +62,7 @@ export default function Dashboard() {
                 <p className="text-gray-600">Explore interactive charts and visualizations</p>
               </div>
             </Link>
+            */}
             
             <Link href="/monthly-report" className="group">
               <div className="bg-white rounded-lg shadow-md p-6 h-full border-2 border-transparent hover:border-primary transition-all">
