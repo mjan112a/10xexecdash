@@ -2,6 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Print styles for the WYSIWYG report */
+@media print {
+  /* Hide everything except the report */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Show only the report content */
+  .print\:shadow-none, 
+  .print\:shadow-none * {
+    visibility: visible;
+  }
+  
+  /* Set page size and margins */
+  @page {
+    size: A4;
+    margin: 1cm;
+  }
+  
+  /* Remove background colors and shadows */
+  .print\:bg-white {
+    background-color: white !important;
+  }
+  
+  /* Ensure proper page breaks */
+  h1, h2, h3, table {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure tables don't break across pages */
+  table {
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure figures don't break across pages */
+  figure {
+    page-break-inside: avoid;
+    margin: 20px 0;
+  }
+  
+  /* Position the report at the top of the page */
+  .print\:shadow-none {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
 @layer base {
   :root {
     /* 10X Brand Colors */

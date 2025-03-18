@@ -1,0 +1,28 @@
+{
+  "name": "monthly-report-generator",
+  "version": "1.0.0",
+  "description": "Generate comprehensive monthly business reports using Claude 3.7 Sonnet Extended",
+  "main": "generate_monthly_report.js",
+  "scripts": {
+    "start": "node generate_monthly_report.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "report",
+    "business",
+    "metrics",
+    "claude",
+    "anthropic",
+    "llm"
+  ],
+  "author": "10X Engineered Materials",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

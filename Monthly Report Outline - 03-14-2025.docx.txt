@@ -1,0 +1,111 @@
+﻿Monthly Report Outline
+
+
+All trend graphs are from Jan 1, 2024 to present
+
+
+LLM Context for the Month
+* One or a few sentences that provide context for the month
+
+
+Message from the CEO
+* Discussion Based on Highlights
+   * Recap of strategic priorities (pivot to high margin, raw materials, online sales, direct sales, price)
+   * Business progress & challenges
+   * Significant wins/losses
+   * Beryllium update
+   * Seasonality
+   * Forward-looking statement.  What we anticipate.  Where we are going.
+
+
+Overall Business Performance
+* Discussion Based on Data
+   * Total revenue
+   * Gross Margin
+   * Operating Margin
+   * Net Income
+   * Net change in cash for the period
+   * Cash at end of period
+* Discussion Based on Highlights
+   * Significant changes on the balance sheet
+   * Key factors affecting margins
+   * Key factors affecting cash
+   * Overall business trends/progress
+* Data/Graphics/KPIs
+   * Income statement summary (table like Steve’s)
+   * Cash flow statement summary (table like Steve’s)
+   * Balance sheet summary (table like Steve’s)
+   * Total Revenue, Gross margin, Operating margin/EBITDA, Net Income (line)
+   * Total Revenue, Gross margin, Operating margin/EBITDA, Net Income Percentages (line)
+Sales
+* Discussion Based on Data
+   * Total orders
+   * Total tons sold
+   * Overall Average Price per lb
+   * Online vs Offline Sales
+   * Online Orders (number)
+   * Distributor, Large Direct, Medium Direct, Small Direct Sales
+   * KinetiX, DynamiX, EpiX Tons Sold
+   * KinetiX, DynamiX, EpiX Sales
+* Discussion Based on Highlights
+   * Significant wins/losses
+   * Pipeline opportunities
+   * Online store highlights
+   * U.S. vs Canada vs International
+* Data/Graphics/KPIs
+   * Overall average price per lb (Line)
+   * Online vs Offline Sales Revenue Percentages (Line)
+   * Online vs Offline Average Price per lb (Line)
+   * Dist, Large Direct, Medium Direct, Small Direct Revenue Percentages (Line)
+   * Dist, Large Direct, Medium Direct, Small Direct Average Price per lb (Line)
+   * KinetiX, DynamiX, EpiX Revenue Percentages (Line)
+
+
+Marketing
+* Discussion Based on Data
+   * Digital marketing expenses
+   * % Digital marketing expenses
+   * Total marketing expenses
+* Discussion Based on Highlights
+   * Significant events (conferences, webinars, ad campaigns, digital)
+   * Online store highlights
+   * WebFX Data
+* Data/Graphics/KPIs
+   * Digital, General, and Total Marketing Expenses (Line)
+   * Digital, General, and Total Marketing Expense Percentages (Line)
+   * Online vs Offline Orders (Line)
+
+
+Cost Reduction Initiatives
+* Discussion Based on Data
+   * Raw material costs
+   * Total Sales Costs
+   * Distributor Sales Costs
+   * Direct Sales Costs
+* Discussion Based on Highlights
+   * Alexandria Update
+   * One-off expenses that affected margins
+   * Sales cost drivers for the month
+* Data/Graphics/KPIs
+   * Raw Material Costs
+   * Distributor, Direct, and Total Sales Costs
+
+
+Operations
+* Discussion Based on Data
+   * Uptime
+   * Yield
+   * Inventory
+* Discussion Based on Highlights/Input
+   * Safety
+   * Priorities/Activities
+* Data/Graphics/KPIs
+   * Uptime
+   * Yield
+
+
+Detailed Year-to-Date Financial Statements (Tables)
+* Income Statement
+* Unit Income Statement
+* Balance Sheet
+* Cash Flow Statement

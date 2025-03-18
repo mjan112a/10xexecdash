@@ -61,14 +61,12 @@ const navItems: { category: string; items: NavItem[] }[] = [
       {
         title: 'Dynamic Charts',
         href: '/dynamic-metrics',
-        icon: ChartPieIcon,
-        hidden: true, // Temporarily hidden
+        icon: ChartPieIcon
       },
       {
         title: 'Hypothetical Scenarios',
         href: '/hypothetical-metrics',
-        icon: LineChart,
-        hidden: true, // Temporarily hidden
+        icon: LineChart
       },
     ],
   },
@@ -88,8 +86,7 @@ const navItems: { category: string; items: NavItem[] }[] = [
       {
         title: 'AI Assistant',
         href: '/ai-assistant',
-        icon: MessageSquare,
-        hidden: true, // Temporarily hidden
+        icon: MessageSquare
       },
     ],
   },
