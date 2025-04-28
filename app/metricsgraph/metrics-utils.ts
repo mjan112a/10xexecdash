@@ -25,11 +25,19 @@ export function parseValue(value: string): number {
  * @returns Formatted string value
  */
 export function formatDisplayValue(value: number, unit: string, metricName: string): string {
+  // Handle ratios
+  if (unit.toLowerCase().includes('ratio') || metricName.toLowerCase().includes('ratio')) {
+    return value.toFixed(2);
+  }
+
   // Handle percentages
   if (unit === '%' || metricName.includes('GM') || metricName.includes('OM')) {
+    if (value >= -1 && value <= 1 && value !== 0) {
+      value = value * 100;
+    }
     return `${value.toFixed(1)}%`;
   }
-  
+
   // Handle currency values
   if (unit === '$' || metricName.includes('Price') || metricName.includes('Revenue')) {
     if (Math.abs(value) >= 1000000) {

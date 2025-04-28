@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { headers } from 'next/headers';
+import { logAIInteraction, calculateDuration, getPerplexityTokens } from '@/lib/ai-logging';
 
 // Force Node.js runtime and set max duration (60s is max for hobby plan)
 export const runtime = 'nodejs';
@@ -331,24 +332,22 @@ function formatMetricsForLLM(metricsData: any, reportTitle: string) {
 export async function POST(req: Request) {
   console.log('1. Monthly Report API route hit');
   
+  let startTime = Date.now();
+  let status: 'success' | 'error' = 'success';
+  let errorMessage = null;
+  let responseText = '';
+  let userMessage = '';
+  
   try {
-    // Log environment info
-    console.log('Environment:', {
-      nodeEnv: process.env.NODE_ENV,
-      vercelEnv: process.env.VERCEL_ENV,
-      apiKeyExists: !!process.env.PERPLEXITY_API_KEY,
-      apiKeyLength: process.env.PERPLEXITY_API_KEY?.length
-    });
-
     console.log('2. Parsing request body');
-    const { message, field } = await req.json();
+    const { message } = await req.json();
+    userMessage = message;
     
-    if (!message || typeof message !== 'string') {
-      console.error('Invalid message format:', { messageType: typeof message });
-      return NextResponse.json(
-        { message: 'Invalid request format' },
-        { status: 400 }
-      );
+    if (!userMessage || typeof userMessage !== 'string') {
+      console.error('Invalid message format:', { messageType: typeof userMessage });
+      status = 'error';
+      errorMessage = 'Invalid request format';
+      throw new Error(errorMessage);
     }
 
     // Extract report title from the message
@@ -364,7 +363,7 @@ export async function POST(req: Request) {
     console.log('DEBUG: Metrics data formatted:', formattedMetrics ? 'success' : 'failed');
     console.log('DEBUG: Formatted metrics length:', formattedMetrics?.length || 0);
     
-    console.log('4. Creating monthly report content', field ? `for field: ${field}` : 'for full report');
+    console.log('4. Creating monthly report content');
     
     // Get the system prompt and append metrics data instructions
     let SYSTEM_PROMPT = getSystemPrompt();
@@ -372,26 +371,13 @@ export async function POST(req: Request) {
     // Add instructions for using metrics data
     SYSTEM_PROMPT += `\n\n# IMPORTANT: USE THE PROVIDED METRICS DATA\n\nThe input will include a section with metrics data for the report month. You MUST use this data when discussing trends, making comparisons, or mentioning specific figures. DO NOT make up or hallucinate any metrics. Always refer to the actual data provided.\n\nWhen discussing trends:\n- Always compare to previous periods (previous month and year-over-year) using the exact numbers from the data\n- Calculate and include specific percentage changes\n- Focus on the report month but provide context from historical data\n- Identify patterns and seasonality in the data\n\nFor each section of the report, analyze the relevant metrics as organized in the "Metrics By Report Section" part of the data.\n`;
     
-    // Add field-specific instructions if generating a specific field
-    if (field) {
-      if (field === 'business_performance_data' || field === 'business_performance_highlights') {
-        SYSTEM_PROMPT += `\n\n# FIELD-SPECIFIC INSTRUCTIONS: BUSINESS PERFORMANCE\n\nFocus on analyzing the Business Performance Metrics section of the data. Include specific figures for Total Revenue, Gross Income, Net Ordinary Income, Net Income, and Cash at End of Period. Calculate and mention month-over-month and year-over-year percentage changes. Discuss trends in margins (Gross, Operating, Net) and their implications for the business.\n`;
-      } else if (field === 'sales_data' || field === 'sales_highlights') {
-        SYSTEM_PROMPT += `\n\n# FIELD-SPECIFIC INSTRUCTIONS: SALES\n\nFocus on analyzing the Sales Metrics section of the data. Include specific figures for Total Orders, Tons Sold, Average Price, and sales channel breakdown. Calculate and mention the percentage of online vs offline sales, and the product mix (KinetiX, DynamiX, EpiX). Discuss trends in distributor vs direct sales channels and their implications for the business.\n`;
-      } else if (field === 'marketing_data' || field === 'marketing_highlights') {
-        SYSTEM_PROMPT += `\n\n# FIELD-SPECIFIC INSTRUCTIONS: MARKETING\n\nFocus on analyzing the Marketing Metrics section of the data. Include specific figures for Digital Marketing Expenses, General Marketing Expenses, and Total Marketing Expenses. Calculate and mention the percentage of digital vs general marketing spend. Evaluate the effectiveness of marketing spend by comparing to online orders and revenue.\n`;
-      } else if (field === 'cost_reduction_data' || field === 'cost_reduction_highlights') {
-        SYSTEM_PROMPT += `\n\n# FIELD-SPECIFIC INSTRUCTIONS: COST REDUCTION\n\nFocus on analyzing the Cost Reduction Metrics section of the data. Include specific figures for Raw Material costs and Sales Expenses (Distributor, Direct, Total). Calculate and mention month-over-month changes and identify cost reduction opportunities. Analyze the relationship between sales costs and revenue.\n`;
-      } else if (field === 'operations_data' || field === 'operations_highlights') {
-        SYSTEM_PROMPT += `\n\n# FIELD-SPECIFIC INSTRUCTIONS: OPERATIONS\n\nFocus on analyzing the Operations Metrics section of the data. Include specific figures for Uptime, Yield, and production efficiency metrics. Calculate and mention month-over-month changes and identify operational improvements or challenges. Evaluate inventory levels and production capacity.\n`;
-      }
-    }
-    
     // Combine the message with the metrics data
     const enhancedMessage = formattedMetrics ? `${message}\n\n${formattedMetrics}` : message;
     console.log('DEBUG: Enhanced message length:', enhancedMessage.length);
     console.log('DEBUG: Original message length:', message.length);
     console.log('DEBUG: Added metrics data length:', enhancedMessage.length - message.length);
+    
+    console.log('5. Creating monthly report message');
     
     // Perplexity Implementation
     const response = await fetch('https://api.perplexity.ai/chat/completions', {
@@ -413,6 +399,12 @@ export async function POST(req: Request) {
       })
     });
 
+    if (!response.ok) {
+      status = 'error';
+      errorMessage = `Perplexity API error: ${response.status}`;
+      throw new Error(errorMessage);
+    }
+
     const data = await response.json();
     console.log('5. Monthly report response received - Structure:', {
       hasResponse: !!data.choices?.[0]?.message?.content,
@@ -424,16 +416,39 @@ export async function POST(req: Request) {
     });
 
     if (!data.choices?.[0]?.message?.content) {
-      console.error('Invalid response format:', data);
-      throw new Error('Invalid response format from API');
+      status = 'error';
+      errorMessage = 'Invalid response format from API';
+      throw new Error(errorMessage);
     }
 
-    // Get the citations array from the root level
+    responseText = data.choices[0].message.content;
     const citations = data.citations || [];
+
+    // Log the AI interaction
+    await logAIInteraction({
+      provider: 'perplexity',
+      model: 'sonar-reasoning-pro',
+      endpoint: '/api/monthly-report',
+      requestPrompt: enhancedMessage,
+      response: responseText,
+      requestData: {
+        message: userMessage,
+        systemPrompt: SYSTEM_PROMPT
+      },
+      responseData: {
+        responseLength: responseText.length,
+        hasCitations: citations.length > 0
+      },
+      tokens: getPerplexityTokens(data),
+      duration: calculateDuration(startTime),
+      status,
+      errorMessage,
+      interaction: 'Monthly_Report'
+    });
     
     return NextResponse.json(
       { 
-        response: data.choices[0].message.content,
+        response: responseText,
         citations: citations
       },
       {
@@ -442,32 +457,26 @@ export async function POST(req: Request) {
         }
       }
     );
-  } catch (error: unknown) {
-    const err = error as Error & { status?: number; response?: unknown };
-    console.error('Detailed Error:', {
-      name: err.name,
-      message: err.message,
-      stack: err.stack,
-      cause: err.cause,
-      response: err.response
+  } catch (error) {
+    console.error('Error in Monthly Report API route:', error);
+    
+    // Log the error interaction
+    await logAIInteraction({
+      provider: 'perplexity',
+      model: 'sonar-reasoning-pro',
+      endpoint: '/api/monthly-report',
+      requestPrompt: userMessage,
+      response: responseText,
+      requestData: { message: userMessage },
+      responseData: {},
+      duration: calculateDuration(startTime),
+      status: 'error',
+      errorMessage: error instanceof Error ? error.message : String(error),
+      interaction: 'Monthly_Report'
     });
 
-    // Return specific error messages
-    if (err.status === 401) {
-      return NextResponse.json(
-        { message: 'Authentication failed' },
-        { status: 401 }
-      );
-    }
-    if (err.status === 429) {
-      return NextResponse.json(
-        { message: 'Rate limit exceeded' },
-        { status: 429 }
-      );
-    }
-
     return NextResponse.json(
-      { message: `Error processing request: ${err.message}` },
+      { message: `Error processing request: ${error instanceof Error ? error.message : String(error)}` },
       { status: 500 }
     );
   }

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { logAIInteraction, calculateDuration, getPerplexityTokens } from '@/lib/ai-logging';
 
 // Force Node.js runtime and set max duration (60s is max for hobby plan)
 export const runtime = 'nodejs';
@@ -28,6 +29,12 @@ Maintain a professional, knowledgeable tone while making complex information acc
 export async function POST(req: Request) {
   console.log('1. API route hit');
   
+  let startTime = Date.now();
+  let status: 'success' | 'error' = 'success';
+  let errorMessage = null;
+  let responseText = '';
+  let userMessage = '';
+  
   try {
     // Log environment info
     console.log('Environment:', {
@@ -39,13 +46,13 @@ export async function POST(req: Request) {
 
     console.log('2. Parsing request body');
     const { message } = await req.json();
+    userMessage = message;
     
-    if (!message || typeof message !== 'string') {
-      console.error('Invalid message format:', { messageType: typeof message });
-      return NextResponse.json(
-        { message: 'Invalid request format' },
-        { status: 400 }
-      );
+    if (!userMessage || typeof userMessage !== 'string') {
+      console.error('Invalid message format:', { messageType: typeof userMessage });
+      status = 'error';
+      errorMessage = 'Invalid request format';
+      throw new Error(errorMessage);
     }
 
     console.log('3. Creating chat message');
@@ -62,13 +69,19 @@ export async function POST(req: Request) {
         model: 'sonar-reasoning-pro',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: message }
+          { role: 'user', content: userMessage }
         ],
         include_citations: true,
         context_level: 5,
         include_sources: true
       })
     });
+
+    if (!response.ok) {
+      status = 'error';
+      errorMessage = `Perplexity API error: ${response.status}`;
+      throw new Error(errorMessage);
+    }
 
     const data = await response.json();
     console.log('4. Chat response received - Full Response:', JSON.stringify(data, null, 2));
@@ -82,17 +95,40 @@ export async function POST(req: Request) {
     });
 
     if (!data.choices?.[0]?.message?.content) {
-      console.error('Invalid response format:', data);
-      throw new Error('Invalid response format from API');
+      status = 'error';
+      errorMessage = 'Invalid response format from API';
+      throw new Error(errorMessage);
     }
 
-    // Get the citations array from the root level
+    responseText = data.choices[0].message.content;
     const citations = data.citations || [];
+
+    // Log the AI interaction
+    await logAIInteraction({
+      provider: 'perplexity',
+      model: 'sonar-reasoning-pro',
+      endpoint: '/api/chat',
+      requestPrompt: userMessage,
+      response: responseText,
+      requestData: {
+        message: userMessage,
+        systemPrompt: SYSTEM_PROMPT
+      },
+      responseData: {
+        responseLength: responseText.length,
+        hasCitations: citations.length > 0
+      },
+      tokens: getPerplexityTokens(data),
+      duration: calculateDuration(startTime),
+      status,
+      errorMessage,
+      interaction: 'General_Chat'
+    });
     
     return NextResponse.json(
       { 
-        response: data.choices[0].message.content,
-        citations: citations // Use the root level citations array
+        response: responseText,
+        citations: citations
       },
       {
         headers: {
@@ -100,36 +136,26 @@ export async function POST(req: Request) {
         }
       }
     );
-  } catch (error: unknown) {
-    const err = error as Error & { status?: number; response?: unknown };
-    console.error('Detailed Error:', {
-      name: err.name,
-      message: err.message,
-      stack: err.stack,
-      cause: err.cause,
-      response: err.response,
-      phase: {
-        requestReceived: true,
-        bodyParsed: true
-      }
+  } catch (error) {
+    console.error('Error in Chat API route:', error);
+    
+    // Log the error interaction
+    await logAIInteraction({
+      provider: 'perplexity',
+      model: 'sonar-reasoning-pro',
+      endpoint: '/api/chat',
+      requestPrompt: userMessage,
+      response: responseText,
+      requestData: { message: userMessage },
+      responseData: {},
+      duration: calculateDuration(startTime),
+      status: 'error',
+      errorMessage: error instanceof Error ? error.message : String(error),
+      interaction: 'General_Chat'
     });
 
-    // Return specific error messages
-    if (err.status === 401) {
-      return NextResponse.json(
-        { message: 'Authentication failed' },
-        { status: 401 }
-      );
-    }
-    if (err.status === 429) {
-      return NextResponse.json(
-        { message: 'Rate limit exceeded' },
-        { status: 429 }
-      );
-    }
-
     return NextResponse.json(
-      { message: `Error processing request: ${err.message}` },
+      { message: `Error processing request: ${error instanceof Error ? error.message : String(error)}` },
       { status: 500 }
     );
   }

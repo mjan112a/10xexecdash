@@ -24,5 +24,8 @@ export function formatCurrency(value: number): string {
  * @returns Formatted percentage string
  */
 export function formatPercentage(value: number): string {
+  if (value >= -1 && value <= 1 && value !== 0) {
+    value = value * 100;
+  }
   return `${value.toFixed(1)}%`;
 }

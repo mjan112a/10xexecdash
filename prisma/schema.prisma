@@ -1,0 +1,67 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model BusinessMetricsFile {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  fileName    String   // Original filename
+  uploadDate  DateTime @default(now())
+  fileHash    String   // SHA-256 hash of the file contents
+  fileSize    Int      // Size in bytes
+  mimeType    String   // MIME type of the file
+  content     String   // Raw CSV content as string
+  metadata    Json     // Additional metadata (can include things like uploader info, processing status, etc.)
+  ipAddress   String?  // IP address of the client who uploaded the file
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([uploadDate])
+  @@index([fileHash])
+}
+
+model AIInteraction {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  provider      String   // e.g., "openai" or "anthropic"
+  model         String   // e.g., "gpt-4" or "claude-3-5-sonnet-20240620"
+  endpoint      String   // The API endpoint being called
+  requestPrompt String   // The prompt sent to the AI
+  response      String   // The response received from the AI
+  requestData   Json     // Additional request data/metadata
+  responseData  Json     // Additional response data/metadata
+  tokens        Int?     // Number of tokens used (if available)
+  duration      Int?     // Duration of the request in milliseconds
+  status        String   // "success" or "error"
+  errorMessage  String?  // Error message if status is "error"
+  ipAddress     String?  // IP address of the client
+  interaction   String?  // Optional identifier for the type of interaction (e.g., "Income_Statement")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([provider])
+  @@index([createdAt])
+  @@index([status])
+  @@index([interaction])
+}
+
+model Prompt {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  promptId    String   // Unique identifier for the prompt (e.g., "income_statement")
+  version     Int      // Version number
+  isLatest    Boolean  @default(true)
+  category    Json     // { primary: string, secondary?: string, tertiary?: string }
+  title       String   // Human readable title
+  template    String   // The prompt text with {{placeholders}}
+  metadata    Json     // { createdAt: Date, updatedAt: Date, createdBy: string, updatedBy: string }
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([promptId, isLatest])
+  @@index([category])
+}
+
+// Add your models here as needed 

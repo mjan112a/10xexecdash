@@ -52,6 +52,233 @@
   }
 }
 
+/* Financial Document Styles */
+.financial-document {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #1a1a1a;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.financial-document table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  table-layout: fixed;
+  min-width: 100%;
+}
+
+.financial-document th,
+.financial-document td {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #e5e5e5;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Column width presets */
+.financial-document .col-date {
+  width: 100px;
+  min-width: 100px;
+}
+
+.financial-document .col-description {
+  width: 400px;
+  min-width: 400px;
+  max-width: 600px;
+  white-space: nowrap;
+  text-align: left;
+  overflow: visible;
+  padding-right: 2rem;
+}
+
+.financial-document .col-amount {
+  width: 120px;
+  min-width: 120px;
+}
+
+.financial-document .col-percentage {
+  width: 80px;
+  min-width: 80px;
+}
+
+.financial-document .col-notes {
+  width: 150px;
+  min-width: 150px;
+}
+
+/* Month column styling */
+.financial-document .col-month {
+  width: 120px;
+  min-width: 120px;
+}
+
+/* Table header styling */
+.financial-document th {
+  background-color: hsl(207 97% 59%); /* 10X Primary Blue */
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0.5rem 1rem;
+}
+
+/* First column alignment */
+.financial-document td:first-child,
+.financial-document th:first-child {
+  text-align: left;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: visible;
+  padding-left: 1rem;
+  padding-right: 2rem;
+}
+
+/* Month columns alignment */
+.financial-document td:not(:first-child),
+.financial-document th:not(:first-child) {
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Group headers in tables */
+.financial-document tr.group-header {
+  background-color: #f0f2f5;
+}
+
+.financial-document tr.group-header td {
+  font-weight: 600;
+  text-align: left;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+/* Indented rows */
+.financial-document tr.indent-1 td:first-child {
+  padding-left: 2rem;
+}
+
+.financial-document tr.indent-2 td:first-child {
+  padding-left: 3rem;
+}
+
+/* Alternating row colors for better readability */
+.financial-document tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Hover effect for rows */
+.financial-document tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Compact tables */
+.financial-document table.compact th,
+.financial-document table.compact td {
+  padding: 0.125rem 0.25rem;
+  font-size: 0.8125rem;
+}
+
+/* Table with borders */
+.financial-document table.bordered th,
+.financial-document table.bordered td {
+  border: 1px solid #d1d5db;
+}
+
+/* Table without borders */
+.financial-document table.borderless th,
+.financial-document table.borderless td {
+  border: none;
+}
+
+/* Table with bottom borders only */
+.financial-document table.bottom-borders th,
+.financial-document table.bottom-borders td {
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Table with horizontal borders only */
+.financial-document table.horizontal-borders th,
+.financial-document table.horizontal-borders td {
+  border-left: none;
+  border-right: none;
+}
+
+/* Table container for horizontal scrolling */
+.financial-document .table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+.financial-document .header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.financial-document .subheader {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.financial-document .total-row {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.financial-document .total-row td {
+  border-top: 2px solid #e5e5e5;
+}
+
+.financial-document .section-total {
+  background-color: #f0f2f5;
+  font-weight: 600;
+}
+
+.financial-document .section-total td {
+  border-top: 2px solid #e5e5e5;
+}
+
+.financial-document .footnote {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+.financial-document .currency {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.financial-document .negative {
+  color: #dc2626;
+}
+
+.financial-document .positive {
+  color: #059669;
+}
+
 @layer base {
   :root {
     /* 10X Brand Colors */

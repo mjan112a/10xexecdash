@@ -12,6 +12,9 @@ import {
   Menu,
   MessageSquare,
   ShoppingCart,
+  Upload,
+  Activity,
+  FileCode,
 } from 'lucide-react';
 import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -87,6 +90,21 @@ const navItems: { category: string; items: NavItem[] }[] = [
         title: 'AI Assistant',
         href: '/ai-assistant',
         icon: MessageSquare
+      },
+      {
+        title: 'Data Upload',
+        href: '/data-upload',
+        icon: Upload
+      },
+      {
+        title: 'AI Interactions',
+        href: '/tools/ai-interactions',
+        icon: Activity
+      },
+      {
+        title: 'Prompts',
+        href: '/prompts',
+        icon: FileCode
       },
     ],
   },

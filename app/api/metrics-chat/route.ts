@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { logAIInteraction, calculateDuration, getAnthropicTokens } from '@/lib/ai-logging';
 
 // Force Node.js runtime and set max duration (60s is max for hobby plan)
 export const runtime = 'nodejs';
@@ -149,6 +150,12 @@ Maintain a professional, knowledgeable tone while making complex information acc
 export async function POST(req: Request) {
   console.log('1. Metrics Chat API route hit');
   
+  let startTime = Date.now();
+  let status: 'success' | 'error' = 'success';
+  let errorMessage = null;
+  let responseText = '';
+  let userMessage = '';
+  
   try {
     // Log environment info
     console.log('Environment:', {
@@ -161,13 +168,13 @@ export async function POST(req: Request) {
 
     console.log('2. Parsing request body');
     const { message } = await req.json();
+    userMessage = message;
     
-    if (!message || typeof message !== 'string') {
-      console.error('Invalid message format:', { messageType: typeof message });
-      return NextResponse.json(
-        { message: 'Invalid request format' },
-        { status: 400 }
-      );
+    if (!userMessage || typeof userMessage !== 'string') {
+      console.error('Invalid message format:', { messageType: typeof userMessage });
+      status = 'error';
+      errorMessage = 'Invalid request format';
+      throw new Error(errorMessage);
     }
 
     console.log('3. Loading metrics data');
@@ -220,29 +227,6 @@ export async function POST(req: Request) {
 
     console.log('4. Creating metrics chat message');
     
-    // Commented out Perplexity Implementation
-    /*
-    const response = await fetch('https://api.perplexity.ai/chat/completions', {
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${process.env.PERPLEXITY_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'sonar-reasoning-pro',
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: dataContext },
-          { role: 'user', content: message }
-        ],
-        include_citations: true,
-        context_level: 5,
-        include_sources: true
-      })
-    });
-    */
-
     // Anthropic Claude API Implementation
     console.log('Using Anthropic Claude API');
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -256,7 +240,7 @@ export async function POST(req: Request) {
         model: 'claude-3-opus-20240229',
         max_tokens: 4000,
         messages: [
-          { role: 'user', content: `${SYSTEM_PROMPT}\n\n${dataContext}\n\nUser question: ${message}` }
+          { role: 'user', content: `${SYSTEM_PROMPT}\n\n${dataContext}\n\nUser question: ${userMessage}` }
         ],
         temperature: 0.7
       })
@@ -265,6 +249,12 @@ export async function POST(req: Request) {
     // Log the raw response for debugging
     const rawResponse = await response.clone().text();
     console.log('4. Raw API Response:', rawResponse);
+    
+    if (!response.ok) {
+      status = 'error';
+      errorMessage = `Anthropic API error: ${response.status}`;
+      throw new Error(errorMessage);
+    }
     
     const data = await response.json();
     console.log('5. Metrics chat response received - Response Structure:', {
@@ -277,16 +267,39 @@ export async function POST(req: Request) {
 
     // Validate Anthropic response
     if (!data.content) {
-      console.error('Missing content in response:', data);
-      throw new Error('Invalid API response: Missing content');
+      status = 'error';
+      errorMessage = 'Invalid API response: Missing content';
+      throw new Error(errorMessage);
     }
 
     // Extract the response text from Anthropic's format
-    const responseText = data.content?.[0]?.text || '';
+    responseText = data.content?.[0]?.text || '';
     if (!responseText) {
-      console.error('Missing text in content:', data.content);
-      throw new Error('Invalid API response: Missing text in content');
+      status = 'error';
+      errorMessage = 'Invalid API response: Missing text in content';
+      throw new Error(errorMessage);
     }
+
+    // Log the AI interaction
+    await logAIInteraction({
+      provider: 'anthropic',
+      model: 'claude-3-opus-20240229',
+      endpoint: '/api/metrics-chat',
+      requestPrompt: `${SYSTEM_PROMPT}\n\n${dataContext}\n\nUser question: ${userMessage}`,
+      response: responseText,
+      requestData: {
+        message: userMessage,
+        metricsDataLength: fileContent.length
+      },
+      responseData: {
+        responseLength: responseText.length
+      },
+      tokens: getAnthropicTokens(data),
+      duration: calculateDuration(startTime),
+      status,
+      errorMessage,
+      interaction: 'Metrics_Analysis'
+    });
     
     return NextResponse.json(
       { 
@@ -299,36 +312,26 @@ export async function POST(req: Request) {
         }
       }
     );
-  } catch (error: unknown) {
-    const err = error as Error & { status?: number; response?: unknown };
-    console.error('Detailed Error:', {
-      name: err.name,
-      message: err.message,
-      stack: err.stack,
-      cause: err.cause,
-      response: err.response,
-      phase: {
-        requestReceived: true,
-        bodyParsed: true
-      }
+  } catch (error) {
+    console.error('Error in Metrics Chat API route:', error);
+    
+    // Log the error interaction
+    await logAIInteraction({
+      provider: 'anthropic',
+      model: 'claude-3-opus-20240229',
+      endpoint: '/api/metrics-chat',
+      requestPrompt: userMessage || '',
+      response: responseText,
+      requestData: { message: userMessage },
+      responseData: {},
+      duration: calculateDuration(startTime),
+      status: 'error',
+      errorMessage: error instanceof Error ? error.message : String(error),
+      interaction: 'Metrics_Analysis'
     });
 
-    // Return specific error messages
-    if (err.status === 401) {
-      return NextResponse.json(
-        { message: 'Authentication failed' },
-        { status: 401 }
-      );
-    }
-    if (err.status === 429) {
-      return NextResponse.json(
-        { message: 'Rate limit exceeded' },
-        { status: 429 }
-      );
-    }
-
     return NextResponse.json(
-      { message: `Error processing request: ${err.message}` },
+      { message: `Error processing request: ${error instanceof Error ? error.message : String(error)}` },
       { status: 500 }
     );
   }

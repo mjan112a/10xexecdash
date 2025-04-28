@@ -1,0 +1,121 @@
+/* Print styles for metrics graphs */
+@media print {
+  /* Hide elements that shouldn't be printed */
+  button,
+  select,
+  .bg-blue-50.border.border-blue-200 /* About This Tool section */,
+  input,
+  .flex.justify-between.items-center /* Chart type selector */,
+  form {
+    display: none !important;
+  }
+  
+  /* First, hide everything */
+  body * {
+    visibility: hidden !important;
+  }
+  
+  /* Then show only the content we want to print */
+  .print\:shadow-none,
+  .print\:shadow-none * {
+    visibility: visible !important;
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  /* Specifically ensure saved charts are visible */
+  .mt-8.print\:shadow-none.print\:bg-white,
+  .mt-8.print\:shadow-none.print\:bg-white * {
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  /* Target chart containers specifically */
+  .h-\[350px\].print\:shadow-none,
+  .h-\[350px\].print\:shadow-none *,
+  .h-\[400px\].print\:shadow-none,
+  .h-\[400px\].print\:shadow-none * {
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  /* Remove shadows and borders */
+  .shadow-lg,
+  .rounded-lg {
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  /* Ensure charts are properly sized */
+  .h-\[400px\], 
+  .h-\[350px\] {
+    height: auto !important;
+    min-height: 300px !important;
+    page-break-inside: avoid !important;
+  }
+  
+  /* Ensure each saved chart starts on a new page */
+  .space-y-8 > div {
+    page-break-before: always !important;
+    margin-top: 20px !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  /* Make sure all chart canvases are visible */
+  canvas,
+  .chartjs-render-monitor {
+    visibility: visible !important;
+    display: block !important;
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid !important;
+  }
+  
+  /* Force all chart containers to be visible */
+  [style*="position: relative"] {
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  /* First chart doesn't need page break */
+  .space-y-8 > div:first-child {
+    page-break-before: auto !important;
+  }
+  
+  /* Set page size and margins */
+  @page {
+    size: A4 portrait;
+    margin: 1cm;
+  }
+  
+  /* Hide the left column with selectors */
+  .lg\:col-span-1 {
+    display: none !important;
+  }
+  
+  /* Make the right column full width */
+  .lg\:col-span-2 {
+    grid-column: span 3 / span 3 !important;
+    width: 100% !important;
+  }
+  
+  /* Ensure proper spacing */
+  .p-6 {
+    padding: 0 !important;
+  }
+  
+  /* Ensure chart labels are visible */
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Ensure chart titles are visible */
+  h3, h4 {
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+    font-weight: bold !important;
+    color: black !important;
+  }
+}

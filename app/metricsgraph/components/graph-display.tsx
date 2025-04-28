@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -17,6 +17,7 @@ import {
 import { Line, Bar, Pie } from 'react-chartjs-2';
 import { useMetrics } from '../metrics-context';
 import { parseValue, getMetricColor, getYAxisTitle, formatTooltipValue } from '../metrics-utils';
+import { Save, X } from 'lucide-react';
 
 // Register ChartJS components
 ChartJS.register(
@@ -33,17 +34,22 @@ ChartJS.register(
 );
 
 export default function GraphDisplay() {
-  const { 
-    selectedMetrics, 
-    dateColumns, 
+  const {
+    selectedMetrics,
+    dateColumns,
     selectedChartType,
     selectedPeriod,
     setSelectedChartType,
-    setSelectedPeriod
+    setSelectedPeriod,
+    freezeCurrentChart
   } = useMetrics();
 
   // Get aggregated data for charts
   const { timeFrame, comparisonMode, getAggregatedData } = useMetrics();
+  
+  // State for chart title input
+  const [showTitleDialog, setShowTitleDialog] = useState(false);
+  const [chartTitle, setChartTitle] = useState('');
   
   // Prepare chart data
   const chartData = React.useMemo(() => {
@@ -242,7 +248,7 @@ export default function GraphDisplay() {
 
   // Render chart type selector and chart
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="bg-white p-6 rounded-lg shadow-lg print:shadow-none print:bg-white">
       {selectedMetrics.length > 0 ? (
         <>
           <div className="mb-4 flex justify-between items-center">
@@ -251,8 +257,8 @@ export default function GraphDisplay() {
               <button
                 onClick={() => setSelectedChartType('line')}
                 className={`px-3 py-1.5 text-sm rounded ${
-                  selectedChartType === 'line' 
-                    ? 'bg-blue-600 text-white' 
+                  selectedChartType === 'line'
+                    ? 'bg-blue-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -261,8 +267,8 @@ export default function GraphDisplay() {
               <button
                 onClick={() => setSelectedChartType('bar')}
                 className={`px-3 py-1.5 text-sm rounded ${
-                  selectedChartType === 'bar' 
-                    ? 'bg-blue-600 text-white' 
+                  selectedChartType === 'bar'
+                    ? 'bg-blue-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -271,30 +277,91 @@ export default function GraphDisplay() {
               <button
                 onClick={() => setSelectedChartType('pie')}
                 className={`px-3 py-1.5 text-sm rounded ${
-                  selectedChartType === 'pie' 
-                    ? 'bg-blue-600 text-white' 
+                  selectedChartType === 'pie'
+                    ? 'bg-blue-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 Pie
               </button>
+              <button
+                onClick={() => setShowTitleDialog(true)}
+                className="px-3 py-1.5 text-sm bg-green-600 text-white rounded hover:bg-green-700 flex items-center"
+                disabled={selectedMetrics.length === 0}
+              >
+                <Save className="h-3 w-3 mr-1" />
+                Freeze Chart
+              </button>
             </div>
           </div>
           
-          <div className="h-[400px]">
+          {/* Chart Title Dialog */}
+          {showTitleDialog && (
+            <div className="mb-4 p-3 border border-green-200 rounded bg-green-50">
+              <div className="flex justify-between items-center mb-2">
+                <label className="block text-sm font-medium text-green-800">
+                  Chart Title (optional):
+                </label>
+                <button
+                  onClick={() => setShowTitleDialog(false)}
+                  className="text-green-700 hover:text-green-900"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={chartTitle}
+                  onChange={(e) => setChartTitle(e.target.value)}
+                  placeholder="e.g., Monthly Sales Trends"
+                  className="flex-1 px-3 py-1.5 text-sm border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <button
+                  onClick={() => {
+                    freezeCurrentChart(chartTitle);
+                    setChartTitle('');
+                    setShowTitleDialog(false);
+                  }}
+                  className="px-3 py-1.5 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => {
+                    freezeCurrentChart();
+                    setChartTitle('');
+                    setShowTitleDialog(false);
+                  }}
+                  className="px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+                >
+                  Skip
+                </button>
+              </div>
+              <p className="text-xs text-green-700 mt-1">
+                Give your chart a descriptive title or click "Skip" to use a default title.
+              </p>
+            </div>
+          )}
+          
+          <div className="h-[400px] print:shadow-none">
             {selectedChartType === 'bar' && chartData && (
-              <Bar data={chartData} options={chartOptions} />
+              <div className="print:shadow-none">
+                <Bar data={chartData} options={chartOptions} />
+              </div>
             )}
             
             {selectedChartType === 'line' && chartData && (
-              <Line data={chartData} options={chartOptions} />
+              <div className="print:shadow-none">
+                <Line data={chartData} options={chartOptions} />
+              </div>
             )}
             
             {selectedChartType === 'pie' && pieChartData && (
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center print:shadow-none">
                 <div className="mb-4">
                   <label className="text-sm font-medium text-gray-700 mr-2">Select Period:</label>
-                  <select 
+                  <select
                     className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={selectedPeriod}
                     onChange={(e) => setSelectedPeriod(parseInt(e.target.value))}
@@ -304,14 +371,14 @@ export default function GraphDisplay() {
                     ))}
                   </select>
                 </div>
-                <div style={{ width: '350px', height: '350px' }}>
+                <div style={{ width: '350px', height: '350px' }} className="print:shadow-none">
                   <Pie data={pieChartData} options={pieChartOptions} />
                 </div>
               </div>
             )}
           </div>
           
-          <div className="mt-4 bg-blue-50 p-3 rounded-lg">
+          <div className="mt-4 bg-blue-50 p-3 rounded-lg print:shadow-none print:bg-white">
             <h4 className="text-sm font-medium text-blue-800 mb-1">Selected Metrics</h4>
             <div className="flex flex-wrap gap-2">
               {selectedMetrics.map((metric, index) => (

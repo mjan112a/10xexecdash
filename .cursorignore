@@ -1,0 +1,5 @@
+# Cursor ignore file
+# See https://cursor.sh/docs/ignore for more about ignoring files
+
+# specstory
+.specstory/ 

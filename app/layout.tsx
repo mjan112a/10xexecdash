@@ -4,6 +4,7 @@ import { SidebarProvider } from '@/components/sidebar-context'
 import { MobileBackdrop } from '@/components/mobile-backdrop'
 import { MobileHeader } from '@/components/mobile-header'
 import { Metadata } from 'next'
+import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
   title: '10X Engineered Materials - Executive Dashboard',
@@ -29,6 +30,7 @@ export default function RootLayout({
             <main className="transition-all duration-300 min-h-screen lg:ml-[var(--sidebar-width,256px)] ml-0 pt-14 lg:pt-0">
               {children}
             </main>
+            <Toaster />
           </SidebarProvider>
         </div>
       </body>

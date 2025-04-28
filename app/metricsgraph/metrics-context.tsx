@@ -48,6 +48,22 @@ export type DateRange = {
   end: number;
 };
 
+export type ChartConfig = {
+  id: string;
+  selectedMetrics: FlatMetric[];
+  chartType: 'line' | 'bar' | 'pie';
+  timeFrame: TimeFrame;
+  customDateRange: DateRange;
+  comparisonMode: ComparisonMode;
+  title?: string;
+};
+
+export type FavoriteSelection = {
+  id: string;
+  name: string;
+  metricIds: string[]; // UIDs of selected metrics
+};
+
 type MetricsContextType = {
   hierarchicalData: HierarchicalData;
   flatMetrics: FlatMetric[];
@@ -75,6 +91,17 @@ type MetricsContextType = {
   showAllData: boolean;
   // Function to toggle between showing all data and showing only the latest 12 months
   toggleDataRange: () => void;
+  
+  // Saved charts functionality
+  savedCharts: ChartConfig[];
+  freezeCurrentChart: (title?: string) => void;
+  removeSavedChart: (chartId: string) => void;
+  
+  // Favorites functionality
+  favorites: FavoriteSelection[];
+  saveAsFavorite: (name: string) => void;
+  loadFavorite: (favoriteId: string) => void;
+  deleteFavorite: (favoriteId: string) => void;
 };
 
 const MetricsContext = createContext<MetricsContextType | undefined>(undefined);
@@ -92,6 +119,12 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
   const [comparisonMode, setComparisonMode] = useState<ComparisonMode>('none');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // State for saved charts
+  const [savedCharts, setSavedCharts] = useState<ChartConfig[]>([]);
+  
+  // State for favorites
+  const [favorites, setFavorites] = useState<FavoriteSelection[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -137,6 +170,23 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
     }
     fetchData();
   }, []);
+  
+  // Load favorites from localStorage on component mount
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('metricsFavorites');
+    if (savedFavorites) {
+      try {
+        setFavorites(JSON.parse(savedFavorites));
+      } catch (e) {
+        console.error('Failed to parse saved favorites', e);
+      }
+    }
+  }, []);
+
+  // Save favorites to localStorage when they change
+  useEffect(() => {
+    localStorage.setItem('metricsFavorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   const toggleMetric = (metric: FlatMetric) => {
     setSelectedMetrics(prev => {
@@ -197,6 +247,59 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
     }
     setShowAllData(!showAllData);
   };
+  
+  // Function to save current chart configuration
+  const freezeCurrentChart = (title?: string) => {
+    if (selectedMetrics.length === 0) return;
+    
+    setSavedCharts(prev => [
+      ...prev,
+      {
+        id: `chart-${Date.now()}`,
+        selectedMetrics: [...selectedMetrics],
+        chartType: selectedChartType,
+        timeFrame: timeFrame,
+        customDateRange: {...customDateRange},
+        comparisonMode: comparisonMode,
+        title: title || `Chart ${prev.length + 1}`
+      }
+    ]);
+  };
+  
+  // Function to remove a saved chart
+  const removeSavedChart = (chartId: string) => {
+    setSavedCharts(prev => prev.filter(chart => chart.id !== chartId));
+  };
+  
+  // Function to save current selection as a favorite
+  const saveAsFavorite = (name: string) => {
+    if (selectedMetrics.length === 0 || !name.trim()) return;
+    
+    const newFavorite = {
+      id: `fav-${Date.now()}`,
+      name: name.trim(),
+      metricIds: selectedMetrics.map(m => m.uid)
+    };
+    
+    setFavorites(prev => [...prev, newFavorite]);
+  };
+  
+  // Function to load a favorite
+  const loadFavorite = (favoriteId: string) => {
+    const favorite = favorites.find(f => f.id === favoriteId);
+    if (!favorite) return;
+    
+    const metricsToSelect = flatMetrics.filter(m =>
+      favorite.metricIds.includes(m.uid)
+    );
+    
+    setSelectedMetrics(metricsToSelect);
+  };
+  
+  // Function to delete a favorite
+  const deleteFavorite = (favoriteId: string) => {
+    setFavorites(prev => prev.filter(f => f.id !== favoriteId));
+  };
 
   const value = {
     hierarchicalData,
@@ -223,7 +326,18 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
     setComparisonMode,
     getAggregatedData,
     showAllData,
-    toggleDataRange
+    toggleDataRange,
+    
+    // Saved charts functionality
+    savedCharts,
+    freezeCurrentChart,
+    removeSavedChart,
+    
+    // Favorites functionality
+    favorites,
+    saveAsFavorite,
+    loadFavorite,
+    deleteFavorite
   };
 
   return (

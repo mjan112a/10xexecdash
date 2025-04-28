@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Download, FileSpreadsheet, Image } from 'lucide-react';
+import { Download, FileSpreadsheet, Image, Printer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useMetrics } from '../metrics-context';
 import { parseValue, formatDisplayValue } from '../metrics-utils';
@@ -53,6 +53,11 @@ export default function ExportOptions() {
     link.download = `metrics_chart_${timeFrame}_${new Date().toISOString().split('T')[0]}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
+  };
+  
+  // Function to print charts
+  const printCharts = () => {
+    window.print();
   };
 
   if (selectedMetrics.length === 0) {
@@ -121,7 +126,7 @@ export default function ExportOptions() {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+    <div className="bg-white p-4 rounded-lg shadow-md mb-6 print:shadow-none print:bg-white">
       <h3 className="text-lg font-medium text-gray-700 mb-4">Export Options</h3>
       <div className="flex flex-wrap gap-4">
         <Button
@@ -139,6 +144,14 @@ export default function ExportOptions() {
         >
           <Image className="h-4 w-4 mr-2" />
           Export as Image
+        </Button>
+        <Button
+          onClick={printCharts}
+          className="flex items-center px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+          disabled={selectedMetrics.length === 0}
+        >
+          <Printer className="h-4 w-4 mr-2" />
+          Print Charts
         </Button>
         <SaveToReport 
           onSave={handleSaveToReport}
