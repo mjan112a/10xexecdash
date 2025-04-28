@@ -11,7 +11,9 @@ export default function TimePeriodSelector() {
     comparisonMode,
     setTimeFrame,
     setCustomDateRange,
-    setComparisonMode
+    setComparisonMode,
+    toggleDataRange,
+    showAllData
   } = useMetrics();
 
   // Handle time frame change
@@ -113,6 +115,21 @@ export default function TimePeriodSelector() {
             </select>
           </div>
         </div>
+      </div>
+      
+      {/* Toggle for All Data */}
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-2">Data Range</label>
+        <button
+          onClick={() => toggleDataRange()}
+          className={`px-3 py-1.5 text-sm rounded ${
+            showAllData
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          {showAllData ? "Show Latest 12 Months" : "Show All Data"}
+        </button>
       </div>
       
       {/* Comparison Mode */}
