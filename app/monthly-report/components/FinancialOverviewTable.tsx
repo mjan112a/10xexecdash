@@ -101,7 +101,10 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
   };
 
   // Format value based on unit
-  const formatValue = (value: string, unit: string): string => {
+  const formatValue = (value: string, unit: string, isTotalRow: boolean = false): string => {
+    // Return empty string for total/summary rows
+    if (isTotalRow) return '';
+    
     const numValue = parseFloat(value);
     
     if (isNaN(numValue)) return '';
@@ -162,11 +165,11 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2 font-bold">Gross Revenue</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Income', 'Total Revenue', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Income', 'Total Revenue', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">100.0%</td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Income', 'Total Revenue'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Income', 'Total Revenue'), '$', true)}
                 </td>
                 <td className="text-right p-2">
                   {formatPercentage(100)}
@@ -186,11 +189,11 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2 font-bold">NET REVENUE</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Income', 'Total Revenue', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Income', 'Total Revenue', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">100.0%</td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Income', 'Total Revenue'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Income', 'Total Revenue'), '$', true)}
                 </td>
                 <td className="text-right p-2">100.0%</td>
               </tr>
@@ -212,13 +215,13 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2 font-bold">GROSS MARGIN</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Gross Earnings', 'Gross Income', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Gross Earnings', 'Gross Income', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">
                   {formatPercentage(parseFloat(getMetricValue('Accounting', 'Income Statement', 'Gross Earnings', '% Gross Income', reportMonth)) * 100)}
                 </td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Gross Earnings', 'Gross Income'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Gross Earnings', 'Gross Income'), '$', true)}
                 </td>
                 <td className="text-right p-2">
                   {formatPercentage(parseFloat(getMetricValue('Accounting', 'Income Statement', 'Gross Earnings', '% Gross Income', reportMonth)) * 100)}
@@ -244,13 +247,13 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2 font-bold">OPERATING INCOME</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Ordinary Earninjgs', 'Net Ordinary Income', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Ordinary Earninjgs', 'Net Ordinary Income', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">
                   {formatPercentage(parseFloat(getMetricValue('Accounting', 'Income Statement', 'Ordinary Earninjgs', '% Net Ordinary Income', reportMonth)) * 100)}
                 </td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Ordinary Earninjgs', 'Net Ordinary Income'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Ordinary Earninjgs', 'Net Ordinary Income'), '$', true)}
                 </td>
                 <td className="text-right p-2">
                   {formatPercentage((parseFloat(calculateYTD('Accounting', 'Income Statement', 'Ordinary Earninjgs', 'Net Ordinary Income')) / 
@@ -311,13 +314,13 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2 font-bold">NET INCOME</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Net Earnings', 'Net Income', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Income Statement', 'Net Earnings', 'Net Income', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">
                   {formatPercentage(parseFloat(getMetricValue('Accounting', 'Income Statement', 'Net Earnings', '% Net Income', reportMonth)) * 100)}
                 </td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Net Earnings', 'Net Income'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Income Statement', 'Net Earnings', 'Net Income'), '$', true)}
                 </td>
                 <td className="text-right p-2">
                   {formatPercentage((parseFloat(calculateYTD('Accounting', 'Income Statement', 'Net Earnings', 'Net Income')) / 
@@ -343,8 +346,9 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
                       parseFloat(getMetricValue('Accounting', 'Income Statement', 'Net Earnings', 'Net Income', reportMonth)) +
                       parseFloat(getMetricValue('Accounting', 'Income Statement', 'Other Income & Expenses', 'Debt Interest', reportMonth)) +
                       parseFloat(getMetricValue('Accounting', 'Income Statement', 'Other Income & Expenses', 'Depreciation', reportMonth))
-                    ).toString(), 
-                    '$'
+                    ).toString(),
+                    '$',
+                    true
                   )}
                 </td>
                 <td className="text-right p-2">
@@ -365,8 +369,9 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
                       parseFloat(calculateYTD('Accounting', 'Income Statement', 'Net Earnings', 'Net Income')) +
                       parseFloat(calculateYTD('Accounting', 'Income Statement', 'Other Income & Expenses', 'Debt Interest')) +
                       parseFloat(calculateYTD('Accounting', 'Income Statement', 'Other Income & Expenses', 'Depreciation'))
-                    ).toString(), 
-                    '$'
+                    ).toString(),
+                    '$',
+                    true
                   )}
                 </td>
                 <td className="text-right p-2">
@@ -416,7 +421,7 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2 font-bold">TOTAL ASSETS</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Balance Sheet', 'Assets', 'Total Assets', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Balance Sheet', 'Assets', 'Total Assets', reportMonth), '$', true)}
                 </td>
               </tr>
               <tr>
@@ -443,7 +448,8 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
                       parseFloat(getMetricValue('Accounting', 'Balance Sheet', 'Liabilities & Equity', 'Current Liabilities', reportMonth)) +
                       parseFloat(getMetricValue('Accounting', 'Balance Sheet', 'Liabilities & Equity', 'Long Term Liabilities', reportMonth))
                     ).toString(),
-                    '$'
+                    '$',
+                    true
                   )}
                 </td>
               </tr>
@@ -468,13 +474,13 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2 font-bold">TOTAL EQUITY</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Balance Sheet', 'Liabilities & Equity', 'Equity', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Balance Sheet', 'Liabilities & Equity', 'Equity', reportMonth), '$', true)}
                 </td>
               </tr>
               <tr>
                 <td className="p-2 font-bold">TOTAL LIABILITIES & EQUITY</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Balance Sheet', 'Liabilities & Equity', 'Total Liabilities & Equity', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Balance Sheet', 'Liabilities & Equity', 'Total Liabilities & Equity', reportMonth), '$', true)}
                 </td>
               </tr>
             </tbody>
@@ -524,10 +530,10 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2 pl-6">Net cash for operating activities</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Operating Activities', 'Total Operating Activities', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Operating Activities', 'Total Operating Activities', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Cash Flow Statement', 'Operating Activities', 'Total Operating Activities'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Cash Flow Statement', 'Operating Activities', 'Total Operating Activities'), '$', true)}
                 </td>
               </tr>
               <tr>
@@ -538,10 +544,10 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr className="bg-gray-50">
                 <td className="p-2 pl-6">Net cash for investing activities</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Investing Activities', 'Total Investing Activities', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Investing Activities', 'Total Investing Activities', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Cash Flow Statement', 'Investing Activities', 'Total Investing Activities'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Cash Flow Statement', 'Investing Activities', 'Total Investing Activities'), '$', true)}
                 </td>
               </tr>
               <tr>
@@ -552,19 +558,19 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr className="bg-gray-50">
                 <td className="p-2 pl-6">Net cash for financing activities</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Financing Activities', 'Total Financing Activities', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Financing Activities', 'Total Financing Activities', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Cash Flow Statement', 'Financing Activities', 'Total Financing Activities'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Cash Flow Statement', 'Financing Activities', 'Total Financing Activities'), '$', true)}
                 </td>
               </tr>
               <tr>
                 <td className="p-2 font-bold">Net cash increase for period</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Cash', 'Net Change in Cash for Period', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Cash', 'Net Change in Cash for Period', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">
-                  {formatValue(calculateYTD('Accounting', 'Cash Flow Statement', 'Cash', 'Net Change in Cash for Period'), '$')}
+                  {formatValue(calculateYTD('Accounting', 'Cash Flow Statement', 'Cash', 'Net Change in Cash for Period'), '$', true)}
                 </td>
               </tr>
               <tr className="bg-gray-100">
@@ -589,10 +595,10 @@ const FinancialOverviewTable: React.FC<FinancialOverviewTableProps> = ({ reportD
               <tr>
                 <td className="p-2">Cash at End</td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Cash', 'Cash at End of Period', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Cash', 'Cash at End of Period', reportMonth), '$', true)}
                 </td>
                 <td className="text-right p-2">
-                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Cash', 'Cash at End of Period', reportMonth), '$')}
+                  {formatValue(getMetricValue('Accounting', 'Cash Flow Statement', 'Cash', 'Cash at End of Period', reportMonth), '$', true)}
                 </td>
               </tr>
             </tbody>

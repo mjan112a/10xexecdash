@@ -235,11 +235,12 @@ export default function MetricsOfInterest() {
                             </td>
                             <td className="p-3 border-b"></td>
                             {dateColumns.map((_, i) => (
-                              <td 
-                                key={i} 
+                              <td
+                                key={i}
                                 className="p-3 border-b text-right font-medium"
                               >
-                                {calculateSum(group, category, type, i).toFixed(2)}
+                                {/* Hide rollup summation values */}
+                                {''}
                               </td>
                             ))}
                           </tr>
