@@ -4,8 +4,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { useReport } from '../report-context';
 import FinancialOverviewTable from './FinancialOverviewTable';
-// Temporarily comment out to fix deployment error
-// import IncomeStatementTable from './IncomeStatementTable';
+import IncomeStatementTable from './IncomeStatementTable';
 
 export default function TablesSection() {
   const { currentReport } = useReport();
@@ -46,14 +45,7 @@ export default function TablesSection() {
           </p>
           {currentReport ? (
             <div className="border rounded-md p-4 bg-white">
-              {/* Temporarily disabled to fix deployment error */}
-              <div className="p-4 bg-blue-50 rounded-md text-center">
-                <p className="text-blue-700">
-                  The detailed income statement is temporarily unavailable.
-                  Please refer to the Financial Overview table above for summary income data.
-                </p>
-              </div>
-              {/* <IncomeStatementTable reportDate={currentReport.report_date} /> */}
+              <IncomeStatementTable reportDate={currentReport.report_date} />
             </div>
           ) : (
             <div className="p-4 bg-gray-100 rounded-md text-center">
