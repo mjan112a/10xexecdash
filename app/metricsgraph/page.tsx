@@ -9,7 +9,7 @@ import ExportOptions from './components/export-options';
 import GraphDisplay from './components/graph-display';
 import FavoritesManager from './components/favorites-manager';
 import SavedChartsDisplay from './components/saved-charts-display';
-import PuppeteerPDFGenerator from './components/puppeteer-pdf-generator';
+import ClientPDFGenerator from './components/client-pdf-generator';
 
 export default function MetricsGraph() {
   return (
@@ -45,7 +45,7 @@ export default function MetricsGraph() {
             <TimePeriodSelector />
           </div>
           <div className="lg:col-span-2 print:shadow-none">
-            <PuppeteerPDFGenerator />
+            <ClientPDFGenerator />
             <ExportOptions />
             <GraphDisplay />
             <SavedChartsDisplay />
