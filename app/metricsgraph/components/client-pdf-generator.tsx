@@ -1,17 +1,37 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMetrics } from '../metrics-context';
 import { FileText, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import '../pdf-styles.css';
 
 export default function ClientPDFGenerator() {
   const { selectedMetrics, savedCharts } = useMetrics();
   const [generating, setGenerating] = useState(false);
   const [reportTitle, setReportTitle] = useState('Metrics Analysis Report');
   const [showTitleInput, setShowTitleInput] = useState(false);
+  
+  // Apply PDF styles to charts when generating PDF
+  useEffect(() => {
+    if (generating) {
+      // Add PDF-specific classes to chart elements
+      const activeChart = document.querySelector('.h-\\[400px\\]');
+      if (activeChart) {
+        activeChart.classList.add('chart-container');
+      }
+      
+      // Add classes to saved charts
+      savedCharts.forEach(chart => {
+        const chartElement = document.getElementById(`chart-container-${chart.id}`);
+        if (chartElement) {
+          chartElement.classList.add('chart-container');
+        }
+      });
+    }
+  }, [generating, savedCharts]);
 
   // Function to generate PDF report
   const generatePDFReport = async () => {
@@ -58,18 +78,28 @@ export default function ClientPDFGenerator() {
         // Find the chart element
         const activeChartElement = document.querySelector('.h-\\[400px\\]');
         if (activeChartElement) {
+          // Add extra padding to the bottom of the chart element to ensure it's fully captured
+          const originalStyle = (activeChartElement as HTMLElement).style.cssText;
+          (activeChartElement as HTMLElement).style.paddingBottom = '40px';
+          (activeChartElement as HTMLElement).style.marginBottom = '40px';
+          
           // Capture the chart as an image
           const canvas = await html2canvas(activeChartElement as HTMLElement, {
             scale: 2, // Higher scale for better quality
             logging: false,
             useCORS: true,
-            allowTaint: true
+            allowTaint: true,
+            windowHeight: (activeChartElement as HTMLElement).scrollHeight + 100,
+            height: (activeChartElement as HTMLElement).scrollHeight + 40
           });
+          
+          // Restore original style
+          (activeChartElement as HTMLElement).style.cssText = originalStyle;
           
           // Add the chart image to the PDF
           const imgData = canvas.toDataURL('image/png');
           const imgWidth = 170; // Width in mm
-          const imgHeight = Math.min((canvas.height * imgWidth) / canvas.width, 200); // Limit height
+          const imgHeight = Math.min((canvas.height * imgWidth) / canvas.width, 220); // Increased height limit
           
           // Check if we need a new page
           if (yPosition + imgHeight > 270) {
@@ -102,18 +132,28 @@ export default function ClientPDFGenerator() {
             pdf.text(chart.title || `Chart ${i + 1}`, 20, yPosition);
             yPosition += 8;
             
+            // Add extra padding to the bottom of the chart element to ensure it's fully captured
+            const originalStyle = chartElement.style.cssText;
+            chartElement.style.paddingBottom = '40px';
+            chartElement.style.marginBottom = '40px';
+            
             // Capture the chart as an image
             const canvas = await html2canvas(chartElement as HTMLElement, {
               scale: 2,
               logging: false,
               useCORS: true,
-              allowTaint: true
+              allowTaint: true,
+              windowHeight: chartElement.scrollHeight + 100,
+              height: chartElement.scrollHeight + 40
             });
+            
+            // Restore original style
+            chartElement.style.cssText = originalStyle;
             
             // Add the chart image to the PDF
             const imgData = canvas.toDataURL('image/png');
             const imgWidth = 170; // Width in mm
-            const imgHeight = Math.min((canvas.height * imgWidth) / canvas.width, 200); // Limit height
+            const imgHeight = Math.min((canvas.height * imgWidth) / canvas.width, 220); // Increased height limit
             
             // Always start a new page for each chart
             pdf.addPage();
