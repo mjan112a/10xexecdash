@@ -38,7 +38,21 @@ function excelDateToString(excelDate: number): string {
 
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), '10X Business Metrics - 03-06-2025e.csv');
+    // Find the latest metrics file
+    const directory = process.cwd();
+    const files = fs.readdirSync(directory)
+      .filter(file => file.startsWith('10X Business Metrics -') && file.endsWith('.csv'))
+      .sort(); // Sort alphabetically, which should put the latest version last
+    
+    if (files.length === 0) {
+      throw new Error('No metrics files found');
+    }
+    
+    // Use the latest file (last in the sorted array)
+    const latestFile = files[files.length - 1];
+    console.log(`Using latest metrics file: ${latestFile}`);
+    
+    const filePath = path.join(directory, latestFile);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     
     // Parse CSV
