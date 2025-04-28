@@ -29,7 +29,7 @@ export type HierarchicalData = {
 
 export type FlatMetric = {
   uid: string;
-  path: string; // Format: "Group/Category/Type/Name"
+  path: string;
   fullPath: {
     group: string;
     category: string;
@@ -41,7 +41,7 @@ export type FlatMetric = {
 };
 
 export type TimeFrame = 'monthly' | 'quarterly' | 'yearly';
-export type ComparisonMode = 'none' | 'yoy'; // year-over-year
+export type ComparisonMode = 'none' | 'yoy';
 
 export type DateRange = {
   start: number;
@@ -54,7 +54,7 @@ type MetricsContextType = {
   dateColumns: string[];
   selectedMetrics: FlatMetric[];
   selectedChartType: 'line' | 'bar' | 'pie';
-  selectedPeriod: number; // Index of the selected period for pie chart
+  selectedPeriod: number;
   timeFrame: TimeFrame;
   customDateRange: DateRange;
   comparisonMode: ComparisonMode;
@@ -72,6 +72,9 @@ type MetricsContextType = {
   setCustomDateRange: (range: DateRange) => void;
   setComparisonMode: (mode: ComparisonMode) => void;
   getAggregatedData: () => { labels: string[], datasets: any[] };
+  showAllData: boolean;
+  // Function to toggle between showing all data and showing only the latest 12 months
+  toggleDataRange: () => void;
 };
 
 const MetricsContext = createContext<MetricsContextType | undefined>(undefined);
@@ -82,9 +85,10 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
   const [dateColumns, setDateColumns] = useState<string[]>([]);
   const [selectedMetrics, setSelectedMetrics] = useState<FlatMetric[]>([]);
   const [selectedChartType, setSelectedChartType] = useState<'line' | 'bar' | 'pie'>('line');
-  const [selectedPeriod, setSelectedPeriod] = useState<number>(0); // Default to first period
+  const [selectedPeriod, setSelectedPeriod] = useState<number>(0);
   const [timeFrame, setTimeFrame] = useState<TimeFrame>('monthly');
-  const [customDateRange, setCustomDateRange] = useState<DateRange>({ start: 0, end: 11 }); // Default to full year
+  const [customDateRange, setCustomDateRange] = useState<DateRange>({ start: 0, end: 11 });
+  const [showAllData, setShowAllData] = useState<boolean>(false);
   const [comparisonMode, setComparisonMode] = useState<ComparisonMode>('none');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -96,14 +100,17 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
         if (!response.ok) {
           throw new Error('Failed to fetch metrics data');
         }
-        
         const data = await response.json();
         setDateColumns(data.dateColumns || []);
         setHierarchicalData(data.hierarchicalData || {});
-        
-        // Create flat metrics array for easier selection
+
+        if (data.dateColumns && data.dateColumns.length > 0) {
+          const lastIndex = data.dateColumns.length - 1;
+          const startIndex = Math.max(0, lastIndex - 11);
+          setCustomDateRange({ start: startIndex, end: lastIndex });
+        }
+
         const flat: FlatMetric[] = [];
-        
         if (data.hierarchicalData) {
           Object.entries(data.hierarchicalData as HierarchicalData).forEach(([group, categories]) => {
             Object.entries(categories).forEach(([category, types]) => {
@@ -112,12 +119,7 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
                   flat.push({
                     uid: metric.uid,
                     path: `${group}/${category}/${type}/${name}`,
-                    fullPath: {
-                      group,
-                      category,
-                      type,
-                      name
-                    },
+                    fullPath: { group, category, type, name },
                     unit: metric.unit,
                     values: metric.values
                   });
@@ -126,7 +128,6 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
             });
           });
         }
-        
         setFlatMetrics(flat);
         setLoading(false);
       } catch (err) {
@@ -134,142 +135,67 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
         setLoading(false);
       }
     }
-    
     fetchData();
   }, []);
 
   const toggleMetric = (metric: FlatMetric) => {
     setSelectedMetrics(prev => {
       const exists = prev.some(m => m.uid === metric.uid);
-      if (exists) {
-        return prev.filter(m => m.uid !== metric.uid);
-      } else {
-        return [...prev, metric];
-      }
+      return exists ? prev.filter(m => m.uid !== metric.uid) : [...prev, metric];
     });
   };
 
   const selectMetricsByGroup = (group: string) => {
-    const groupMetrics = flatMetrics.filter(m => m.fullPath.group === group);
-    setSelectedMetrics(groupMetrics);
+    setSelectedMetrics(flatMetrics.filter(m => m.fullPath.group === group));
   };
 
   const selectMetricsByCategory = (group: string, category: string) => {
-    const categoryMetrics = flatMetrics.filter(
-      m => m.fullPath.group === group && m.fullPath.category === category
-    );
-    setSelectedMetrics(categoryMetrics);
+    setSelectedMetrics(flatMetrics.filter(m => m.fullPath.group === group && m.fullPath.category === category));
   };
 
   const selectMetricsByType = (group: string, category: string, type: string) => {
-    const typeMetrics = flatMetrics.filter(
-      m => m.fullPath.group === group && 
-          m.fullPath.category === category && 
-          m.fullPath.type === type
-    );
-    setSelectedMetrics(typeMetrics);
+    setSelectedMetrics(flatMetrics.filter(m => m.fullPath.group === group && m.fullPath.category === category && m.fullPath.type === type));
   };
 
   const clearSelectedMetrics = () => {
     setSelectedMetrics([]);
   };
 
-  // Function to aggregate data based on timeFrame
   const getAggregatedData = () => {
-    if (selectedMetrics.length === 0) {
-      return { labels: [], datasets: [] };
-    }
+    if (selectedMetrics.length === 0) return { labels: [], datasets: [] };
+
+    // Exclude pre-summed totals to avoid double counting
+    const filteredMetrics = selectedMetrics.filter(metric => 
+      !metric.fullPath.name.includes('Unit Total Revenue') &&
+      !metric.fullPath.name.includes('Unit Total Expenses') &&
+      !metric.fullPath.name.includes('Unit Total COGS')
+    );
 
     let labels: string[] = [];
-    let aggregatedDatasets: any[] = [];
+    let datasets: any[] = [];
 
-    // Handle different time frames
     if (timeFrame === 'monthly') {
-      // For monthly, use the original data within the custom date range
       labels = dateColumns.slice(customDateRange.start, customDateRange.end + 1);
-      
-      aggregatedDatasets = selectedMetrics.map((metric, index) => {
-        const values = metric.values
-          .slice(customDateRange.start, customDateRange.end + 1)
-          .map(v => parseFloat(v.replace(/[^\d.-]/g, '')));
-        
-        return {
-          label: metric.fullPath.name,
-          data: values,
-          borderColor: `hsl(${index * 30}, 70%, 50%)`,
-          backgroundColor: `hsla(${index * 30}, 70%, 50%, 0.2)`,
-        };
-      });
-    } else if (timeFrame === 'quarterly') {
-      // Group months into quarters
-      const quarters: { [key: string]: number[] }[] = [];
-      
-      // Initialize quarters for each metric
-      selectedMetrics.forEach(() => {
-        quarters.push({
-          'Q1': [],
-          'Q2': [],
-          'Q3': [],
-          'Q4': []
-        });
-      });
-      
-      // Group data into quarters
-      for (let i = customDateRange.start; i <= customDateRange.end; i++) {
-        const monthIndex = i % 12;
-        const quarter = Math.floor(monthIndex / 3) + 1;
-        const quarterKey = `Q${quarter}`;
-        
-        selectedMetrics.forEach((metric, metricIndex) => {
-          const value = parseFloat(metric.values[i].replace(/[^\d.-]/g, ''));
-          quarters[metricIndex][quarterKey].push(value);
-        });
-      }
-      
-      // Create labels for quarters
-      labels = Object.keys(quarters[0]);
-      
-      // Calculate average for each quarter
-      aggregatedDatasets = selectedMetrics.map((metric, index) => {
-        const quarterData = Object.values(quarters[index]).map(values => {
-          if (values.length === 0) return 0;
-          return values.reduce((sum, val) => sum + val, 0) / values.length;
-        });
-        
-        return {
-          label: metric.fullPath.name,
-          data: quarterData,
-          borderColor: `hsl(${index * 30}, 70%, 50%)`,
-          backgroundColor: `hsla(${index * 30}, 70%, 50%, 0.2)`,
-        };
-      });
-    } else if (timeFrame === 'yearly') {
-      // Group all months into a single year average
-      labels = ['Yearly Average'];
-      
-      aggregatedDatasets = selectedMetrics.map((metric, index) => {
-        const values = metric.values
-          .slice(customDateRange.start, customDateRange.end + 1)
-          .map(v => parseFloat(v.replace(/[^\d.-]/g, '')));
-        
-        const yearlyAverage = values.reduce((sum, val) => sum + val, 0) / values.length;
-        
-        return {
-          label: metric.fullPath.name,
-          data: [yearlyAverage],
-          borderColor: `hsl(${index * 30}, 70%, 50%)`,
-          backgroundColor: `hsla(${index * 30}, 70%, 50%, 0.2)`,
-        };
-      });
+      datasets = filteredMetrics.map((metric, index) => ({
+        label: metric.fullPath.name,
+        data: metric.values.slice(customDateRange.start, customDateRange.end + 1).map(v => parseFloat(v.replace(/[^\d.-]/g, ''))),
+        borderColor: `hsl(${index * 30}, 70%, 50%)`,
+        backgroundColor: `hsla(${index * 30}, 70%, 50%, 0.2)`
+      }));
     }
 
-    // Add year-over-year comparison if enabled
-    if (comparisonMode === 'yoy' && timeFrame !== 'yearly') {
-      // Implementation for YoY comparison would go here
-      // This would involve comparing current period with same period last year
-    }
+    return { labels, datasets };
+  };
 
-    return { labels, datasets: aggregatedDatasets };
+  const toggleDataRange = () => {
+    if (showAllData) {
+      const lastIndex = dateColumns.length - 1;
+      const startIndex = Math.max(0, lastIndex - 11);
+      setCustomDateRange({ start: startIndex, end: lastIndex });
+    } else {
+      setCustomDateRange({ start: 0, end: dateColumns.length - 1 });
+    }
+    setShowAllData(!showAllData);
   };
 
   const value = {
@@ -295,7 +221,9 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
     setTimeFrame,
     setCustomDateRange,
     setComparisonMode,
-    getAggregatedData
+    getAggregatedData,
+    showAllData,
+    toggleDataRange
   };
 
   return (
