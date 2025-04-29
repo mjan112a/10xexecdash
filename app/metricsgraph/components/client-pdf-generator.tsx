@@ -108,6 +108,12 @@ export default function ClientPDFGenerator() {
           }
           
           pdf.addImage(imgData, 'PNG', 20, yPosition, imgWidth, imgHeight);
+          
+          // Add x-axis label
+          pdf.setFontSize(10);
+          pdf.setTextColor(100, 100, 100);
+          pdf.text('Period', 105, yPosition + imgHeight + 5, { align: 'center' });
+          
           yPosition += imgHeight + 15;
         }
       }
@@ -126,6 +132,10 @@ export default function ClientPDFGenerator() {
           const chartElement = document.getElementById(`chart-container-${chart.id}`);
           
           if (chartElement) {
+            // Always start a new page for each saved chart
+            pdf.addPage();
+            yPosition = 20;
+            
             // Add chart title
             pdf.setFontSize(14);
             pdf.setTextColor(0, 0, 0);
@@ -155,9 +165,10 @@ export default function ClientPDFGenerator() {
             const imgWidth = 170; // Width in mm
             const imgHeight = Math.min((canvas.height * imgWidth) / canvas.width, 220); // Increased height limit
             
-            // Always start a new page for each chart
-            pdf.addPage();
-            yPosition = 20;
+            // Add x-axis label
+            pdf.setFontSize(10);
+            pdf.setTextColor(100, 100, 100);
+            pdf.text('Period', 105, yPosition + imgHeight + 5, { align: 'center' });
             
             // Add the chart image to the PDF
             pdf.addImage(imgData, 'PNG', 20, yPosition, imgWidth, imgHeight);
