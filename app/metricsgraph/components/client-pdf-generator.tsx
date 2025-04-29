@@ -9,7 +9,7 @@ import html2canvas from 'html2canvas';
 import '../pdf-styles.css';
 
 export default function ClientPDFGenerator() {
-  const { selectedMetrics, savedCharts } = useMetrics();
+  const { selectedMetrics, savedCharts, dateColumns, customDateRange } = useMetrics();
   const [generating, setGenerating] = useState(false);
   const [reportTitle, setReportTitle] = useState('Metrics Analysis Report');
   const [showTitleInput, setShowTitleInput] = useState(false);
@@ -109,10 +109,31 @@ export default function ClientPDFGenerator() {
           
           pdf.addImage(imgData, 'PNG', 20, yPosition, imgWidth, imgHeight);
           
-          // Add x-axis label
-          pdf.setFontSize(10);
+          // Add x-axis labels
+          pdf.setFontSize(8);
           pdf.setTextColor(100, 100, 100);
-          pdf.text('Period', 105, yPosition + imgHeight + 5, { align: 'center' });
+          
+          // Get the date range
+          const dates = dateColumns.slice(customDateRange.start, customDateRange.end + 1);
+          
+          // Add the first, middle, and last date
+          if (dates.length > 0) {
+            // First date
+            pdf.text(dates[0], 25, yPosition + imgHeight + 5);
+            
+            // Middle date
+            if (dates.length > 2) {
+              const middleIndex = Math.floor(dates.length / 2);
+              pdf.text(dates[middleIndex], 105, yPosition + imgHeight + 5, { align: 'center' });
+            }
+            
+            // Last date
+            pdf.text(dates[dates.length - 1], 185, yPosition + imgHeight + 5, { align: 'right' });
+            
+            // Add "Period" label
+            pdf.setFontSize(10);
+            pdf.text('Period', 105, yPosition + imgHeight + 12, { align: 'center' });
+          }
           
           yPosition += imgHeight + 15;
         }
@@ -165,10 +186,31 @@ export default function ClientPDFGenerator() {
             const imgWidth = 170; // Width in mm
             const imgHeight = Math.min((canvas.height * imgWidth) / canvas.width, 220); // Increased height limit
             
-            // Add x-axis label
-            pdf.setFontSize(10);
+            // Add x-axis labels
+            pdf.setFontSize(8);
             pdf.setTextColor(100, 100, 100);
-            pdf.text('Period', 105, yPosition + imgHeight + 5, { align: 'center' });
+            
+            // Get the date range
+            const dates = dateColumns.slice(customDateRange.start, customDateRange.end + 1);
+            
+            // Add the first, middle, and last date
+            if (dates.length > 0) {
+              // First date
+              pdf.text(dates[0], 25, yPosition + imgHeight + 5);
+              
+              // Middle date
+              if (dates.length > 2) {
+                const middleIndex = Math.floor(dates.length / 2);
+                pdf.text(dates[middleIndex], 105, yPosition + imgHeight + 5, { align: 'center' });
+              }
+              
+              // Last date
+              pdf.text(dates[dates.length - 1], 185, yPosition + imgHeight + 5, { align: 'right' });
+              
+              // Add "Period" label
+              pdf.setFontSize(10);
+              pdf.text('Period', 105, yPosition + imgHeight + 12, { align: 'center' });
+            }
             
             // Add the chart image to the PDF
             pdf.addImage(imgData, 'PNG', 20, yPosition, imgWidth, imgHeight);
