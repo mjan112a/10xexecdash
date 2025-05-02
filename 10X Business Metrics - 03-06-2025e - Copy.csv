@@ -1,0 +1,346 @@
+UID,Metric Group,Metric Category,Metric Type,Metric Name,Unit,45322,45351,45382,45412,45443,45473,45504,45535,45565,45596,45626,45657,45688,45716
+1,Accounting,Income Statement,Income,Abrasive Revenue,$,149180,189881,326768,303571,452532,367363,417562,420548,421331,536073,360813,262536,454099,377260
+2,Accounting,Income Statement,Income,Equipment Resale Revenue,$,0,0,0,0,695,0,10453,0,5888,384,3756,-394,0,211
+3,Accounting,Income Statement,Income,Non-Abrasive Revenue,$,300,0,0,575,0,0,0,0,0,0,75,0,900,0
+4,Accounting,Income Statement,Income,Shipping Revenue,$,23824,34561,28448,39934,57267,42009,55432,60587,43204,84567,54850,37397,43700,54075
+5,Accounting,Income Statement,Income,Sales Tax Revenue,$,0,0,0,0,-370,-2028,0,-565,-315,-530,-633,-1004,-383,0
+6,Accounting,Income Statement,Income,Tip Fee Revenue,$,2414,1918,914,743,713,1454,952,986,986,761,1234,478,249,982
+7,Accounting,Income Statement,Income,Total Revenue,$,175718,226361,356130,344822,510836,408797,484398,481556,471093,621255,420094,299013,498564,432528
+8,Accounting,Income Statement,Cost of Goods Sold,Process Labor,$,70701,56575,62343,60716,62900,58091,64616,65074,86473,78567,82756,77554,82000,39169
+9,Accounting,Income Statement,Cost of Goods Sold,Raw Material,$,5611,14850,7307,10974,43462,11828,16412,41627,9095,45503,67254,85516,60096,22379
+10,Accounting,Income Statement,Cost of Goods Sold,Shipping,$,31960,44158,37451,44282,55457,56468,62381,67094,83222,48888,84560,49327,32434,32590
+11,Accounting,Income Statement,Cost of Goods Sold,Packaging,$,931,18972,6075,24849,6300,28721,19721,13682,32928,36498,16208,1515,64260,41302
+12,Accounting,Income Statement,Cost of Goods Sold,Maintenance,$,9526,20273,5362,26674,15150,11975,20505,8731,12530,21745,15466,21703,59076,18761
+13,Accounting,Income Statement,Cost of Goods Sold,Equipment Resale COGS,$,0,0,0,0,0,0,0,10247,5887,926,3246,0,890,996
+14,Accounting,Income Statement,Cost of Goods Sold,Waste,$,14498,29467,17957,22602,13268,10223,14433,19493,21719,19204,18037,28299,22292,17150
+15,Accounting,Income Statement,Cost of Goods Sold,Inventory,$,-71501,-4882,24131,13255,71211,30757,26195,19355,-8,20456,23916,-26253,45782,-700
+16,Accounting,Income Statement,Cost of Goods Sold,Utilities,$,7837,9193,8724,6955,6221,5776,6092,6955,7640,7637,7961,8794,11269,13188
+17,Accounting,Income Statement,Cost of Goods Sold,Total COGS,$,69563,188605,169351,210308,273968,213838,230355,252259,259486,279424,319402,246454,378100,184835
+18,Accounting,Income Statement,Gross Earnings,Gross Income,$,106155,37755,186780,134515,236868,194959,254043,229296,211608,341831,100692,52559,120465,247692
+19,Accounting,Income Statement,Gross Earnings,% Gross Income,%,0.604,0.167,0.524,0.39,0.464,0.477,0.524,0.476,0.449,0.55,0.24,0.176,0.242,0.573
+20,Accounting,Income Statement,SG&A Expenses,Professional Fees,$,52208,52208,52208,55208,53928,67877,52208,52208,56176,52208,52208,52208,52208,52208
+21,Accounting,Income Statement,SG&A Expenses,Sales & Marketing,$,16587,21302,26658,25508,34993,35453,32619,34496,45333,48650,55945,69730,95052,75368
+22,Accounting,Income Statement,SG&A Expenses,Overhead Labor,$,26592,28706,31863,31730,40878,30954,19118,14859,17171,14862,14456,14450,15981,7726
+23,Accounting,Income Statement,SG&A Expenses,Benefits,$,20711,17370,14201,14201,14201,27345,18160,13632,13633,14012,16253,14846,17047,18931
+24,Accounting,Income Statement,SG&A Expenses,Accounting,$,18973,7574,7574,7724,8212,7974,7724,7724,3580,3580,7724,7724,18818,18861
+25,Accounting,Income Statement,SG&A Expenses,Equipment Rental,$,2306,8544,13046,5055,5425,5067,5020,12498,4993,11445,6381,8119,12745,1951
+26,Accounting,Income Statement,SG&A Expenses,Tax,$,0,0,0,27139,0,18295,0,0,0,0,0,46744,0,0
+27,Accounting,Income Statement,SG&A Expenses,Insurance,$,9349,9183,9313,9302,9813,5890,5899,5936,6295,1877,2569,1895,8178,1285
+28,Accounting,Income Statement,SG&A Expenses,Office,$,4641,4531,4301,5237,5600,5395,4626,5215,6024,4488,4967,7898,6597,4844
+29,Accounting,Income Statement,SG&A Expenses,Banking,$,1952,2017,2419,2198,3270,2417,5542,2203,3400,3079,4172,2411,2455,1988
+30,Accounting,Income Statement,SG&A Expenses,R&D,$,0,0,0,0,0,0,0,0,0,0,25564,3322,0,2172
+31,Accounting,Income Statement,SG&A Expenses,Warehouse,$,1142,1142,1142,1142,1142,1142,1142,1142,1142,1142,3142,6523,4664,1192
+32,Accounting,Income Statement,SG&A Expenses,Misc,$,1668,71,735,6658,670,2221,528,1459,513,2353,15,4412,2358,1139
+33,Accounting,Income Statement,SG&A Expenses,Legal,$,680,0,1510,5533,1808,0,0,0,138,0,0,784,0,0
+34,Accounting,Income Statement,SG&A Expenses,Total Expenses,$,156809,152649,164970,196635,179938,210032,152585,151372,158397,157696,193395,241067,236103,187665
+35,Accounting,Income Statement,Ordinary Earninjgs,Net Ordinary Income,$,-50654,-114893,21810,-62120,56930,-15073,101458,77924,53211,184135,-92703,-188508,-115638,60027
+36,Accounting,Income Statement,Ordinary Earnings,% Net Ordinary Income,%,-0.288,-0.508,0.061,-0.18,0.111,-0.037,0.209,0.162,0.113,0.296,-0.221,-0.63,-0.232,0.139
+37,Accounting,Income Statement,Other Income & Expenses,Other Income,$,1000000,0,17262,0,0,36,0,0,37,0,0,37,0,0
+38,Accounting,Income Statement,Other Income & Expenses,Debt Interest,$,7617,11187,21381,13864,13317,13619,13053,13388,13247,12682,13001,10485,10797,10761
+39,Accounting,Income Statement,Other Income & Expenses,Depreciation,$,53175,53175,53175,53175,56282,53796,53961,53961,53961,53961,53961,55829,55090,0
+40,Accounting,Income Statement,Other Income & Expenses,QOZ Penalty,$,5587,4838,4285,3614,4005,4012,4522,5155,5022,5771,4766,3023,2309,0
+41,Accounting,Income Statement,Net Earnings,Net Income,$,882967,-184093,-39769,-132773,-16675,-86464,29922,5420,-18983,111721,-164431,-257808,-183835,49265
+42,Accounting,Income Statement,Net Earnings,% Net Income,%,5.025,-0.813,-0.112,-0.385,-0.033,-0.212,0.062,0.011,-0.04,0.18,-0.391,-0.862,-0.369,0.114
+43,Accounting,Income Statement,Total Costs,Break-Even Revenue,$,292750,410453,395899,477595,527511,495261,454476,476135,490076,509534,584525,556822,682399,383262
+44,Accounting,Unit Income Statement,Unit Income,Unit Abrasive Revenue,$/lb,0.289,0.233,0.27,0.273,0.279,0.288,0.302,0.294,0.3,0.288,0.287,0.294,0.295,0.295
+45,Accounting,Unit Income Statement,Unit Income,Unit Equipment Resale Revenue,$/lb,0,0,0,0,0,0,0.008,0,0.004,0,0.003,0,0,0
+46,Accounting,Unit Income Statement,Unit Income,Unit Non-Abrasive Revenue,$/lb,0.001,0,0,0.001,0,0,0,0,0,0,0,0,0.001,0
+47,Accounting,Unit Income Statement,Unit Income,Unit Shipping Revenue,$/lb,0.046,0.042,0.023,0.036,0.035,0.033,0.04,0.042,0.031,0.045,0.044,0.042,0.028,0.042
+48,Accounting,Unit Income Statement,Unit Income,Unit Sales Tax Revenue,$/lb,0,0,0,0,0,-0.002,0,0,0,0,-0.001,-0.001,0,0
+49,Accounting,Unit Income Statement,Unit Income,Unit Tip Fee Revenue,$/lb,0.005,0.002,0.001,0.001,0,0.001,0.001,0.001,0.001,0,0.001,0.001,0,0.001
+50,Accounting,Unit Income Statement,Unit Income,Unit Total Revenue,$/lb,0.341,0.278,0.294,0.311,0.315,0.32,0.35,0.336,0.335,0.334,0.335,0.335,0.324,0.338
+51,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Process Labor,$/lb,0.137,0.07,0.051,0.055,0.039,0.045,0.047,0.045,0.062,0.042,0.066,0.087,0.053,0.031
+52,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Raw Material,$/lb,0.011,0.018,0.006,0.01,0.027,0.009,0.012,0.029,0.006,0.024,0.054,0.096,0.039,0.018
+53,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Shipping,$/lb,0.062,0.054,0.031,0.04,0.034,0.044,0.045,0.047,0.059,0.026,0.067,0.055,0.021,0.025
+54,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Packaging,$/lb,0.002,0.023,0.005,0.022,0.004,0.022,0.014,0.01,0.023,0.02,0.013,0.002,0.042,0.032
+55,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Maintenance,$/lb,0.018,0.025,0.004,0.024,0.009,0.009,0.015,0.006,0.009,0.012,0.012,0.024,0.038,0.015
+56,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Equipment Resale COGS,$/lb,0,0,0,0,0,0,0,0.007,0.004,0,0.003,0,0.001,0.001
+57,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Waste,$/lb,0.028,0.036,0.015,0.02,0.008,0.008,0.01,0.014,0.015,0.01,0.014,0.032,0.014,0.013
+58,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Inventory,$/lb,-0.139,-0.006,0.02,0.012,0.044,0.024,0.019,0.014,0,0.011,0.019,-0.029,0.03,-0.001
+59,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Utilities,$/lb,0.015,0.011,0.007,0.006,0.004,0.005,0.004,0.005,0.005,0.004,0.006,0.01,0.007,0.01
+60,Accounting,Unit Income Statement,Unit Cost of Goods Sold,Unit Total COGS,$/lb,0.135,0.232,0.14,0.189,0.169,0.167,0.167,0.176,0.185,0.15,0.254,0.276,0.245,0.145
+61,Accounting,Unit Income Statement,Unit Gross Earnings,Unit Gross Income,$/lb,0.206,0.046,0.154,0.121,0.146,0.153,0.184,0.16,0.151,0.184,0.08,0.059,0.078,0.194
+62,Accounting,Unit Income Statement,Unit Gross Earnings,Unit % Gross Income,%,0.604,0.167,0.524,0.39,0.464,0.477,0.524,0.476,0.449,0.55,0.24,0.176,0.242,0.573
+63,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Professional Fees,$/lb,0.101,0.064,0.043,0.05,0.033,0.053,0.038,0.036,0.04,0.028,0.042,0.059,0.034,0.041
+64,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Sales & Marketing,$/lb,0.032,0.026,0.022,0.023,0.022,0.028,0.024,0.024,0.032,0.026,0.045,0.078,0.062,0.059
+65,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Overhead Labor,$/lb,0.052,0.035,0.026,0.029,0.025,0.024,0.014,0.01,0.012,0.008,0.012,0.016,0.01,0.006
+66,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Benefits,$/lb,0.04,0.021,0.012,0.013,0.009,0.021,0.013,0.01,0.01,0.008,0.013,0.017,0.011,0.015
+67,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Accounting,$/lb,0.037,0.009,0.006,0.007,0.005,0.006,0.006,0.005,0.003,0.002,0.006,0.009,0.012,0.015
+68,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Equipment Rental,$/lb,0.004,0.011,0.011,0.005,0.003,0.004,0.004,0.009,0.004,0.006,0.005,0.009,0.008,0.002
+69,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Tax,$/lb,0,0,0,0.024,0,0.014,0,0,0,0,0,0.052,0,0
+70,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Insurance,$/lb,0.018,0.011,0.008,0.008,0.006,0.005,0.004,0.004,0.004,0.001,0.002,0.002,0.005,0.001
+71,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Office,$/lb,0.009,0.006,0.004,0.005,0.003,0.004,0.003,0.004,0.004,0.002,0.004,0.009,0.004,0.004
+72,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Banking,$/lb,0.004,0.002,0.002,0.002,0.002,0.002,0.004,0.002,0.002,0.002,0.003,0.003,0.002,0.002
+73,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit R&D,$/lb,0,0,0,0,0,0,0,0,0,0,0.02,0.004,0,0.002
+74,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Warehouse,$/lb,0.002,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.003,0.007,0.003,0.001
+75,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Misc,$/lb,0.003,0,0.001,0.006,0,0.002,0,0.001,0,0.001,0,0.005,0.002,0.001
+76,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Legal,$/lb,0.001,0,0.001,0.005,0.001,0,0,0,0,0,0,0.001,0,0
+77,Accounting,Unit Income Statement,Unit SG&A Expenses,Unit Total Expenses,$/lb,0.304,0.188,0.136,0.177,0.111,0.164,0.11,0.106,0.113,0.085,0.154,0.27,0.153,0.147
+78,Accounting,Unit Income Statement,Unit Ordinary Earninjgs,Unit Net Ordinary Income,$/lb,-0.098,-0.141,0.018,-0.056,0.035,-0.012,0.073,0.054,0.038,0.099,-0.074,-0.211,-0.075,0.047
+79,Accounting,Unit Income Statement,Unit Ordinary Earninjgs,Unit % Net Ordinary Income,%,-0.288,-0.508,0.061,-0.18,0.111,-0.037,0.209,0.162,0.113,0.296,-0.221,-0.63,-0.232,0.139
+80,Accounting,Unit Income Statement,Unit Other Income & Expenses,Unit Other Income,$/lb,1.939,0,0.014,0,0,0,0,0,0,0,0,0,0,0
+81,Accounting,Unit Income Statement,Unit Other Income & Expenses,Unit Debt Interest,$/lb,0.015,0.014,0.018,0.012,0.008,0.011,0.009,0.009,0.009,0.007,0.01,0.012,0.007,0.008
+82,Accounting,Unit Income Statement,Unit Other Income & Expenses,Unit Depreciation,$/lb,0.103,0.065,0.044,0.048,0.035,0.042,0.039,0.038,0.038,0.029,0.043,0.063,0.036,0
+83,Accounting,Unit Income Statement,Unit Other Income & Expenses,Unit QOZ Penalty,$/lb,0.011,0.006,0.004,0.003,0.002,0.003,0.003,0.004,0.004,0.003,0.004,0.003,0.001,0
+84,Accounting,Unit Income Statement,Unit Net Earnings,Unit Net Income,$/lb,1.712,-0.226,-0.033,-0.12,-0.01,-0.068,0.022,0.004,-0.014,0.06,-0.131,-0.289,-0.119,0.039
+85,Accounting,Unit Income Statement,Unit Net Earnings,Unit % Net Income,%,5.025,-0.813,-0.112,-0.385,-0.033,-0.212,0.062,0.011,-0.04,0.18,-0.391,-0.862,-0.369,0.114
+86,Accounting,Unit Income Statement,Unit Total Costs,Break-Even Price,$/lb,0.568,0.505,0.327,0.43,0.325,0.388,0.329,0.333,0.349,0.274,0.466,0.624,0.443,0.3
+87,Accounting,Cash Flow Statement,Operating Activities,Net Income,$,882967,-184093,-39769,-132773,-16675,-86464,29922,5420,-18983,111721,-164431,-257808,-183835,49265
+88,Accounting,Cash Flow Statement,Operating Activities,Accounts Receivable,$,132331,-79909,-77999,-95539,-202369,-60298,-101207,81507,-65842,-65985,114304,101725,65035,-150284
+89,Accounting,Cash Flow Statement,Operating Activities,Inventory Asset,$,-71875,-22738,24146,12620,67855,30946,21147,18020,-2964,17339,12008,-33566,37432,-6425
+90,Accounting,Cash Flow Statement,Operating Activities,Other Current Asset,$,-22494,-7962,7647,-5809,8750,3044,27366,9690,-35633,-40253,-32529,71002,-11169,-611
+91,Accounting,Cash Flow Statement,Operating Activities,Accounts Payable,$,-16381,33157,-20236,14600,-15004,16319,-16832,24184,-4766,-5005,16934,-2746,26137,-47404
+92,Accounting,Cash Flow Statement,Operating Activities,Sales Tax Payable,$,-54,35,96,80,1174,601,-2003,2940,-762,-114,-455,4156,-4362,960
+93,Accounting,Cash Flow Statement,Operating Activities,Other Current Liabilities,$,-5160,11140,10265,-29465,-19889,4788,14524,14029,18046,15675,-25884,5586,18907,-32702
+94,Accounting,Cash Flow Statement,Operating Activities,Total Adjustments to Net Income,$,16367,-66276,-56081,-103512,-159483,-4599,-57005,150369,-91921,-78343,84379,146156,131982,-236466
+95,Accounting,Cash Flow Statement,Operating Activities,Total Operating Activities,$,899334,-250369,-95849,-236285,-176158,-91064,-27083,155790,-110904,33377,-80052,-111652,-51853,-187201
+96,Accounting,Cash Flow Statement,Investing Activities,Fixed Asset,$,53175,53175,-36325,53175,56282,53796,34216,53961,53961,53961,53961,-65576,55090,0
+97,Accounting,Cash Flow Statement,Investing Activities,Total Investing Activities,$,53175,53175,-36325,53175,56282,53796,34216,53961,53961,53961,53961,-65576,55090,0
+98,Accounting,Cash Flow Statement,Financing Activities,Long Term Liabilities,$,-8508,-4938,-28560,-24987,-25534,-25264,-25799,-25463,-25604,-26169,-25850,-5640,-5328,-5364
+99,Accounting,Cash Flow Statement,Financing Activities,Total Financing Activities,$,-8508,-4938,-28560,-24987,-25534,-25264,-25799,-25463,-25604,-26169,-25850,-5640,-5328,-5364
+100,Accounting,Cash Flow Statement,Cash,Net Change in Cash for Period,$,944000,-202132,-160735,-208097,-145409,-62531,-18665,184288,-82547,61169,-51941,-182868,-2090,-192564
+101,Accounting,Cash Flow Statement,Cash,Cash at Beginning of Period,$,958774,1902774,1700642,1539907,1331810,1186401,1123869,1105204,1289492,1206945,1268114,1216173,1033305,1031214
+102,Accounting,Cash Flow Statement,Cash,Cash at End of Period,$,1902774,1700642,1539907,1331810,1186401,1123869,1105204,1289492,1206945,1268114,1216173,1033305,1031214,838650
+103,Accounting,Balance Sheet,Assets,Bank,$,1902774,1700642,1539907,1331810,1186401,1123869,1105204,1289492,1206945,1268114,1216173,1033305,1031214,825954
+104,Accounting,Balance Sheet,Assets,Accounts Receivable,$,157237,237146,315144,410683,613052,673350,774557,693051,758893,824878,710574,608850,543814,694098
+105,Accounting,Balance Sheet,Assets,Other Current Assets,$,760718,791418,759625,752814,676209,642219,593706,565997,604593,627508,648028,610593,584329,604061
+106,Accounting,Balance Sheet,Assets,Total Current Assets,$,2820730,2729206,2614677,2495307,2475662,2439439,2473468,2548539,2570431,2720500,2574775,2252747,2159358,2124114
+107,Accounting,Balance Sheet,Assets,Fixed Assets,$,6732453,6679279,6715604,6662429,6606147,6552350,6518135,6464174,6410213,6356252,6302291,6367868,6312777,6312777
+108,Accounting,Balance Sheet,Assets,Total Assets,$,9553183,9408484,9330281,9157736,9081808,8991789,8991602,9012713,8980644,9076752,8877067,8620615,8472135,8436891
+109,Accounting,Balance Sheet,Liabilities & Equity,Current Liabilities,$,163828,208160,198285,183500,149781,171490,167179,208333,220851,231407,222002,228998,269681,190535
+110,Accounting,Balance Sheet,Liabilities & Equity,Long Term Liabilities,$,2326424,2321486,2292926,2267939,2242405,2217141,2191342,2165879,2140276,2114106,2088256,2082617,2077289,2071925
+111,Accounting,Balance Sheet,Liabilities & Equity,Equity,$,7062931,6878838,6839069,6706297,6689622,6603158,6633080,6638501,6619518,6731239,6566808,6309000,6125165,6174430
+112,Accounting,Balance Sheet,Liabilities & Equity,Total Liabilities & Equity,$,9553183,9408484,9330281,9157736,9081808,8991789,8991602,9012713,8980644,9076752,8877067,8620615,8472135,8436891
+113,Sales,Abrasive Sales,Overall Sales,Total Orders,Orders,62,60,65,80,81,74,73,96,92,110,93,79,126,111
+114,Sales,Abrasive Sales,Overall Sales,Tons Sold,Tons,258,407,605,555,810,638,692,716,703,931,628,446,770,639
+115,Sales,Abrasive Sales,Overall Sales,Product Revenue,$,142952,207255,325919,303528,452532,372643,416429,420093,421331,536073,360713,262536,454099,376910
+116,Sales,Abrasive Sales,Overall Sales,Tons/Order,Tons/Order,4.2,6.8,9.3,6.9,10,8.6,9.5,7.5,7.6,8.5,6.8,5.6,6.1,5.8
+117,Sales,Abrasive Sales,Overall Sales,Revenue/Order,$/Order,2306,3454,5014,3794,5587,5036,5705,4376,4580,4873,3879,3323,3604,3396
+118,Sales,Abrasive Sales,Overall Sales,Average Price,$/lb,0.277,0.255,0.269,0.273,0.279,0.292,0.301,0.293,0.3,0.288,0.287,0.294,0.295,0.295
+119,Sales,Abrasive Sales,Overall Sales,Average GM,$/lb,0.142,0.023,0.129,0.084,0.11,0.124,0.135,0.117,0.115,0.138,0.033,0.018,0.049,0.15
+120,Sales,Abrasive Sales,Overall Sales,Average OM,$/lb,-0.162,-0.165,-0.007,-0.093,-0.001,-0.04,0.024,0.011,0.002,0.053,-0.121,-0.252,-0.104,0.003
+121,Sales,Abrasive Sales,Overall Sales,% Average GM,%,0.513,0.09,0.48,0.307,0.395,0.426,0.447,0.4,0.384,0.479,0.115,0.061,0.167,0.51
+122,Sales,Abrasive Sales,Overall Sales,% Average OM,%,-0.584,-0.647,-0.026,-0.341,-0.003,-0.137,0.08,0.039,0.008,0.185,-0.422,-0.857,-0.353,0.012
+123,Sales,Abrasive Sales,Online Sales,Online Orders,Orders,0,0,0,0,0,0,2,18,19,23,21,23,44,57
+124,Sales,Abrasive Sales,Online Sales,Online Tons,Tons,0,0,0,0,0,0,2.1,2.3,1.1,3.3,2.9,4,5.1,5.5
+125,Sales,Abrasive Sales,Online Sales,Online Revenue,$,1247,1347,381,862,429,80,1544,5442,2674,6420,5826,5528,9601,9223
+126,Sales,Abrasive Sales,Online Sales,Online Tons/Order,Tons/Order,0,0,0,0,0,0,1,0.1,0.1,0.1,0.1,0.2,0.1,0.1
+127,Sales,Abrasive Sales,Online Sales,Online Revenue/Order,$/Order,0,0,0,0,0,0,772,302,141,279,277,240,218,162
+128,Sales,Abrasive Sales,Online Sales,Online Avg Price,$/lb,0,0,0,0,0,0,0.377,1.17,1.273,0.988,1.004,0.687,0.951,0.838
+129,Sales,Abrasive Sales,Online Sales,Online Avg GM,$/lb,0,0,0,0,0,0,0.21,0.994,1.089,0.838,0.75,0.41,0.705,0.694
+130,Sales,Abrasive Sales,Online Sales,Online Avg OM,$/lb,0,0,0,0,0,0,0.1,0.888,0.976,0.753,0.596,0.14,0.552,0.547
+131,Sales,Abrasive Sales,Online Sales,% Online Avg GM,%,0,0,0,0,0,0,0.558,0.849,0.855,0.848,0.747,0.598,0.742,0.828
+132,Sales,Abrasive Sales,Online Sales,% Online Avg OM,%,0,0,0,0,0,0,0.265,0.759,0.766,0.762,0.593,0.204,0.581,0.652
+133,Sales,Abrasive Sales,Online Sales,% Online Orders,%,0,0,0,0,0,0,0.027,0.188,0.207,0.209,0.226,0.291,0.349,0.514
+134,Sales,Abrasive Sales,Online Sales,% Online Revenue,%,0.009,0.006,0.001,0.003,0.001,0,0.004,0.013,0.006,0.012,0.016,0.021,0.021,0.024
+135,Sales,Abrasive Sales,Online Sales,Online Repeat Orders,Orders,0,0,0,0,0,0,2,3,2,6,5,8,11,8
+136,Sales,Abrasive Sales,Online Sales,Online Repeat Revenue,$,0,0,0,0,0,0,1544,1369,212,1144,4688,4116,5670,2053
+137,Sales,Abrasive Sales,Online Sales,% Online Repeat Orders,%,0,0,0,0,0,0,1,0.167,0.105,0.261,0.238,0.348,0.25,0.14
+138,Sales,Abrasive Sales,Online Sales,% Online Repeat Revenue,%,0,0,0,0,0,0,1,0.252,0.079,0.178,0.805,0.745,0.591,0.223
+139,Sales,Abrasive Sales,Offline Sales,Offline Orders,Orders,62,60,65,80,81,74,71,79,73,87,73,56,82,54
+140,Sales,Abrasive Sales,Offline Sales,Offline Tons,Tons,257.9,406.6,605.5,555.3,810.4,638.4,689.6,713.7,701.6,928.1,624.9,442.2,765.4,633.7
+141,Sales,Abrasive Sales,Offline Sales,Offline Revenue,$,142952,207255,325919,303528,452532,372643,414885,414651,418657,529654,354887,257009,444498,367688
+142,Sales,Abrasive Sales,Offline Sales,Offline Tons/Order,Tons/Order,4.2,6.8,9.3,6.9,10,8.6,9.7,9,9.6,10.7,8.6,7.9,9.3,11.7
+143,Sales,Abrasive Sales,Offline Sales,Offline Revenue/Order,$/Order,2306,3454,5014,3794,5587,5036,5843,5249,5735,6088,4861,4589,5421,6809
+144,Sales,Abrasive Sales,Offline Sales,Offline Avg Price,$/lb,0.277,0.255,0.269,0.273,0.279,0.292,0.301,0.291,0.298,0.285,0.284,0.291,0.29,0.29
+145,Sales,Abrasive Sales,Offline Sales,Offline Avg GM,$/lb,0.142,0.023,0.129,0.084,0.11,0.124,0.134,0.114,0.114,0.135,0.03,0.014,0.045,0.146
+146,Sales,Abrasive Sales,Offline Sales,Offline Avg OM,$/lb,-0.162,-0.165,-0.007,-0.093,-0.001,-0.04,0.024,0.009,0.001,0.051,-0.124,-0.256,-0.108,-0.001
+147,Sales,Abrasive Sales,Offline Sales,% Offline Avg GM,%,0.513,0.09,0.48,0.307,0.395,0.426,0.446,0.394,0.381,0.474,0.104,0.05,0.155,0.502
+148,Sales,Abrasive Sales,Offline Sales,% Offline Avg OM,%,-0.584,-0.647,-0.026,-0.341,-0.003,-0.137,0.08,0.03,0.003,0.178,-0.438,-0.88,-0.373,-0.004
+149,Sales,Abrasive Sales,Offline Sales,% Offline Orders,%,1,1,1,1,1,1,0.973,0.823,0.793,0.791,0.785,0.709,0.651,0.486
+150,Sales,Abrasive Sales,Offline Sales,% Offline Revenue,%,1,1,1,1,1,1,0.996,0.987,0.994,0.988,0.984,0.979,0.979,0.976
+151,Sales,Abrasive Sales,Offline Sales,Offline First Orders,Orders,10,11,8,15,13,4,4,8,6,7,9,5,8,6
+152,Sales,Abrasive Sales,Offline Sales,Offline First Revenue,$,671,1923,4841,2801,18400,15532,783,5347,19859,18763,7062,2930,2059,3211
+153,Sales,Abrasive Sales,Offline Sales,% Offline First Orders,%,0.161,0.183,0.123,0.188,0.16,0.054,0.056,0.101,0.082,0.08,0.123,0.089,0.098,0.111
+154,Sales,Abrasive Sales,Offline Sales,% Offline First Revenue,%,0.005,0.009,0.015,0.009,0.041,0.042,0.002,0.013,0.047,0.035,0.02,0.011,0.005,0.009
+155,Sales,Abrasive Sales,New Sales,First Orders,Orders,10,10,8,14,13,4,4,21,22,24,24,20,39,53
+156,Sales,Abrasive Sales,New Sales,First Tons,Tons,0.4,2.3,6.4,2.4,24.5,24,0.8,8.1,26.1,28.1,8.8,4.4,4.2,8.3
+157,Sales,Abrasive Sales,New Sales,First Revenue,$,671,1923,4841,2801,18400,15532,783,9420,22321,24039,8200,4342,5990,10381
+158,Sales,Abrasive Sales,New Sales,First Tons/Order,Tons/Order,0,0.2,0.8,0.2,1.9,6,0.2,0.4,1.2,1.2,0.4,0.2,0.1,0.2
+159,Sales,Abrasive Sales,New Sales,First Revenue/Order,$/Order,67,192,605,200,1415,3883,196,449,1015,1002,342,217,154,196
+160,Sales,Abrasive Sales,New Sales,First Avg Price,$/lb,0.895,0.414,0.377,0.596,0.376,0.323,0.474,0.583,0.428,0.428,0.465,0.499,0.722,0.623
+161,Sales,Abrasive Sales,New Sales,First Avg GM,$/lb,0.76,0.182,0.237,0.407,0.206,0.156,0.308,0.407,0.243,0.278,0.21,0.223,0.476,0.479
+162,Sales,Abrasive Sales,New Sales,First Avg OM,$/lb,0.456,-0.006,0.101,0.23,0.095,-0.009,0.198,0.301,0.131,0.194,0.056,-0.047,0.323,0.332
+163,Sales,Abrasive Sales,New Sales,% First Avg GM,%,0.849,0.439,0.629,0.682,0.55,0.482,0.649,0.698,0.569,0.65,0.452,0.447,0.66,0.768
+164,Sales,Abrasive Sales,New Sales,% First Avg OM,%,0.51,-0.015,0.267,0.385,0.254,-0.027,0.417,0.517,0.305,0.452,0.121,-0.095,0.448,0.533
+165,Sales,Abrasive Sales,New Sales,% First Orders,%,0.161,0.167,0.123,0.175,0.16,0.054,0.055,0.219,0.239,0.218,0.258,0.253,0.31,0.477
+166,Sales,Abrasive Sales,New Sales,% First Revenue,%,0.005,0.009,0.015,0.009,0.041,0.042,0.002,0.022,0.053,0.045,0.023,0.017,0.013,0.028
+167,Sales,Abrasive Sales,Repeat Sales,Repeat Orders,Orders,52,50,57,66,68,70,69,75,70,86,69,59,87,58
+168,Sales,Abrasive Sales,Repeat Sales,Repeat Tons,Tons,258,404,599,553,786,614,691,708,677,903,619,442,766,631
+169,Sales,Abrasive Sales,Repeat Sales,Repeat Revenue,$,142281,205332,321078,300727,434132,357111,415646,410673,399010,512035,352513,258195,448109,366530
+170,Sales,Abrasive Sales,Repeat Sales,Repeat Tons/Order,Tons/Order,5,8.1,10.5,8.4,11.6,8.8,10,9.4,9.7,10.5,9,7.5,8.8,10.9
+171,Sales,Abrasive Sales,Repeat Sales,Repeat Revenue/Order,$/Order,2736,4107,5633,4556,6384,5102,6024,5476,5700,5954,5109,4376,5151,6319
+172,Sales,Abrasive Sales,Repeat Sales,Repeat Avg Price,$/lb,0.276,0.254,0.268,0.272,0.276,0.291,0.301,0.29,0.295,0.283,0.285,0.292,0.292,0.291
+173,Sales,Abrasive Sales,Repeat Sales,Repeat Avg GM,$/lb,0.141,0.022,0.128,0.083,0.107,0.123,0.134,0.114,0.11,0.133,0.03,0.016,0.047,0.146
+174,Sales,Abrasive Sales,Repeat Sales,Repeat Avg OM,$/lb,-0.163,-0.166,-0.008,-0.094,-0.004,-0.041,0.024,0.008,-0.002,0.049,-0.124,-0.254,-0.106,-0.001
+175,Sales,Abrasive Sales,Repeat Sales,% Repeat Avg GM,%,0.512,0.087,0.478,0.304,0.388,0.424,0.446,0.393,0.374,0.471,0.107,0.055,0.161,0.502
+176,Sales,Abrasive Sales,Repeat Sales,% Repeat Avg OM,%,-0.589,-0.652,-0.03,-0.347,-0.014,-0.142,0.08,0.028,-0.008,0.172,-0.434,-0.87,-0.363,-0.003
+177,Sales,Abrasive Sales,Repeat Sales,% Repeat Orders,%,0.839,0.833,0.877,0.825,0.84,0.946,0.945,0.781,0.761,0.782,0.742,0.747,0.69,0.523
+178,Sales,Abrasive Sales,Repeat Sales,% Repeat Revenue,%,0.995,0.991,0.985,0.991,0.959,0.958,0.998,0.978,0.947,0.955,0.977,0.983,0.987,0.972
+179,Sales,Abrasive Sales,Distributor Sales,Distributor Orders,Orders,31,28,36,43,52,49,39,50,37,52,47,36,49,33
+180,Sales,Abrasive Sales,Distributor Sales,Distributor Tons,Tons,161,299,475,428,604,381,444,458,367,515,347,182,566,415
+181,Sales,Abrasive Sales,Distributor Sales,Distributor Revenue,$,84428,141383,242653,225088,319412,215091,266511,255744,209179,282908,188424,105426,326413,229727
+182,Sales,Abrasive Sales,Distributor Sales,Distributor Tons/Order,Tons/Order,5.2,10.7,13.2,10,11.6,7.8,11.4,9.2,9.9,9.9,7.4,5.1,11.6,12.6
+183,Sales,Abrasive Sales,Distributor Sales,Distributor Revenue/Order,$/Order,2723,5049,6740,5235,6143,4390,6834,5115,5653,5441,4009,2928,6661,6961
+184,Sales,Abrasive Sales,Distributor Sales,Distributor Avg Price,$/lb,0.263,0.237,0.256,0.263,0.265,0.283,0.3,0.279,0.285,0.275,0.271,0.289,0.288,0.277
+185,Sales,Abrasive Sales,Distributor Sales,Distributor Avg GM,$/lb,0.128,0.005,0.116,0.073,0.096,0.115,0.133,0.103,0.1,0.125,0.017,0.013,0.043,0.132
+186,Sales,Abrasive Sales,Distributor Sales,Distributor Avg OM,$/lb,-0.176,-0.183,-0.02,-0.104,-0.015,-0.049,0.023,-0.003,-0.012,0.04,-0.137,-0.257,-0.11,-0.015
+187,Sales,Abrasive Sales,Distributor Sales,% Distributor Avg GM,%,0.486,0.02,0.453,0.28,0.361,0.407,0.445,0.369,0.352,0.454,0.062,0.046,0.148,0.477
+188,Sales,Abrasive Sales,Distributor Sales,% Distributor Avg OM,%,-0.672,-0.773,-0.08,-0.394,-0.058,-0.175,0.077,-0.01,-0.044,0.146,-0.506,-0.888,-0.384,-0.053
+189,Sales,Abrasive Sales,Distributor Sales,% Distributor Orders,%,0.5,0.467,0.554,0.538,0.642,0.662,0.534,0.521,0.402,0.473,0.505,0.456,0.389,0.297
+190,Sales,Abrasive Sales,Distributor Sales,% Distributor Revenue,%,0.591,0.682,0.745,0.742,0.706,0.577,0.64,0.609,0.496,0.528,0.522,0.402,0.719,0.609
+191,Sales,Abrasive Sales,Large Direct Sales,Large Direct Orders,Orders,2,2,4,3,6,9,9,10,13,17,9,9,8,9
+192,Sales,Abrasive Sales,Large Direct Sales,Large Direct Tons,Tons,72,72,96,72,160,248,230,228,294,384,248,248,184,204
+193,Sales,Abrasive Sales,Large Direct Sales,Large Direct Revenue,$,40320,40320,53760,40320,101480,149880,135400,137800,179600,222916,145172,142048,104624,125988
+194,Sales,Abrasive Sales,Large Direct Sales,Large Direct Tons/Order,Tons/Order,36,36,24,24,26.7,27.6,25.6,22.8,22.6,22.6,27.6,27.6,23,22.7
+195,Sales,Abrasive Sales,Large Direct Sales,Large Direct Revenue/Order,$/Order,20160,20160,13440,13440,16913,16653,15044,13780,13815,13113,16130,15783,13078,13999
+196,Sales,Abrasive Sales,Large Direct Sales,Large Direct Avg Price,$/lb,0.28,0.28,0.28,0.28,0.317,0.302,0.294,0.302,0.305,0.29,0.293,0.286,0.284,0.309
+197,Sales,Abrasive Sales,Large Direct Sales,Large Direct Avg GM,$/lb,0.145,0.048,0.14,0.091,0.148,0.135,0.128,0.126,0.121,0.14,0.038,0.01,0.039,0.164
+198,Sales,Abrasive Sales,Large Direct Sales,Large Direct Avg OM,$/lb,-0.159,-0.14,0.004,-0.086,0.037,-0.03,0.018,0.02,0.008,0.056,-0.116,-0.26,-0.114,0.017
+199,Sales,Abrasive Sales,Large Direct Sales,% Large Direct Avg GM,%,0.518,0.172,0.501,0.324,0.467,0.446,0.434,0.417,0.395,0.483,0.131,0.036,0.137,0.532
+200,Sales,Abrasive Sales,Large Direct Sales,% Large Direct Avg OM,%,-0.567,-0.499,0.014,-0.309,0.117,-0.099,0.06,0.067,0.026,0.192,-0.395,-0.908,-0.402,0.056
+201,Sales,Abrasive Sales,Large Direct Sales,% Large Direct Orders,%,0.032,0.033,0.062,0.038,0.074,0.122,0.123,0.104,0.141,0.155,0.097,0.114,0.063,0.081
+202,Sales,Abrasive Sales,Large Direct Sales,% Large Direct Revenue,%,0.282,0.195,0.165,0.133,0.224,0.402,0.325,0.328,0.426,0.416,0.402,0.541,0.23,0.334
+203,Sales,Abrasive Sales,Medium Direct Sales,Medium Direct Orders,Orders,8,9,11,12,9,6,8,10,12,13,12,8,11,8
+204,Sales,Abrasive Sales,Medium Direct Sales,Medium Direct Tons,Tons,23,34,33,53,45,7,15,24,37,30,31,14,16,16
+205,Sales,Abrasive Sales,Medium Direct Sales,Medium Direct Revenue,$,15680,23100,27520,35440,29520,5140,12000,19285,27364,25908,24870,11501,16686,14241
+206,Sales,Abrasive Sales,Medium Direct Sales,Medium Direct Tons/Order,Tons/Order,2.9,3.8,3,4.4,5,1.2,1.9,2.4,3.1,2.3,2.6,1.8,1.5,2
+207,Sales,Abrasive Sales,Medium Direct Sales,Medium Direct Revenue/Order,$/Order,1960,2567,2502,2953,3280,857,1500,1929,2280,1993,2073,1438,1517,1780
+208,Sales,Abrasive Sales,Medium Direct Sales,Medium Direct Avg Price,$/lb,0.341,0.34,0.417,0.334,0.328,0.354,0.4,0.402,0.37,0.432,0.401,0.411,0.521,0.445
+209,Sales,Abrasive Sales,Medium Direct Sales,Medium Direct Avg GM,$/lb,0.206,0.108,0.277,0.145,0.159,0.187,0.233,0.226,0.185,0.282,0.147,0.135,0.276,0.3
+210,Sales,Abrasive Sales,Medium Direct Sales,Medium Direct Avg OM,$/lb,-0.098,-0.08,0.141,-0.032,0.048,0.023,0.123,0.12,0.072,0.197,-0.007,-0.136,0.123,0.154
+211,Sales,Abrasive Sales,Medium Direct Sales,% Medium Direct Avg GM,%,0.604,0.317,0.665,0.434,0.485,0.528,0.584,0.562,0.501,0.653,0.366,0.328,0.529,0.675
+212,Sales,Abrasive Sales,Medium Direct Sales,% Medium Direct Avg OM,%,-0.288,-0.235,0.338,-0.096,0.146,0.063,0.308,0.298,0.196,0.457,-0.018,-0.33,0.236,0.345
+213,Sales,Abrasive Sales,Medium Direct Sales,% Medium Direct Orders,%,0.129,0.15,0.169,0.15,0.111,0.081,0.11,0.104,0.13,0.118,0.129,0.101,0.087,0.072
+214,Sales,Abrasive Sales,Medium Direct Sales,% Medium Direct Revenue,%,0.11,0.111,0.084,0.117,0.065,0.014,0.029,0.046,0.065,0.048,0.069,0.044,0.037,0.038
+215,Sales,Abrasive Sales,Small Direct Sales,Small Direct Orders,Orders,21,21,14,22,14,10,17,26,30,29,25,26,58,62
+216,Sales,Abrasive Sales,Small Direct Sales,Small Direct Tons,Tons,2.1,2,1.9,2.1,1.8,2.5,2.5,5.7,4.6,2.6,1.4,2,4,4
+217,Sales,Abrasive Sales,Small Direct Sales,Small Direct Revenue,$,2525,2452,1986,2680,2120,2532,2518,7264,5188,4342,2247,3562,6376,6955
+218,Sales,Abrasive Sales,Small Direct Sales,Small Direct Tons/Order,Tons/Order,0.1,0.09,0.14,0.1,0.13,0.25,0.15,0.22,0.15,0.09,0.05,0.08,0.07,0.06
+219,Sales,Abrasive Sales,Small Direct Sales,Small Direct Revenue/Order,$/Order,120,117,142,122,151,253,148,279,173,150,90,137,110,112
+220,Sales,Abrasive Sales,Small Direct Sales,Small Direct Avg Price,$/lb,0.601,0.621,0.516,0.631,0.597,0.506,0.504,0.634,0.57,0.835,0.832,0.89,0.802,0.875
+221,Sales,Abrasive Sales,Small Direct Sales,Small Direct Avg GM,$/lb,0.466,0.389,0.376,0.441,0.428,0.339,0.337,0.458,0.385,0.685,0.578,0.614,0.557,0.73
+222,Sales,Abrasive Sales,Small Direct Sales,Small Direct Avg OM,$/lb,0.162,0.201,0.24,0.264,0.317,0.174,0.227,0.353,0.273,0.6,0.424,0.344,0.403,0.583
+223,Sales,Abrasive Sales,Small Direct Sales,% Small Direct Avg GM,%,0.776,0.626,0.729,0.7,0.717,0.669,0.669,0.722,0.676,0.82,0.694,0.69,0.694,0.835
+224,Sales,Abrasive Sales,Small Direct Sales,% Small Direct Avg OM,%,0.27,0.324,0.465,0.419,0.531,0.344,0.45,0.556,0.478,0.719,0.509,0.386,0.503,0.667
+225,Sales,Abrasive Sales,Small Direct Sales,% Small Direct Orders,%,0.339,0.35,0.215,0.275,0.173,0.135,0.233,0.271,0.326,0.264,0.269,0.329,0.46,0.559
+226,Sales,Abrasive Sales,Small Direct Sales,% Small Direct Revenue,%,0.018,0.012,0.006,0.009,0.005,0.007,0.006,0.017,0.012,0.008,0.006,0.014,0.014,0.018
+227,Sales,Abrasive Sales,KinetiX Sales,KX Orders,Orders,22,30,33,39,45,46,39,61,48,53,52,38,40,37
+228,Sales,Abrasive Sales,KinetiX Sales,KX Tons,Tons,143,290,308,347,513,465,454,542,533,595,503,351,393,420
+229,Sales,Abrasive Sales,KinetiX Sales,KX Revenue,$,73621,147229,154236,186357,269512,259570,249708,305238,302839,334383,279210,198215,207412,238023
+230,Sales,Abrasive Sales,KinetiX Sales,KX Tons/Order,Tons/Order,6.5,9.7,9.3,8.9,11.4,10.1,11.6,8.9,11.1,11.2,9.7,9.2,9.8,11.3
+231,Sales,Abrasive Sales,KinetiX Sales,KX Revenue/Order,$/Order,3346,4908,4674,4778,5989,5643,6403,5004,6309,6309,5369,5216,5185,6433
+232,Sales,Abrasive Sales,KinetiX Sales,KX Avg Price,$/lb,0.258,0.254,0.25,0.269,0.263,0.279,0.275,0.282,0.284,0.281,0.277,0.283,0.264,0.284
+233,Sales,Abrasive Sales,KinetiX Sales,KX Avg GM,$/lb,0.123,0.022,0.11,0.079,0.094,0.112,0.109,0.105,0.099,0.131,0.023,0.006,0.019,0.139
+234,Sales,Abrasive Sales,KinetiX Sales,KX Avg OM,$/lb,-0.181,-0.166,-0.026,-0.098,-0.017,-0.053,-0.002,0,-0.013,0.047,-0.131,-0.264,-0.134,-0.008
+235,Sales,Abrasive Sales,KinetiX Sales,% KX Avg GM,%,0.477,0.086,0.441,0.295,0.357,0.4,0.395,0.374,0.35,0.467,0.083,0.023,0.071,0.49
+236,Sales,Abrasive Sales,KinetiX Sales,% KX Avg OM,%,-0.701,-0.653,-0.104,-0.365,-0.066,-0.188,-0.006,-0.001,-0.047,0.165,-0.473,-0.933,-0.509,-0.028
+237,Sales,Abrasive Sales,KinetiX Sales,% KX Orders,%,0.355,0.5,0.508,0.488,0.556,0.622,0.534,0.635,0.522,0.482,0.559,0.481,0.317,0.333
+238,Sales,Abrasive Sales,KinetiX Sales,% KX Tons,%,0.553,0.713,0.509,0.625,0.633,0.728,0.656,0.757,0.759,0.638,0.802,0.786,0.509,0.657
+239,Sales,Abrasive Sales,KinetiX Sales,% KX Revenue,%,0.515,0.71,0.473,0.614,0.596,0.697,0.6,0.727,0.719,0.624,0.774,0.755,0.457,0.632
+240,Sales,Abrasive Sales,KinetiX Sales,KX Distributor Revenue,$,61486,127628,140813,156122,228374,144762,173748,205304,169848,163911,158826,90408,150828,140572
+241,Sales,Abrasive Sales,KinetiX Sales,KX Large Direct Revenue,$,0,0,0,0,13640,109560,68200,84040,109120,155716,104852,101728,50864,85668
+242,Sales,Abrasive Sales,KinetiX Sales,KX Medium Direct Revenue,$,11980,19260,12840,30040,27300,4420,6700,12620,22444,13960,15180,5384,5196,10246
+243,Sales,Abrasive Sales,KinetiX Sales,KX Small Direct Revenue,$,155,341,583,195,198,828,1060,3274,1427,796,352,695,524,1537
+244,Sales,Abrasive Sales,KinetiX Sales,KX Online Revenue,$,0,0,0,0,0,0,1440,160,64,224,1160,573,1056,2865
+245,Sales,Abrasive Sales,KinetiX Sales,KX Offline Revenue,$,73621,147229,154236,186357,269512,259570,248268,305078,302775,334159,278050,197642,206356,235158
+246,Sales,Abrasive Sales,KinetiX Sales,KX First Revenue,$,0,1356,4220,0,198,14760,360,2392,1728,16421,2448,2517,1152,5705
+247,Sales,Abrasive Sales,KinetiX Sales,KX Repeat Revenue,$,73621,145873,150016,186357,269314,244810,249348,302846,301111,317962,276762,195698,206260,232318
+248,Sales,Abrasive Sales,DynamiX Sales,DX Orders,Orders,5,4,14,11,12,7,5,12,10,17,9,8,17,11
+249,Sales,Abrasive Sales,DynamiX Sales,DX Tons,Tons,87,105,241,193,278,132,142,139,121,295,100,76,252,184
+250,Sales,Abrasive Sales,DynamiX Sales,DX Revenue,$,47160,49620,124860,101804,164000,74230,78860,78853,72537,158420,56130,43637,136541,101032
+251,Sales,Abrasive Sales,DynamiX Sales,DX Tons/Order,Tons/Order,17.4,26.3,17.2,17.5,23.2,18.9,28.4,11.5,12.1,17.4,11.1,9.5,14.8,16.7
+252,Sales,Abrasive Sales,DynamiX Sales,DX Revenue/Order,$/Order,9432,12405,8919,9255,13667,10604,15772,6571,7254,9319,6237,5455,8032,9185
+253,Sales,Abrasive Sales,DynamiX Sales,DX Avg Price,$/lb,0.271,0.236,0.259,0.264,0.295,0.281,0.278,0.285,0.3,0.268,0.28,0.287,0.271,0.274
+254,Sales,Abrasive Sales,DynamiX Sales,DX Avg GM,$/lb,0.136,0.004,0.119,0.075,0.126,0.114,0.111,0.108,0.115,0.118,0.026,0.011,0.026,0.13
+255,Sales,Abrasive Sales,DynamiX Sales,DX Avg OM,$/lb,-0.168,-0.183,-0.017,-0.102,0.015,-0.051,0.001,0.003,0.002,0.034,-0.128,-0.26,-0.127,-0.017
+256,Sales,Abrasive Sales,DynamiX Sales,% DX Avg GM,%,0.502,0.018,0.46,0.284,0.427,0.404,0.4,0.381,0.384,0.441,0.093,0.037,0.095,0.473
+257,Sales,Abrasive Sales,DynamiX Sales,% DX Avg OM,%,-0.619,-0.776,-0.066,-0.386,0.051,-0.181,0.003,0.009,0.007,0.126,-0.457,-0.906,-0.47,-0.062
+258,Sales,Abrasive Sales,DynamiX Sales,% DX Orders,%,0.081,0.067,0.215,0.138,0.148,0.095,0.068,0.125,0.109,0.155,0.097,0.101,0.135,0.099
+259,Sales,Abrasive Sales,DynamiX Sales,% DX Tons,%,0.337,0.258,0.398,0.347,0.343,0.207,0.205,0.194,0.172,0.317,0.159,0.171,0.327,0.288
+260,Sales,Abrasive Sales,DynamiX Sales,% DX Revenue,%,0.33,0.239,0.383,0.335,0.362,0.199,0.189,0.188,0.172,0.296,0.156,0.166,0.301,0.268
+261,Sales,Abrasive Sales,DynamiX Sales,DX Distributor Revenue,$,6840,9300,71100,61104,76160,33190,11660,24120,0,91150,11660,0,81773,60500
+262,Sales,Abrasive Sales,DynamiX Sales,DX Large Direct Revenue,$,40320,40320,53760,40320,87840,40320,67200,53760,70480,67200,40320,40320,53760,40320
+263,Sales,Abrasive Sales,DynamiX Sales,DX Medium Direct Revenue,$,0,0,0,0,0,720,0,760,1240,0,4010,3177,760,0
+264,Sales,Abrasive Sales,DynamiX Sales,DX Small Direct Revenue,$,0,0,0,380,0,0,0,213,817,70,140,140,248,212
+265,Sales,Abrasive Sales,DynamiX Sales,DX Online Revenue,$,0,0,0,0,0,0,0,140,350,70,140,1037,210,212
+266,Sales,Abrasive Sales,DynamiX Sales,DX Offline Revenue,$,47160,49620,124860,101804,164000,74230,78860,78713,72187,158350,55990,42600,136331,100820
+267,Sales,Abrasive Sales,DynamiX Sales,DX First Revenue,$,0,0,0,0,15840,720,0,935,17127,680,2420,105,70,106
+268,Sales,Abrasive Sales,DynamiX Sales,DX Repeat Revenue,$,47160,49620,124860,101804,148160,73510,78860,77918,55410,157740,53710,43532,136471,100926
+269,Sales,Abrasive Sales,EpiX Sales,EX Orders,Orders,37,26,21,33,24,21,30,31,35,44,36,33,75,68
+270,Sales,Abrasive Sales,EpiX Sales,EX Tons,Tons,28,12,56,16,20,42,96,36,48,42,24,19,126,35
+271,Sales,Abrasive Sales,EpiX Sales,EX Revenue,$,22171,10407,46823,15367,19020,38843,87861,36002,45955,43270,25373,20685,110146,37855
+272,Sales,Abrasive Sales,EpiX Sales,EX Tons/Order,Tons/Order,0.8,0.4,2.7,0.5,0.8,2,3.2,1.1,1.4,0.9,0.7,0.6,1.7,0.5
+273,Sales,Abrasive Sales,EpiX Sales,EX Revenue/Order,$/Order,599,400,2230,466,792,1850,2929,1161,1313,983,705,627,1469,557
+274,Sales,Abrasive Sales,EpiX Sales,EX Avg Price,$/lb,0.393,0.449,0.418,0.488,0.484,0.465,0.457,0.507,0.474,0.518,0.521,0.532,0.436,0.536
+275,Sales,Abrasive Sales,EpiX Sales,EX Avg GM,$/lb,0.258,0.217,0.278,0.298,0.315,0.297,0.291,0.331,0.289,0.368,0.267,0.256,0.191,0.391
+276,Sales,Abrasive Sales,EpiX Sales,EX Avg OM,$/lb,-0.046,0.029,0.142,0.121,0.204,0.133,0.18,0.225,0.177,0.284,0.113,-0.014,0.038,0.244
+277,Sales,Abrasive Sales,EpiX Sales,% EX Avg GM,%,0.657,0.483,0.665,0.612,0.651,0.64,0.636,0.652,0.61,0.711,0.512,0.481,0.438,0.73
+278,Sales,Abrasive Sales,EpiX Sales,% EX Avg OM,%,-0.117,0.065,0.339,0.249,0.421,0.285,0.394,0.444,0.373,0.547,0.216,-0.026,0.086,0.456
+279,Sales,Abrasive Sales,EpiX Sales,% EX Orders,%,0.597,0.433,0.323,0.413,0.296,0.284,0.411,0.323,0.38,0.4,0.387,0.418,0.595,0.613
+280,Sales,Abrasive Sales,EpiX Sales,% EX Tons,%,0.109,0.029,0.093,0.028,0.024,0.065,0.139,0.05,0.069,0.045,0.039,0.044,0.164,0.055
+281,Sales,Abrasive Sales,EpiX Sales,% EX Revenue,%,0.155,0.05,0.144,0.051,0.042,0.104,0.211,0.086,0.109,0.081,0.07,0.079,0.243,0.1
+282,Sales,Abrasive Sales,EpiX Sales,EX Distributor Revenue,$,16102,4455,30740,7862,14878,37139,81103,26320,39331,27847,17938,15018,93812,28655
+283,Sales,Abrasive Sales,EpiX Sales,EX Large Direct Revenue,$,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+284,Sales,Abrasive Sales,EpiX Sales,EX Medium Direct Revenue,$,3700,3840,14680,5400,2220,0,5300,5905,3680,11948,5680,2940,10730,3995
+285,Sales,Abrasive Sales,EpiX Sales,EX Small Direct Revenue,$,2370,2112,1403,2105,1922,1704,1458,3777,2944,3476,1755,2727,5604,5206
+286,Sales,Abrasive Sales,EpiX Sales,EX Online Revenue,$,0,0,0,0,0,0,104,5142,2260,6126,4526,3918,8335,6146
+287,Sales,Abrasive Sales,EpiX Sales,EX Offline Revenue,$,22171,10407,46823,15367,19020,38843,87757,30860,43695,37145,20847,16767,101811,31710
+288,Sales,Abrasive Sales,EpiX Sales,EX First Revenue,$,671,568,621,2801,2362,52,423,6093,3466,6938,3332,1720,4768,4570
+289,Sales,Abrasive Sales,EpiX Sales,EX Repeat Revenue,$,21500,9839,46202,12566,16658,38791,87438,29909,42489,36333,22041,18965,105378,33286
+290,Costs,Sales,Sales Expenses,Allredi CA,$,1043,0,0,0,0,1896,0,0,0,1574,0,0,0,0
+291,Costs,Sales,Sales Expenses,Allredi US,$,3150,-225,0,1084,1039,0,76,1816,4787,887,2784,0,0,0
+292,Costs,Sales,Sales Expenses,BTNW,$,0,0,1197,0,3930,0,0,0,0,0,882,0,0,0
+293,Costs,Sales,Sales Expenses,Canoa,$,2425,6553,60,2096,1918,235,0,10,3,0,5,0,0,0
+294,Costs,Sales,Sales Expenses,PPG,$,0,0,0,0,0,0,629,366,908,0,0,1595,0,0
+295,Costs,Sales,Sales Expenses,Distributor Sales Expenses,$,6618,6328,1257,3180,6888,2131,705,2192,5699,2461,3672,1595,0,0
+296,Costs,Sales,Sales Expenses,Direct Sales Expenses,$,1716,2708,2891,0,514,0,2415,0,1650,1858,1932,3242,1469,0
+297,Costs,Sales,Sales Expenses,Sales Coaching Expenses,$,0,0,13278,15653,13168,20559,12374,17436,16660,21342,17438,9533,5915,7962
+298,Costs,Sales,Sales Expenses,Total Sales Expenses,$,8334,9035,17425,18833,20569,22690,15494,19628,24009,25661,23042,14370,7384,7962
+299,Costs,Sales,Sales Expenses,Unit Distributor Sales Expenses,$,0.013,0.008,0.001,0.003,0.004,0.002,0.001,0.002,0.004,0.001,0.003,0.002,0,0
+300,Costs,Sales,Sales Expenses,Unit Direct Sales Expenses,$,0.003,0.003,0.002,0,0,0,0.002,0,0.001,0.001,0.002,0.004,0.001,0
+301,Costs,Sales,Sales Expenses,Unit Sales Coaching Expenses,$,0,0,0.011,0.014,0.008,0.016,0.009,0.012,0.012,0.011,0.014,0.011,0.004,0.006
+302,Costs,Sales,Sales Expenses,Unit Total Sales Expenses,$,0.016,0.011,0.014,0.017,0.013,0.018,0.011,0.014,0.017,0.014,0.018,0.016,0.005,0.006
+303,Costs,Sales,Sales Expenses,% Distributor Sales Expenses,%,0.794,0.7,0.303,1,0.931,1,0.226,1,0.775,0.57,0.655,0.33,0,0
+304,Costs,Sales,Sales Expenses,% Direct Sales Expenses,%,0.206,0.3,0.697,0,0.069,0,0.774,0,0.225,0.43,0.345,0.67,1,0
+305,Costs,Sales,Sales Expenses,% Sales Coaching Expenses,%,0,0,0.762,0.831,0.64,0.906,0.799,0.888,0.694,0.832,0.757,0.663,0.801,1
+306,Costs,Sales,Sales Expenses,Direct/Distributor Sales Expenses,Ratio,0.26,0.43,2.3, -   ,0.07, -   ,3.42, -   ,0.29,0.75,0.53,2.03, -   , -   
+307,Costs,Marketing,Marketing Expenses,WebFX Fees,$,500,500,500,500,500,500,500,1000,1475,1475,1475,1475,1475,0
+308,Costs,Marketing,Marketing Expenses,SEO,$,3309,3282,3282,3471,3270,3779,3395,7545,9701,7436,7552,29601,16862,0
+309,Costs,Marketing,Marketing Expenses,PPC,$,2278,3013,2919,1914,1240,0,0,3000,7315,9576,9382,14592,8330,0
+310,Costs,Marketing,Marketing Expenses,AdTechFX,$,0,0,0,0,0,0,0,0,0,500,500,0,0,0
+311,Costs,Marketing,Marketing Expenses,CRO,$,0,0,0,0,0,0,0,0,0,0,0,3600,1800,0
+312,Costs,Marketing,Marketing Expenses,Online Store,$,0,0,0,0,3125,3125,3125,1950,150,0,0,0,0,0
+313,Costs,Marketing,Marketing Expenses,Website,$,240,20,71,910,1086,0,597,32,32,224,57,120,324,0
+314,Costs,Marketing,Marketing Expenses,Advertising,$,0,0,0,0,0,1750,0,1477,574,2240,0,443,0,0
+315,Costs,Marketing,Marketing Expenses,Conferences,$,3566,4121,3656,3950,0,2392,0,436,378,2117,4863,1089,835,0
+316,Costs,Marketing,Marketing Expenses,Webinars,$,109,109,834,0,0,500,0,0,0,1552,0,0,0,0
+317,Costs,Marketing,Marketing Expenses,Total Digital Marketing,$,6326,6815,6772,6795,9221,7404,7617,13527,18673,19211,18966,49388,28791,0
+318,Costs,Marketing,Marketing Expenses,General Marketing,$,3675,4230,4491,3950,0,4642,0,1913,952,5909,4863,1532,835,0
+319,Costs,Marketing,Marketing Expenses,Total Marketing Expenses,$,10001,11045,11263,10745,9221,12046,7617,15440,19625,25120,23828,50920,29626,0
+320,Costs,Marketing,Marketing Expenses,Unit Digital Marketing Expenses,$,0.012,0.008,0.006,0.006,0.006,0.006,0.006,0.009,0.013,0.01,0.015,0.055,0.019,0
+321,Costs,Marketing,Marketing Expenses,Unit General Marketing Expenses,$,0.007,0.005,0.004,0.004,0,0.004,0,0.001,0.001,0.003,0.004,0.002,0.001,0
+322,Costs,Marketing,Marketing Expenses,Unit Total Marketing Expenses,$,0.019,0.014,0.009,0.01,0.006,0.009,0.006,0.011,0.014,0.013,0.019,0.057,0.019,0
+323,Costs,Marketing,Marketing Expenses,% Digital Marketing Expenses,%,0.633,0.617,0.601,0.632,1,0.615,1,0.876,0.952,0.765,0.796,0.97,0.972,0
+324,Costs,Marketing,Marketing Expenses,% General Marketing Expenses,%,0.367,0.383,0.399,0.368,0,0.385,0,0.124,0.048,0.235,0.204,0.03,0.028,0
+325,Manufacturing Process,Operations,Production Data,Owens Corning Shot Received,Tons, -   , -   , -   , -   , -   , -   , -   , -   , -   , -   , -   , -   , -   , -   
+326,Manufacturing Process,Operations,Production Data,Isolatek Shot Received,Tons,875,1081,378,1371,592,620,519,1394,1057,856,802,497,400,683
+327,Manufacturing Process,Operations,Production Data,Red Wing Shot Received,Tons, -   , -   ,49,145,243,119,291,196,267,465,583,752,954,691
+328,Manufacturing Process,Operations,Production Data,Walworth Shot Received,Tons,165,121,91,74,141,122,26,99,74,76,123,48,25,98
+329,Manufacturing Process,Operations,Production Data,Total Shot Received,Tons,1040,1203,518,1591,976,862,836,1689,1399,1397,1508,1296,1379,1472
+330,Manufacturing Process,Operations,Production Data,Owens Corning Shot Processed,Tons,511, -   , -   , -   , -   , -   , -   , -   , -   , -   , -   , -   , -   , -   
+331,Manufacturing Process,Operations,Production Data,Isolatek Shot Processed,Tons,799,945,896,938,817,606,1036,1175,1352,1235,591,754,742,482
+332,Manufacturing Process,Operations,Production Data,Red Wing Shot Processed,Tons, -   , -   , -   ,69,115,266,154,237,277,522,569,516,644,794
+333,Manufacturing Process,Operations,Production Data,Walworth Shot Processed,Tons,94,173,198,127,65,86,67, -   , -   ,132,248,121, -   ,153
+334,Manufacturing Process,Operations,Production Data,Total Shot Processed,Tons,1405,1119,1094,1133,997,958,1257,1412,1629,1890,1407,1392,1386,1429
+335,Manufacturing Process,Operations,Production Data,Gross Operating Hours,Tons,111,110,106,111,99,96,122,125,146,173,143,139,156,164
+336,Manufacturing Process,Operations,Production Data,Net Operating Hours,Tons,108,102,100,102,94,91,118,120,135,161,137,130,140,143
+337,Manufacturing Process,Operations,Production Data,Scrap,Tons,941,599,541,597,505,469,665,769,976,1148,864,901,753,777
+338,Manufacturing Process,Operations,Production Data,Finished Goods,Tons,582,525,529,539,500,497,652,643,712,867,614,560,628,666
+339,Manufacturing Process,Operations,Production Data,Tons per Net Hour,Ton/hr,5.39,5.15,5.31,5.28,5.34,5.46,5.52,5.37,5.28,5.39,4.48,4.31,4.49,4.66
+340,Manufacturing Process,Operations,Production Data,Tons per Gross Hour,Ton/hr,5.24,4.77,5.02,4.88,5.05,5.2,5.36,5.16,4.88,5.03,4.31,4.04,4.03,4.06
+341,Manufacturing Process,Operations,Production Data,Uptime,%,0.971,0.927,0.945,0.924,0.944,0.953,0.971,0.962,0.925,0.932,0.962,0.939,0.897,0.87
+342,Manufacturing Process,Operations,Production Data,Yield,%,0.415,0.469,0.484,0.476,0.501,0.519,0.519,0.455,0.437,0.459,0.437,0.402,0.453,0.466
+343,Manufacturing Process,Operations,Production Data,OEE,%,0.843,0.831,0.918,0.857,0.955,1.029,1.081,0.904,0.789,0.86,0.724,0.611,0.655,0.658
+344,Manufacturing Process,Operations,Production Data,Shot Received Less Processed,Tons,-365,84,-576,457,-21,-97,-420,276,-230,-493,101,-96,-7,43
+345,Manufacturing Process,Operations,Production Data,% Finished Goods Sold,%,0.443,0.775,1.144,1.03,1.622,1.285,1.061,1.114,0.986,1.074,1.022,0.796,1.227,0.96

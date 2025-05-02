@@ -252,6 +252,23 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
   const freezeCurrentChart = (title?: string) => {
     if (selectedMetrics.length === 0) return;
     
+    // Use the subcategory name as the default title
+    let defaultTitle = "Chart";
+    
+    // If there are selected metrics, use the subcategory of the first one
+    if (selectedMetrics.length > 0) {
+      defaultTitle = selectedMetrics[0].fullPath.category;
+      
+      // If multiple metrics from different subcategories are selected, add a note
+      const hasMultipleCategories = selectedMetrics.some(
+        metric => metric.fullPath.category !== selectedMetrics[0].fullPath.category
+      );
+      
+      if (hasMultipleCategories) {
+        defaultTitle += " & Others";
+      }
+    }
+    
     setSavedCharts(prev => [
       ...prev,
       {
@@ -261,7 +278,7 @@ export function MetricsProvider({ children }: { children: ReactNode }) {
         timeFrame: timeFrame,
         customDateRange: {...customDateRange},
         comparisonMode: comparisonMode,
-        title: title || `Chart ${prev.length + 1}`
+        title: title || defaultTitle
       }
     ]);
   };

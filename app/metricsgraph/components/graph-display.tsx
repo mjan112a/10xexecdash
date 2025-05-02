@@ -47,9 +47,6 @@ export default function GraphDisplay() {
   // Get aggregated data for charts
   const { timeFrame, comparisonMode, getAggregatedData } = useMetrics();
   
-  // State for chart title input
-  const [showTitleDialog, setShowTitleDialog] = useState(false);
-  const [chartTitle, setChartTitle] = useState('');
   
   // Prepare chart data
   const chartData = React.useMemo(() => {
@@ -112,6 +109,10 @@ export default function GraphDisplay() {
               
               // Handle percentages
               if (metric.unit === '%' || metric.fullPath.name.includes('GM') || metric.fullPath.name.includes('OM')) {
+                // Check if the value is in decimal form (between -1 and 1)
+                if (value >= -1 && value <= 1 && value !== 0) {
+                  value = value * 100;
+                }
                 return value.toFixed(1) + '%';
               }
               
@@ -285,7 +286,12 @@ export default function GraphDisplay() {
                 Pie
               </button>
               <button
-                onClick={() => setShowTitleDialog(true)}
+                onClick={() => {
+                  // Get the subcategory name from the first selected metric
+                  if (selectedMetrics.length > 0) {
+                    freezeCurrentChart();
+                  }
+                }}
                 className="px-3 py-1.5 text-sm bg-green-600 text-white rounded hover:bg-green-700 flex items-center"
                 disabled={selectedMetrics.length === 0}
               >
@@ -295,70 +301,21 @@ export default function GraphDisplay() {
             </div>
           </div>
           
-          {/* Chart Title Dialog */}
-          {showTitleDialog && (
-            <div className="mb-4 p-3 border border-green-200 rounded bg-green-50">
-              <div className="flex justify-between items-center mb-2">
-                <label className="block text-sm font-medium text-green-800">
-                  Chart Title (optional):
-                </label>
-                <button
-                  onClick={() => setShowTitleDialog(false)}
-                  className="text-green-700 hover:text-green-900"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={chartTitle}
-                  onChange={(e) => setChartTitle(e.target.value)}
-                  placeholder="e.g., Monthly Sales Trends"
-                  className="flex-1 px-3 py-1.5 text-sm border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-                />
-                <button
-                  onClick={() => {
-                    freezeCurrentChart(chartTitle);
-                    setChartTitle('');
-                    setShowTitleDialog(false);
-                  }}
-                  className="px-3 py-1.5 text-sm bg-green-600 text-white rounded hover:bg-green-700"
-                >
-                  Save
-                </button>
-                <button
-                  onClick={() => {
-                    freezeCurrentChart();
-                    setChartTitle('');
-                    setShowTitleDialog(false);
-                  }}
-                  className="px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
-                >
-                  Skip
-                </button>
-              </div>
-              <p className="text-xs text-green-700 mt-1">
-                Give your chart a descriptive title or click "Skip" to use a default title.
-              </p>
-            </div>
-          )}
-          
-          <div className="h-[400px] print:shadow-none">
+          <div className="h-[500px] print:shadow-none">
             {selectedChartType === 'bar' && chartData && (
-              <div className="print:shadow-none">
+              <div className="h-full w-full print:shadow-none">
                 <Bar data={chartData} options={chartOptions} />
               </div>
             )}
             
             {selectedChartType === 'line' && chartData && (
-              <div className="print:shadow-none">
+              <div className="h-full w-full print:shadow-none">
                 <Line data={chartData} options={chartOptions} />
               </div>
             )}
             
             {selectedChartType === 'pie' && pieChartData && (
-              <div className="flex flex-col items-center print:shadow-none">
+              <div className="h-full flex flex-col items-center justify-center print:shadow-none">
                 <div className="mb-4">
                   <label className="text-sm font-medium text-gray-700 mr-2">Select Period:</label>
                   <select
@@ -371,33 +328,13 @@ export default function GraphDisplay() {
                     ))}
                   </select>
                 </div>
-                <div style={{ width: '350px', height: '350px' }} className="print:shadow-none">
+                <div style={{ width: '400px', height: '400px' }} className="print:shadow-none">
                   <Pie data={pieChartData} options={pieChartOptions} />
                 </div>
               </div>
             )}
           </div>
           
-          <div className="mt-4 bg-blue-50 p-3 rounded-lg print:shadow-none print:bg-white">
-            <h4 className="text-sm font-medium text-blue-800 mb-1">Selected Metrics</h4>
-            <div className="flex flex-wrap gap-2">
-              {selectedMetrics.map((metric, index) => (
-                <div 
-                  key={metric.uid}
-                  className="px-2 py-1 text-xs rounded-full flex items-center"
-                  style={{ 
-                    backgroundColor: `${getMetricColor(index).replace(')', ', 0.1)')}`,
-                    borderColor: getMetricColor(index),
-                    borderWidth: '1px',
-                    color: getMetricColor(index).replace('rgb', 'rgba').replace(')', ', 0.9)')
-                  }}
-                >
-                  <span className="mr-1">{metric.fullPath.name}</span>
-                  <span className="text-xs text-gray-500">({metric.unit})</span>
-                </div>
-              ))}
-            </div>
-          </div>
         </>
       ) : (
         <div className="text-center text-gray-500 py-12">

@@ -67,6 +67,9 @@ export function formatDisplayValue(value: number, unit: string, metricName: stri
 export function formatTooltipValue(value: number, unit: string, metricName: string): string {
   // Handle percentages
   if (unit === '%' || metricName.includes('GM') || metricName.includes('OM')) {
+    if (value >= -1 && value <= 1 && value !== 0) {
+      value = value * 100;
+    }
     return `${value.toFixed(2)}%`;
   }
   

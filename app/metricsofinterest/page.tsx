@@ -28,7 +28,7 @@ type HierarchicalData = {
   };
 };
 
-function formatValue(value: string): string {
+function formatValue(value: string, unit?: string): string {
   // Remove extra quotes and spaces
   value = value.replace(/[""]/g, '').trim();
   
@@ -41,9 +41,15 @@ function formatValue(value: string): string {
     return value.replace(/\s+/g, '');
   }
   
-  // Handle percentages
+  // Handle percentages that already include % symbol
   if (value.includes('%')) {
     return value.trim();
+  }
+  
+  // Handle percentage units - convert decimal to percentage
+  if (unit === '%' && !isNaN(Number(value))) {
+    const numValue = parseFloat(value);
+    return (numValue * 100).toFixed(2) + '%';
   }
   
   // Handle numbers
@@ -262,7 +268,7 @@ export default function MetricsOfInterest() {
                                     value.startsWith('(') || value.startsWith('-') ? 'text-red-600' : ''
                                   }`}
                                 >
-                                  {formatValue(value)}
+                                  {formatValue(value, metric.unit)}
                                 </td>
                               ))}
                             </tr>

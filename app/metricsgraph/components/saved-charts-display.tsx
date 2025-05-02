@@ -83,6 +83,10 @@ function FrozenChartDisplay({ config }: { config: ChartConfig }) {
               
               // Handle percentages
               if (metric.unit === '%' || metric.fullPath.name.includes('GM') || metric.fullPath.name.includes('OM')) {
+                // Check if the value is in decimal form (between -1 and 1)
+                if (value >= -1 && value <= 1 && value !== 0) {
+                  value = value * 100;
+                }
                 return value.toFixed(1) + '%';
               }
               
@@ -119,10 +123,10 @@ function FrozenChartDisplay({ config }: { config: ChartConfig }) {
             display: false
           },
           ticks: {
-            display: false // Hide x-axis labels since we have a legend
+            display: true // Show x-axis labels
           },
           title: {
-            display: false, // Hide x-axis title
+            display: true, // Show x-axis title
             text: 'Period',
             font: {
               size: 14,
@@ -182,22 +186,22 @@ function FrozenChartDisplay({ config }: { config: ChartConfig }) {
   if (!chartData) return null;
   
   return (
-    <div id={`chart-container-${config.id}`} className="h-[350px] print:shadow-none">
+    <div id={`chart-container-${config.id}`} className="h-[450px] print:shadow-none">
       {config.chartType === 'bar' && (
-        <div className="print:shadow-none">
+        <div className="h-full w-full print:shadow-none">
           <Bar data={chartData} options={chartOptions} />
         </div>
       )}
       
       {config.chartType === 'line' && (
-        <div className="print:shadow-none">
+        <div className="h-full w-full print:shadow-none">
           <Line data={chartData} options={chartOptions} />
         </div>
       )}
       
       {config.chartType === 'pie' && (
-        <div className="flex justify-center print:shadow-none">
-          <div style={{ width: '350px', height: '350px' }} className="print:shadow-none">
+        <div className="h-full flex justify-center items-center print:shadow-none">
+          <div style={{ width: '400px', height: '400px' }} className="print:shadow-none">
             <Pie data={chartData} options={chartOptions} />
           </div>
         </div>
@@ -240,26 +244,6 @@ export default function SavedChartsDisplay() {
             
             <FrozenChartDisplay config={chart} />
             
-            <div className="mt-4 bg-blue-50 p-3 rounded-lg print:shadow-none print:bg-white">
-              <h5 className="text-sm font-medium text-blue-800 mb-1">Metrics in this chart</h5>
-              <div className="flex flex-wrap gap-2">
-                {chart.selectedMetrics.map((metric, index) => (
-                  <div 
-                    key={metric.uid}
-                    className="px-2 py-1 text-xs rounded-full flex items-center"
-                    style={{ 
-                      backgroundColor: `${getMetricColor(index).replace(')', ', 0.1)')}`,
-                      borderColor: getMetricColor(index),
-                      borderWidth: '1px',
-                      color: getMetricColor(index).replace('rgb', 'rgba').replace(')', ', 0.9)')
-                    }}
-                  >
-                    <span className="mr-1">{metric.fullPath.name}</span>
-                    <span className="text-xs text-gray-500">({metric.unit})</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         ))}
       </div>

@@ -132,8 +132,26 @@ export default function ForecastDisplay() {
               const baseName = String(name).replace(/ \(Historical\)| \(Forecast\)/, '');
               const isForecast = String(name).includes('(Forecast)');
               
+              // Find the corresponding metric
+              const metric = selectedMetrics.find(m => m.fullPath.name === baseName);
+              
               // Format the value
-              const formattedValue = typeof value === 'number' ? value.toFixed(2) : value;
+              let formattedValue;
+              if (metric && typeof value === 'number') {
+                // Handle percentages
+                if (metric.unit === '%' || metric.fullPath.name.includes('GM') || metric.fullPath.name.includes('OM')) {
+                  // Check if the value is in decimal form (between -1 and 1)
+                  if (value >= -1 && value <= 1 && value !== 0) {
+                    value = value * 100;
+                  }
+                  formattedValue = value.toFixed(2) + '%';
+                } else {
+                  formattedValue = value.toFixed(2);
+                }
+              } else {
+                formattedValue = value;
+              }
+              
               return [`${formattedValue} ${isForecast ? '(Predicted)' : ''}`, baseName];
             }} />
             <Legend 
