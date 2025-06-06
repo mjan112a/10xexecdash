@@ -143,5 +143,13 @@
 - Included column totals and percentage calculations
 - Added support for using different LLM providers (Anthropic Claude, OpenAI GPT-4)
 
+## CSV File Format Support Enhancement - 6/6/2025
+- Updated metrics API to support new CSV file format with M/D/YYYY date headers
+- Enhanced date parsing to handle both Excel date numbers and standard date strings
+- Modified file detection logic to include files starting with "10X Business Metrics Through"
+- Added filtering for empty trailing columns in CSV data
+- Improved data processing to handle the new file format "10X Business Metrics Through Apr 2025 - 06-04-2025.csv"
+- Updated system to automatically use the latest CSV file with extended data through May 2025
+
 ## Future Changes
 *This section will be updated as changes are made to the repository.*

@@ -15,8 +15,10 @@ import {
   Upload,
   Activity,
   FileCode,
+  ChevronDown,
+  ChevronRight,
 } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useSidebar } from './sidebar-context';
 
@@ -27,30 +29,15 @@ type NavItem = {
   hidden?: boolean; // Added to support temporarily hiding items
 };
 
-const navItems: { category: string; items: NavItem[] }[] = [
+const navItems: { category: string; items: NavItem[]; collapsible?: boolean }[] = [
   {
-    category: 'Overview',
+    category: 'Core Analytics',
     items: [
       {
-        title: 'Dashboard',
-        href: '/',
-        icon: Home,
+        title: 'Business Intelligence',
+        href: '/business-insights',
+        icon: Activity,
       },
-    ],
-  },
-  {
-    category: 'Raw Data',
-    items: [
-      {
-        title: 'Sales Data',
-        href: '/raw-data',
-        icon: ShoppingCart,
-      },
-    ],
-  },
-  {
-    category: 'Analytics',
-    items: [
       {
         title: 'Metrics',
         href: '/metricsofinterest',
@@ -60,6 +47,17 @@ const navItems: { category: string; items: NavItem[] }[] = [
         title: 'Trend Graphs',
         href: '/metricsgraph',
         icon: LineChart,
+      },
+    ],
+  },
+  {
+    category: 'Other',
+    collapsible: true,
+    items: [
+      {
+        title: 'Dashboard',
+        href: '/',
+        icon: Home,
       },
       {
         title: 'Dynamic Charts',
@@ -71,21 +69,16 @@ const navItems: { category: string; items: NavItem[] }[] = [
         href: '/hypothetical-metrics',
         icon: LineChart
       },
-    ],
-  },
-  {
-    category: 'Reports',
-    items: [
       {
         title: 'Monthly Report',
         href: '/monthly-report',
         icon: FileText,
       },
-    ],
-  },
-  {
-    category: 'Tools',
-    items: [
+      {
+        title: 'Sales Data',
+        href: '/raw-data',
+        icon: ShoppingCart,
+      },
       {
         title: 'AI Assistant',
         href: '/ai-assistant',
@@ -113,6 +106,9 @@ const navItems: { category: string; items: NavItem[] }[] = [
 export function SidebarNav() {
   const pathname = usePathname();
   const { isCollapsed, setIsCollapsed } = useSidebar();
+  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({
+    'Other': true // Start with "Other" section collapsed for cleaner UI
+  });
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -120,6 +116,13 @@ export function SidebarNav() {
       isCollapsed ? '64px' : '256px'
     );
   }, [isCollapsed]);
+
+  const toggleSection = (sectionName: string) => {
+    setCollapsedSections(prev => ({
+      ...prev,
+      [sectionName]: !prev[sectionName]
+    }));
+  };
 
   return (
     <div
@@ -169,28 +172,46 @@ export function SidebarNav() {
           {navItems.map((section, i) => (
             <div key={i} className="px-3 py-2">
               {!isCollapsed && (
-                <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight text-primary">
-                  {section.category}
-                </h2>
+                <div className="mb-2">
+                  {section.collapsible ? (
+                    <button
+                      onClick={() => toggleSection(section.category)}
+                      className="flex items-center justify-between w-full px-4 text-lg font-semibold tracking-tight text-primary hover:text-primary/80 transition-colors"
+                    >
+                      <span>{section.category}</span>
+                      {collapsedSections[section.category] ? (
+                        <ChevronRight className="h-4 w-4" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4" />
+                      )}
+                    </button>
+                  ) : (
+                    <h2 className="px-4 text-lg font-semibold tracking-tight text-primary">
+                      {section.category}
+                    </h2>
+                  )}
+                </div>
               )}
-              <div className="space-y-1">
-                {section.items.filter(item => !item.hidden).map((item, j) => (
-                  <Link
-                    key={j}
-                    href={item.href}
-                    className={cn(
-                      'flex items-center rounded-lg px-3 py-2 text-sm transition-all',
-                      pathname === item.href
-                        ? 'bg-primary/10 text-primary font-medium'
-                        : 'text-gray-500 hover:bg-primary/5 hover:text-primary',
-                      isCollapsed ? 'justify-center' : 'justify-start'
-                    )}
-                  >
-                    <item.icon className={cn('h-4 w-4', !isCollapsed && 'mr-2')} />
-                    {!isCollapsed && <span>{item.title}</span>}
-                  </Link>
-                ))}
-              </div>
+              {(!section.collapsible || !collapsedSections[section.category] || isCollapsed) && (
+                <div className="space-y-1">
+                  {section.items.filter(item => !item.hidden).map((item, j) => (
+                    <Link
+                      key={j}
+                      href={item.href}
+                      className={cn(
+                        'flex items-center rounded-lg px-3 py-2 text-sm transition-all',
+                        pathname === item.href
+                          ? 'bg-primary/10 text-primary font-medium'
+                          : 'text-gray-500 hover:bg-primary/5 hover:text-primary',
+                        isCollapsed ? 'justify-center' : 'justify-start'
+                      )}
+                    >
+                      <item.icon className={cn('h-4 w-4', !isCollapsed && 'mr-2')} />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

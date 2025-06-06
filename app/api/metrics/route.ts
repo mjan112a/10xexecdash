@@ -36,12 +36,34 @@ function excelDateToString(excelDate: number): string {
   return `${year}-${month.toString().padStart(2, '0')}`;
 }
 
+// Function to parse date strings in M/D/YYYY format
+function parseDateString(dateStr: string): string {
+  const trimmed = dateStr.trim();
+  
+  // Check if it's in M/D/YYYY format first
+  const dateMatch = trimmed.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (dateMatch) {
+    const month = parseInt(dateMatch[1]);
+    const year = parseInt(dateMatch[3]);
+    return `${year}-${month.toString().padStart(2, '0')}`;
+  }
+  
+  // Check if it's an Excel date number (only if it's purely numeric and reasonable range)
+  const excelDate = parseInt(trimmed);
+  if (!isNaN(excelDate) && trimmed === excelDate.toString() && excelDate > 1000) {
+    return excelDateToString(excelDate);
+  }
+  
+  // Return as-is if it doesn't match known formats
+  return trimmed;
+}
+
 export async function GET() {
   try {
     // Find the latest metrics file
     const directory = process.cwd();
     const files = fs.readdirSync(directory)
-      .filter(file => file.startsWith('10X Business Metrics -') && file.endsWith('.csv'))
+      .filter(file => file.startsWith('10X Business Metrics') && file.endsWith('.csv'))
       .sort(); // Sort alphabetically, which should put the latest version last
     
     if (files.length === 0) {
@@ -60,11 +82,9 @@ export async function GET() {
     const headers = lines[0].split(',');
     
     // Extract date columns (starting from index 6)
-    const dateColumns = headers.slice(6).map(date => {
-      // Check if it's a number (Excel date format)
-      const excelDate = parseInt(date.trim());
-      return isNaN(excelDate) ? date.trim() : excelDateToString(excelDate);
-    });
+    const dateColumns = headers.slice(6)
+      .map(date => parseDateString(date))
+      .filter(date => date && date.trim() !== ''); // Filter out empty columns
     
     // Parse the data rows
     const data: MetricValue[] = lines.slice(1)
@@ -79,7 +99,7 @@ export async function GET() {
           metricType: values[3].trim(),
           metricName: values[4].trim(),
           unit: values[5].trim(),
-          values: values.slice(6).map(v => {
+          values: values.slice(6, 6 + dateColumns.length).map(v => {
             // Handle quoted values (like "$1,234")
             if (v.trim().startsWith('"') && v.trim().endsWith('"')) {
               return v.trim().replace(/[""$,\s]/g, '');
