@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import OpenAI from 'openai';
 import { logAIInteraction, calculateDuration, getOpenAITokens, getAnthropicTokens } from '@/lib/ai-logging';
+import { getLatestCSVPath } from '@/lib/csv-config';
 
 // Force Node.js runtime
 export const runtime = 'nodejs';
@@ -32,7 +33,7 @@ const getOutlineFile = (): string => {
 // Read the metrics data file
 const getMetricsData = (): string => {
   try {
-    const metricsPath = path.join(process.cwd(), '10X Business Metrics - 03-06-2025e.csv');
+    const metricsPath = getLatestCSVPath();
     return fs.readFileSync(metricsPath, 'utf8');
   } catch (error) {
     console.error('Error reading metrics data file:', error);

@@ -1,0 +1,31 @@
+
+// Fixed cleanValue function for app/api/metrics/route.ts
+function cleanValue(value) {
+  if (!value) return '';
+  
+  const trimmed = value.trim();
+  
+  // Handle quoted values (like "$1,234")
+  if (trimmed.startsWith('"') && trimmed.endsWith('"')) {
+    return trimmed.slice(1, -1).replace(/[$,\s]/g, '');
+  }
+  
+  // Handle unquoted currency values (like "$1,234 ")
+  if (trimmed.includes('$')) {
+    return trimmed.replace(/[$,\s]/g, '');
+  }
+  
+  // Handle negative values in parentheses
+  if (trimmed.startsWith('(') && trimmed.endsWith(')')) {
+    const innerValue = trimmed.slice(1, -1);
+    if (innerValue.includes('$')) {
+      return '-' + innerValue.replace(/[$,\s]/g, '');
+    }
+    return '-' + innerValue.replace(/[,\s]/g, '');
+  }
+  
+  return trimmed;
+}
+
+// Usage in the data parsing section:
+values.slice(6, 6 + dateColumns.length).map(v => cleanValue(v))

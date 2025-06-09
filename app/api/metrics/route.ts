@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { getLatestCSVFilename } from '@/lib/csv-config';
 
 // Define types for our data structure
 type MetricValue = {
@@ -60,21 +61,11 @@ function parseDateString(dateStr: string): string {
 
 export async function GET() {
   try {
-    // Find the latest metrics file
-    const directory = process.cwd();
-    const files = fs.readdirSync(directory)
-      .filter(file => file.startsWith('10X Business Metrics') && file.endsWith('.csv'))
-      .sort(); // Sort alphabetically, which should put the latest version last
+    // Use the centralized CSV configuration
+    const latestFile = getLatestCSVFilename();
+    console.log(`Using configured latest metrics file: ${latestFile}`);
     
-    if (files.length === 0) {
-      throw new Error('No metrics files found');
-    }
-    
-    // Use the latest file (last in the sorted array)
-    const latestFile = files[files.length - 1];
-    console.log(`Using latest metrics file: ${latestFile}`);
-    
-    const filePath = path.join(directory, latestFile);
+    const filePath = path.join(process.cwd(), latestFile);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     
     // Parse CSV
@@ -100,11 +91,30 @@ export async function GET() {
           metricName: values[4].trim(),
           unit: values[5].trim(),
           values: values.slice(6, 6 + dateColumns.length).map(v => {
+            if (!v) return '';
+            
+            const trimmed = v.trim();
+            
             // Handle quoted values (like "$1,234")
-            if (v.trim().startsWith('"') && v.trim().endsWith('"')) {
-              return v.trim().replace(/[""$,\s]/g, '');
+            if (trimmed.startsWith('"') && trimmed.endsWith('"')) {
+              return trimmed.slice(1, -1).replace(/[$,\s]/g, '');
             }
-            return v.trim();
+            
+            // Handle unquoted currency values (like "$1,234 ")
+            if (trimmed.includes('$')) {
+              return trimmed.replace(/[$,\s]/g, '');
+            }
+            
+            // Handle negative values in parentheses
+            if (trimmed.startsWith('(') && trimmed.endsWith(')')) {
+              const innerValue = trimmed.slice(1, -1);
+              if (innerValue.includes('$')) {
+                return '-' + innerValue.replace(/[$,\s]/g, '');
+              }
+              return '-' + innerValue.replace(/[,\s]/g, '');
+            }
+            
+            return trimmed;
           })
         };
       })
