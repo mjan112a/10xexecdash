@@ -17,8 +17,10 @@ interface ProjectionData {
   month: string;
   monthIndex: number;
   projectedEBITDA: number;
+  ebitdaPercentage: number;
   cumulativeCostSavings: number;
   projectedOnlineSales: number;
+  totalRevenue: number;
   costReductionImpact: number;
   costIncreaseImpact: number;
 }
@@ -50,7 +52,15 @@ function ProjectionChart({
   const lastValue = values[values.length - 1] || 0;
   const growthPercent = firstValue > 0 ? ((lastValue - firstValue) / firstValue * 100) : 0;
 
-  const formatValue = (value: number) => {
+  const formatValue = (value: number, item?: ProjectionData) => {
+    // Special formatting for EBITDA chart - include percentage
+    if (dataKey === 'projectedEBITDA' && item) {
+      const baseValue = Math.abs(value) >= 1000 
+        ? (value < 0 ? `($${Math.abs(value / 1000).toFixed(0)}K)` : `$${(value / 1000).toFixed(0)}K`)
+        : (value < 0 ? `($${Math.abs(value)})` : `$${value}`);
+      return `${baseValue} (${item.ebitdaPercentage.toFixed(1)}%)`;
+    }
+    
     if (Math.abs(value) >= 1000) {
       return value < 0 ? `($${Math.abs(value / 1000).toFixed(0)}K)` : `$${(value / 1000).toFixed(0)}K`;
     }
@@ -76,35 +86,64 @@ function ProjectionChart({
         )}
       </div>
       
-      <div className="relative h-56 flex items-end justify-between px-1">
+      <div className="relative h-56 flex items-center justify-between px-1">
+        {/* Zero line */}
+        <div className="absolute w-full h-px bg-gray-300" style={{ top: '50%' }}></div>
+        
         {data.map((item, index) => {
           const isLatest = index === data.length - 1;
           const value = item[dataKey] as number;
           const isNegative = value < 0;
-          const barHeight = range > 0 ? (Math.abs(value) / maxValue) * 160 : 20;
+          const barHeight = range > 0 ? (Math.abs(value) / maxValue) * 35 : 8; // Reduced height to prevent bleeding
           
           return (
-            <div key={item.month} className="flex flex-col items-center flex-1 mx-0.5">
-              {/* Value label */}
-              <div className="mb-3 text-xs font-medium text-gray-700 text-center min-h-[16px] flex items-center justify-center">
-                <span className="px-0.5 py-0.5 bg-white/80 rounded text-xs">
-                  {formatValue(value)}
-                </span>
-              </div>
+            <div key={item.month} className="flex flex-col items-center flex-1 mx-0.5 relative h-full">
+              {/* Positive values - above zero line */}
+              {!isNegative && (
+                <>
+                  {/* Value label above bar */}
+                  <div className="absolute text-xs font-medium text-gray-700 text-center" style={{ top: `${50 - barHeight - 15}%` }}>
+                    <span className="px-0.5 py-0.5 bg-white/80 rounded text-xs">
+                      {formatValue(value, item)}
+                    </span>
+                  </div>
+                  
+                  {/* Positive bar */}
+                  <div 
+                    className={`absolute rounded-sm transition-all duration-200 ${getBarColor(isLatest)}`}
+                    style={{ 
+                      height: `${Math.max(barHeight, 6)}%`,
+                      width: '24px',
+                      bottom: '50%'
+                    }}
+                  />
+                </>
+              )}
               
-              {/* Bar */}
-              <div 
-                className={`rounded-sm transition-all duration-200 ${
-                  getBarColor(isLatest)
-                } ${isNegative ? 'opacity-80' : ''}`}
-                style={{ 
-                  height: `${Math.max(barHeight, 12)}px`,
-                  width: '24px'
-                }}
-              />
+              {/* Negative values - below zero line */}
+              {isNegative && (
+                <>
+                  {/* Negative bar */}
+                  <div 
+                    className={`absolute rounded-sm transition-all duration-200 ${getBarColor(isLatest)} opacity-80`}
+                    style={{ 
+                      height: `${Math.max(barHeight, 6)}%`,
+                      width: '24px',
+                      top: '50%'
+                    }}
+                  />
+                  
+                  {/* Value label below bar */}
+                  <div className="absolute text-xs font-medium text-gray-700 text-center" style={{ top: `${50 + barHeight + 5}%` }}>
+                    <span className="px-0.5 py-0.5 bg-white/80 rounded text-xs">
+                      {formatValue(value, item)}
+                    </span>
+                  </div>
+                </>
+              )}
               
-              {/* Month label */}
-              <div className="mt-2 text-xs text-gray-600 font-medium transform -rotate-45 origin-center">
+              {/* Month label at bottom */}
+              <div className="absolute bottom-0 text-xs text-gray-600 font-medium transform -rotate-45 origin-center">
                 <span className="block w-8 text-center text-xs">
                   {item.month}
                 </span>
@@ -176,18 +215,24 @@ export default function Projections2025() {
   };
 
   const generateProjections = (data: ApiResponse) => {
-    // Get historical data for trend analysis
-    const historicalEBITDA = data.monthlyData.map(m => m.metrics['20'] || 0); // Gross Income as EBITDA proxy
-    const historicalOnline = data.monthlyData.map(m => m.metrics['2'] || 0); // Online Abrasive Revenue
+    // Use the actual projected data from your JSON - correct EBITDA, Online Revenue, Total Revenue, and EBITDA %
+    const actualProjections = [
+      // Jan 2025 - Dec 2025 data from your correct dataset
+      { month: 'Jan 2025', onlineRevenue: 9601, ebitda: -72166, totalRevenue: 498564, ebitdaPercent: -14.5 },
+      { month: 'Feb 2025', onlineRevenue: 9223, ebitda: 24171, totalRevenue: 434270, ebitdaPercent: 5.6 },
+      { month: 'Mar 2025', onlineRevenue: 17758, ebitda: -12846, totalRevenue: 506910, ebitdaPercent: -2.5 },
+      { month: 'Apr 2025', onlineRevenue: 21124, ebitda: -114130, totalRevenue: 436126, ebitdaPercent: -26.2 },
+      { month: 'May 2025', onlineRevenue: 30437, ebitda: 83227, totalRevenue: 704153, ebitdaPercent: 11.8 },
+      { month: 'Jun 2025', onlineRevenue: 38350, ebitda: 107145, totalRevenue: 699403, ebitdaPercent: 15.3 },
+      { month: 'Jul 2025', onlineRevenue: 49855, ebitda: 108856, totalRevenue: 730845, ebitdaPercent: 14.9 },
+      { month: 'Aug 2025', onlineRevenue: 64812, ebitda: 134408, totalRevenue: 745801, ebitdaPercent: 18.0 },
+      { month: 'Sep 2025', onlineRevenue: 84255, ebitda: 137134, totalRevenue: 705245, ebitdaPercent: 19.4 },
+      { month: 'Oct 2025', onlineRevenue: 109531, ebitda: 158895, totalRevenue: 662970, ebitdaPercent: 24.0 },
+      { month: 'Nov 2025', onlineRevenue: 142391, ebitda: 141022, totalRevenue: 628277, ebitdaPercent: 22.4 },
+      { month: 'Dec 2025', onlineRevenue: 185108, ebitda: 131817, totalRevenue: 603443, ebitdaPercent: 21.8 }
+    ];
 
-    // Calculate growth trends
-    const ebitdaGrowthRate = historicalEBITDA.length > 1 ? 
-      (historicalEBITDA[historicalEBITDA.length - 1] - historicalEBITDA[0]) / historicalEBITDA.length : 0;
-    
-    const onlineGrowthRate = historicalOnline.length > 1 ? 
-      Math.max((historicalOnline[historicalOnline.length - 1] - historicalOnline[0]) / historicalOnline.length, 2) : 2;
-
-    // Cost reduction schedule
+    // Cost reduction schedule (same as before)
     const costReductions = [
       { name: "Increase Prices", startMonth: 4, monthlyImpact: 33502 },
       { name: "Sales Coaching Elimination", startMonth: 6, monthlyImpact: 7263 },
@@ -206,19 +251,10 @@ export default function Projections2025() {
       { name: "Decanter VFD", startMonth: 8, monthlyImpact: 0 } // One-time cost
     ];
 
-    const months = [
-      'Jan 2025', 'Feb 2025', 'Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025',
-      'Jul 2025', 'Aug 2025', 'Sep 2025', 'Oct 2025', 'Nov 2025', 'Dec 2025'
-    ];
-
     let cumulativeSavings = 0;
     const projections: ProjectionData[] = [];
 
-    // Base values from April 2025 (last actual month)
-    const baseEBITDA = historicalEBITDA[historicalEBITDA.length - 1] || 200;
-    const baseOnline = historicalOnline[historicalOnline.length - 1] || 20;
-
-    months.forEach((month, index) => {
+    actualProjections.forEach((projection, index) => {
       const monthIndex = index + 1;
       
       // Calculate cost reduction impact for this month
@@ -240,18 +276,14 @@ export default function Projections2025() {
       const netMonthlySavings = monthlyReductionImpact - monthlyIncreaseImpact;
       cumulativeSavings += netMonthlySavings;
 
-      // Project EBITDA with growth trend + cost savings impact
-      const projectedEBITDA = Math.round(baseEBITDA + (ebitdaGrowthRate * monthIndex) + (netMonthlySavings / 1000));
-
-      // Project online sales with accelerated growth
-      const projectedOnlineSales = Math.round(baseOnline + (onlineGrowthRate * monthIndex * 1.5));
-
       projections.push({
-        month,
+        month: projection.month,
         monthIndex,
-        projectedEBITDA,
-        cumulativeCostSavings: Math.round(cumulativeSavings),
-        projectedOnlineSales,
+        projectedEBITDA: Math.round(projection.ebitda / 1000), // Convert to thousands
+        ebitdaPercentage: projection.ebitdaPercent, // EBITDA percentage
+        cumulativeCostSavings: Math.round(cumulativeSavings / 1000), // Convert to thousands
+        projectedOnlineSales: Math.round(projection.onlineRevenue / 1000), // Online revenue in thousands
+        totalRevenue: Math.round(projection.totalRevenue / 1000), // Convert to thousands
         costReductionImpact: monthlyReductionImpact,
         costIncreaseImpact: monthlyIncreaseImpact
       });
@@ -340,8 +372,9 @@ export default function Projections2025() {
         <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200 mb-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">📈 Monthly Projection Charts</h2>
           
-          {/* Top row - 3 charts */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* 2x2 Chart Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {/* Top Row */}
             <ProjectionChart
               title="Projected EBITDA"
               subtitle="(thousand USD)"
@@ -350,6 +383,15 @@ export default function Projections2025() {
               color="blue"
             />
             
+            <ProjectionChart
+              title="Total Revenue"
+              subtitle="(thousand USD)"
+              data={projectionData}
+              dataKey="totalRevenue"
+              color="orange"
+            />
+            
+            {/* Bottom Row */}
             <ProjectionChart
               title="Cumulative Cost Savings"
               subtitle="(thousand USD)"
