@@ -48,6 +48,21 @@ const navItems: { category: string; items: NavItem[]; collapsible?: boolean }[] 
         href: '/metricsgraph',
         icon: LineChart,
       },
+      {
+        title: 'Income Highlights',
+        href: '/income-highlights',
+        icon: ChartPieIcon,
+      },
+      {
+        title: 'Business Story',
+        href: '/business-story',
+        icon: Activity,
+      },
+      {
+        title: '2025 Projections',
+        href: '/projections-2025',
+        icon: LineChart,
+      },
     ],
   },
   {
