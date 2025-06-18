@@ -406,6 +406,7 @@ export default function Projections2025() {
               data={projectionData}
               dataKey="projectedOnlineSales"
               color="purple"
+              showGrowth={false}
             />
           </div>
 
