@@ -10,6 +10,14 @@ import {
   CHART_THEME
 } from '@/lib/chart-styles';
 
+// Dynamic import for ChartJSNodeCanvas to handle Vercel deployment
+let ChartJSNodeCanvas: any;
+try {
+  ChartJSNodeCanvas = require('chartjs-node-canvas').ChartJSNodeCanvas;
+} catch (error) {
+  console.warn('ChartJSNodeCanvas not available in this environment');
+}
+
 interface MetricData {
   uid: string;
   metricGroup: string;
@@ -88,16 +96,20 @@ class ChartGenerator {
   private chartJSNodeCanvas: any;
 
   constructor() {
-    this.chartJSNodeCanvas = new ChartJSNodeCanvas({
-      width: this.width,
-      height: this.height,
-      chartCallback: (ChartJS: any) => {
-        // Configure Chart.js defaults
-        ChartJS.defaults.font.family = CHART_THEME.font_family;
-        ChartJS.defaults.font.size = CHART_THEME.axis_font_size;
-        ChartJS.defaults.color = '#333333';
-      }
-    });
+    if (ChartJSNodeCanvas) {
+      this.chartJSNodeCanvas = new ChartJSNodeCanvas({
+        width: this.width,
+        height: this.height,
+        chartCallback: (ChartJS: any) => {
+          // Configure Chart.js defaults
+          ChartJS.defaults.font.family = CHART_THEME.font_family;
+          ChartJS.defaults.font.size = CHART_THEME.axis_font_size;
+          ChartJS.defaults.color = '#333333';
+        }
+      });
+    } else {
+      this.chartJSNodeCanvas = null;
+    }
   }
 
   private parseValue(value: string): number {
@@ -267,6 +279,10 @@ class ChartGenerator {
   }
 
   async generateChart(chartDef: ChartDefinition, metricsData: MetricData[], dateColumns: string[]): Promise<Buffer> {
+    if (!this.chartJSNodeCanvas) {
+      throw new Error('Chart generation not available in this environment');
+    }
+
     const processedData = this.processMetricsData(metricsData, dateColumns);
     const data = processedData[chartDef.dataSource];
 
